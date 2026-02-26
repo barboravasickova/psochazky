@@ -21,37 +21,61 @@
   </head>
   <body>
     <!-- HLAVIČKA -->
-    <header>
+    <header class="main-header">
       <div class="container header__container">
         <img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" />
-        <nav class="navigation">
-          <ul>
-            <li><a href="#" class="nav__link">Socializační procházky</a></li>
-            <li><a href="#" class="nav__link">Další služby</a></li>
-            <li><a href="#" class="nav__link">O mně</a></li>
-            <li><a href="#" class="nav__link">Ceník</a></li>
-            <li><a href="#" class="nav__link">Jak to funguje</a></li>
-            <li><a href="#" class="nav__link">Přihlášení a kontakt</a></li>
-          </ul>
-        </nav>
+        <button class="menu-toggle" type="button" aria-label="Otevřít hlavní menu" aria-expanded="false" aria-controls="primaryNavigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
+
+      <nav id="primaryNavigation" class="navigation">
+        <ul class="nav__list">
+          <li><a href="#" class="nav__link">Socializační procházky</a></li>
+          <li><a href="#" class="nav__link">Další služby</a></li>
+          <li><a href="#" class="nav__link">O mně</a></li>
+          <li><a href="#" class="nav__link">Ceník</a></li>
+          <li><a href="#" class="nav__link">Jak to funguje</a></li>
+          <li><a href="#" class="nav__link">Přihlášení a kontakt</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-      <!-- SEKCE HERO -->
       <section class="hero">
-        <img src="" class="hero__image" alt="Běžící pejsek jménem Tiggy">
-        <h1>Učíme psy mezi psy</h1>
-        <p class="hero__content">
-          Socializační procházka není jen procházka, je to hlavně trénink.
-          Budujeme sebekontrolu vašeho psa a vracíme jistotu do vašich rukou.
-        </p>
-        <a href="#" class="btn">Socializační procházky</a>
+        <div class="container hero__container">
+          <picture class="hero__image-box">
+            <source
+              media="(min-width: 900px)"
+              srcset="images/hero-section.png"
+            />
+            <img
+              src="images/hero-section-mobile.png"
+              class="hero__image"
+              alt="Běžící pejsek jménem Tiggy"
+            />
+          </picture>
+
+          <div class="hero__text-content">
+            <h1>Učíme psy mezi psy</h1>
+            <p class="hero__description">
+              Socializační procházka není jen procházka, je to hlavně trénink.
+              Pomáhá budovat sebekontrolu vašeho psa a vrací jistotu do vašich rukou.
+            </p>
+            <a href="#" class="btn">Socializační procházky</a>
+          </div>
+        </div>
       </section>
 
-      <!-- SEKCE MANIFEST -->
-      <section class="manifest">
-        <h2>Nemusíš mít ideálního psa. Stačí, že to nechceš vzdát.</h2>
+
+      <section class="manifest section-padding">
+        <div class="container">
+        <div class="manifest__image-wrapper">
+          <img src="images/cassie-circle.png" alt="Cassie - pes na ilustrační fotografii" class="manifest__image" />
+        </div>
+        <h2 class="section-title">Nemusíš mít ideálního psa. Stačí, že to nechceš vzdát.</h2>
         <p class="manifest__content">
           Pomáhám lidem, pro které se procházky se psem změnily ve stres, boj
           nebo nepříjemnou zkušenost. Pracuji se psy, kteří jsou reaktivní,
@@ -59,61 +83,93 @@
           to chtějí řešit, ne obcházet. Psocházky jsou pro ty, kteří hledají
           funkční řešení, jasná pravidla a skutečnou změnu.
         </p>
-        <a href="#" class="btn">Socializační procházky</a>
+        <a href="#" class="btn">Jak to funguje</a>
+        </div>
       </section>
 
-      <!-- SEKCE SERVICES -->
-      <section class="services">
-        <h2>Co u mě najdeš</h2>
-<div class="services__container">
-        <div class="services__card">
-          <h3>Socializační procházky</h3>
-          <p class="card__content">
-            Pro psy, kteří se potřebují naučit fungovat v přítomnosti ostatních
-            psů a rušivých podnětů v klidu.
-          </p>
-          <a href="#" class="btn__secondary">Socializační procházky</a>
-        </div>
+      <section class="services section-padding">
+        <div class="container">
+          <h2 class="section-title">Co u mě najdeš</h2>
+          <div class="services__grid">
 
-        <div class="services__card">
-          <h3>Individuálky, výlety a akce</h3>
-          <p class="card__content">
-            Když potřebuješ jít do hloubky a řešit konkrétní situace. Hledáme
-            řešení, která dávají smysl tobě i tvému psovi.
-          </p>
-          <a href="#" class="btn__secondary">Další služby</a>
-        </div>
+            <article class="service__card">
+              <img
+                src="images/psochazka-foto.jpg"
+                alt="Socializační procházky – skupina psů na procházce"
+                class="service__image"
+              />
+              <div class="service__content">
+                <h3>Řízené socializační procházky</h3>
+                <p>
+                  Pro psy, kteří se potřebují naučit fungovat v přítomnosti ostatních
+                  psů a rušivých podnětů v klidu.
+                </p>
+                <a href="#" class="btn">Socializační procházky</a>
+              </div>
+            </article>
 
-        </div>
+            <article class="service__card">
+              <img
+                src="images/vylet-foto.jpg"
+                alt="Individuální práce se psem v terénu"
+                class="service__image"
+              />
+              <div class="service__content">
+                <h3>Individuálky, výlety a akce</h3>
+                <p>
+                  Když potřebuješ jít do hloubky a řešit konkrétní situace. Hledáme
+                  řešení, která dávají smysl tobě i tvému psovi.
+                </p>
+                <a href="#" class="btn">Další služby</a>
+              </div>
+            </article>
 
+          </div>
+        </div>
       </section>
 
-      <!-- SEKCE QUOTE -->
       <section class="quote">
-        <h2>
-          Neslibuji zázraky na počkání ani přes noc. Pracuji systematicky, s
-          ohledem na psa, jeho člověka a reálné možnosti obou. Pomáhám budovat
-          sebedůvěru, sebekontrolu a funkční vztah mezi psem a jeho člověkem.
-          Cílem není dokonalý pes. Cílem je pes vyrovnanější, lépe zvládající
-          své emoce – a majitel, který ví, co dělá.
-        </h2>
+        <div class="container">
+        <div class="quote__image-wrapper">
+          <img src="images/sarka-circle.png" alt="Šárka se psy - portrét" class="quote__image" />
+        </div>
+        <div class="quote__content">
+          <h4 class="quote__text">
+            "Neslibuji zázraky na počkání ani přes noc. Pracuji systematicky, s
+            ohledem na psa, jeho člověka a reálné možnosti obou. Pomáhám budovat
+            sebedůvěru, sebekontrolu a funkční vztah mezi psem a jeho člověkem.
+            Cílem není dokonalý pes. Cílem je pes vyrovnanější, lépe zvládající
+            své emoce – a majitel, který ví, co dělá."
+          </h4>
+          <a href="#" class="btn quote__btn">O mně</a>
+        </div>
+        </div>
       </section>
 
-      <!-- SEKCE FOR-WHOM -->
-      <section class="for-whom">
-        <h2>Pro koho jsou Psocházky?</h2>
-        <ul>
+      <section class="for-whom section-padding">
+        <div class="container">
+          <div class="for-whom__image-wrapper">
+            <img src="images/sarka-tigy.png" alt="Šárka se psy - portrét" class="for-whom__image" />
+          </div>
+        <h2 class="section-title">Pro koho jsou Psocházky?</h2>
+        <ul class="checklist">
           <li>Pro majitele, kteří chtějí svému psovi rozumět.</li>
           <li>Pro psy, kteří potřebují získat sebevědomí.</li>
           <li>Pro všechny, kteří věří v pozitivní přístup.</li>
         </ul>
+        <div class="for-whom__action">
         <a href="#" class="button">Přihlášení a kontakt</a>
+        </div>
+        </div>
       </section>
 
-      <!-- SEKCE PSOCHAZKY -->
-      <section class="psochazky">
-        <img src="" alt="" />
-        <p class="psochazky__content">
+      <section class="psochazky section-padding bg-accent">
+        <div class="container psochazky__container">
+          <div class="psochazky__image-box">
+        <img src="images/logo-psochazky.svg" alt="logo Psocházky" />
+        </div>
+        <div class="psochazky__text">
+        <p>
           Místo izolovaného drilu sázíme na učení v pohybu a v reálném světě.
           Psocházky vedou majitele k tomu, jak žít se psem tak, aby se v
           přítomnosti ostatních cítil bezpečně a vyrovnaně. Náš přístup
@@ -121,18 +177,65 @@
           pouto a schopnost zvládnout život tam, kde se skutečně odehrává –
           venku mezi psy.
         </p>
+        </div>
+        </div>
       </section>
     </main>
 
-    <!-- SEKCE PATIČKA -->
-    <footer>
+    <footer class="main-footer">
+  <div class="container footer__grid">
+    
+    <div class="footer__info">
+      <img src="images/logo-psochazky.svg" alt="Logo">
+      <p>Učíme psy mezi psy.</p>
+    </div>
+
+    <div class="footer__nav">
+      <h4>Navigace</h4>
       <ul>
-        <li><p>© 2026 Psocházky</p></li>
-        <li><a href="#">Obchodní podmínky</a></li>
-        <li><a href="#">Ochrana osobních údajů</a></li>
-        <li><a href="#">Cookies</a></li>
-        <li>Design a realizace: <a href="#">Barbora Vašíčková</a></li>
+        <li><a href="#">Socializační procházky</a></li>
+        <li><a href="#">Další služby</a></li>
+        <li><a href="#">O mně</a></li>
+        <li><a href="#">Ceník</a></li>
+        <li><a href="#">Jak to funguje</a></li>
+        <li><a href="#">Kontakt</a></li>
       </ul>
-    </footer>
+    </div>
+
+    <div class="footer__contact">
+      <h4>Kontakt</h4>
+      <p>IČO: 12345678</p>
+      <p>Email: sarka@psochazky.cz</p>
+      <div class="footer__legal">
+        <a href="#">Obchodní podmínky</a> | <a href="#">GDPR</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer__bottom">
+    <p>© 2026 Psocházky | Design a realizace: Barbora Vašíčková</p>
+  </div>
+</footer>
+
+    <script>
+      const body = document.body;
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navigation = document.getElementById("primaryNavigation");
+
+      if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = body.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        navigation.addEventListener("click", (event) => {
+          if (event.target.matches("a")) {
+            body.classList.remove("nav-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    </script>
+
   </body>
 </html>
