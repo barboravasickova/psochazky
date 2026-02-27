@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Socializační procházky | Psocházky</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- HLAVIČKA -->
+    <header class="main-header">
+      <div class="container header__container">
+        <a href="index.html"><img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" /></a>
+        <button class="menu-toggle" type="button" aria-label="Otevřít hlavní menu" aria-expanded="false" aria-controls="primaryNavigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <nav id="primaryNavigation" class="navigation">
+        <a href="index.html" class="navigation__logo" aria-label="Psocházky – úvodní stránka">
+          <img src="images/logo-psochazky.svg" alt="Logo Psocházky" />
+        </a>
+        <ul class="nav__list">
+          <li><a href="socializacni-prochazky.html" class="nav__link">Socializační procházky</a></li>
+          <li><a href="dalsi-sluzby.html" class="nav__link">Další služby</a></li>
+          <li><a href="o-mne.html" class="nav__link">O mně</a></li>
+          <li><a href="cenik.html" class="nav__link">Ceník</a></li>
+          <li><a href="jak-to-funguje.html" class="nav__link">Jak to funguje</a></li>
+          <li><a href="aktualni-akce.html" class="nav__link">Aktuální akce</a></li>
+          <li><a href="prihlaseni-kontakt.html" class="nav__link">Přihlášení a kontakt</a></li>
+        </ul>
+        <div class="navigation__social">
+          <a href="https://www.instagram.com/psochazky/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Psocházky">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/psochazky" target="_blank" rel="noopener noreferrer" aria-label="Facebook Psocházky">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section-padding">
+        <div class="container page-content">
+          <h1>Socializační procházky</h1>
+          <p class="page-content__intro">Učíme psy mezi psy.</p>
+          <p>Socializační procházka není procházka, ale trénink.</p>
+          <p>Socializační procházky jsou řízené tréninky v reálném prostředí.</p>
+          <p>Nejde o volné pobíhání psů ani o společné venčení.</p>
+          <p>Jde o učení v pohybu mezi ostatními psy a v situacích, se kterými se potkáváte v běžném životě.</p>
+          <p>Pracujeme s pozorností na psovoda, emocemi psa, jeho reakcemi a schopností zvládat přítomnost ostatních psů i rušivých podnětů.</p>
+
+          <h2>Pro koho jsou socializační procházky</h2>
+          <h3>Pro psy, kteří:</h3>
+          <ul>
+            <li>jsou reaktivní, nejistí, přetížení nebo bojácní</li>
+            <li>štěkají, tahají, vyjíždějí nebo se „zasekávají"</li>
+            <li>jsou v pubertě a mají v hlavě zmatek</li>
+            <li>potřebují zkušenosti, ne izolaci</li>
+          </ul>
+          <h3>Pro majitele, kteří:</h3>
+          <ul>
+            <li>už nechtějí každou procházku řešit jako stres</li>
+            <li>nechtějí se se svým psem vyhýbat světu</li>
+            <li>chtějí se naučit svého psa číst a vést</li>
+            <li>jsou ochotni na tom pracovat</li>
+          </ul>
+          <p class="page-content__quote">Nemusíš mít ideálního psa.<br>Stačí, že to nechceš vzdát.</p>
+
+          <h2>Jak procházky probíhají</h2>
+          <p>Socializační procházky vedu ve dvou základních formách:</p>
+
+          <h3>Vodítková socializace <span class="page-content__meta">(cca 1,5 hodiny)</span></h3>
+          <p>Probíhá na vodítku.</p>
+          <p>Zaměřujeme se na klid ve skupině, přepínání z akce do klidu, práci s prostorem, pozornost na psovoda i při rušivých podnětech, zvládání přítomnosti ostatních psů v pohybu a odpoutání se od rušivých podnětů.</p>
+          <p>Je vhodná pro psy, kteří:</p>
+          <ul>
+            <li>mají silné reakce</li>
+            <li>začínající i pokročilé</li>
+            <li>potřebují větší oporu a jasné vedení</li>
+            <li>potřebují posílit navázání na psovoda</li>
+            <li>potřebují natrénovat klid mezi psy</li>
+            <li>potřebují pracovat na neutralitě vůči ostatním psům</li>
+            <li>potřebují generalizaci cviků do praxe</li>
+          </ul>
+
+          <h3>Socializace „PRO" <span class="page-content__meta">(cca 2 hodiny)</span></h3>
+          <p>Probíhá převážně na volno nebo na stopovacích vodítkách.</p>
+          <p>Není podmínkou psa pouštět – vždy se přizpůsobujeme tomu, co konkrétní pes zvládá.</p>
+          <p>Pracujeme více se:</p>
+          <ul>
+            <li>samostatností psa</li>
+            <li>přirozenou komunikací mezi psy</li>
+            <li>regulací emocí při přímějším kontaktu</li>
+            <li>schopností nevyletět, ale počkat</li>
+            <li>orientací v prostoru mezi ostatními psy</li>
+            <li>respektováním toho, že ne každý kontakt je žádoucí</li>
+          </ul>
+
+          <h2>Co se učí psi</h2>
+          <p>Psi se na socializačních procházkách neučí „být hodní".</p>
+          <p>Učí se fungovat mezi psy.</p>
+          <ul>
+            <li>že k některým psům mohou, k jiným ne</li>
+            <li>že není potřeba reagovat na každý pohyb</li>
+            <li>že se dá projít skupinou bez konfliktu</li>
+            <li>že vzrušení se dá zvládnout, ne jen vybít</li>
+            <li>že trpělivost je součást chování</li>
+            <li>že přítomnost jiných psů neznamená akci</li>
+          </ul>
+          <p>Učí se:</p>
+          <ul>
+            <li>pracovat s napětím a vzrušením</li>
+            <li>regulovat své chování místo okamžité reakce</li>
+            <li>orientovat se na svého člověka i v náročných situacích</li>
+          </ul>
+
+          <h2>Co se učíš ty</h2>
+          <p>Na socializačních procházkách nepracuje jen pes.</p>
+          <p>Pracuješ hlavně ty.</p>
+          <p>Učíš se:</p>
+          <ul>
+            <li>číst signály svého psa dřív, než přijde reakce</li>
+            <li>rozpoznat napětí, přetížení, váhání i vzrušení</li>
+            <li>reagovat včas, ne až když je „pozdě"</li>
+            <li>předvídat situace a připravit se na ně</li>
+            <li>vést psa v prostoru, ne ho jen tahat na vodítku</li>
+            <li>zůstat klidná a funkční i pod tlakem</li>
+          </ul>
+          <p>Učíš se:</p>
+          <ul>
+            <li>kdy psa podpořit</li>
+            <li>kdy mu dát prostor</li>
+            <li>kdy zasáhnout</li>
+            <li>a kdy naopak nic nedělat</li>
+          </ul>
+          <p>Učíš se být:</p>
+          <ul>
+            <li>oporou</li>
+            <li>průvodcem</li>
+            <li>stabilním bodem v situaci</li>
+          </ul>
+          <p>Protože pes, který má vedle sebe člověka, který ví, co dělá, se chová jinak než pes, který je na to sám.</p>
+
+          <h2>Důležité</h2>
+          <p>Po celou dobu jsou psi pod vedením a kontrolou svých psovodů.</p>
+          <p>Nejde o „pustit a nechat být", ale o řízenou práci ve skupině.</p>
+          <p>Pes může zůstat na vodítku, pokud:</p>
+          <ul>
+            <li>nemá přivolání</li>
+            <li>je to pro něj bezpečnější</li>
+            <li>nebo jde poprvé</li>
+          </ul>
+
+          <h2>Proč to funguje</h2>
+          <p>Protože se psi učí v reálném prostředí, ne v izolaci.</p>
+          <p>Ne odděleně od podnětů, ale v jejich přítomnosti.</p>
+          <p>Psi se neučí sociálním dovednostem tím, že jim budeme kontakt s ostatními psy odpírat.</p>
+          <p>Učí se tím, že jsou mezi psy – v bezpečném prostředí a pod vedením.</p>
+
+          <h2>Co od tebe potřebuji</h2>
+          <p>Spolupráci.</p>
+          <p>Ochotu něco změnit.</p>
+          <p>Respekt k nastaveným pravidlům, organizačním pokynům a ostatním účastníkům.</p>
+          <p>Socializační procházky nejsou pasivní zážitek.</p>
+          <p>Jsou to tréninky, kde pracuje pes i člověk.</p>
+
+          <h2>Prakticky</h2>
+          <p>Procházky probíhají na různých místech podle typu tréninku – vodítková socializace nebo socializace „PRO".</p>
+          <p>Termíny a místa se liší podle konkrétní akce.</p>
+          <p>Aktuální informace najdeš vždy v událostech ve skupině nebo v záložce Přihlášení.</p>
+
+          <h2>Chci se přidat</h2>
+          <div class="page-content__cta">
+            <a href="prihlaseni-kontakt.html" class="btn">Přihlášení / Kontakt</a>
+            <a href="cenik.html" class="btn">Ceník</a>
+            <a href="jak-to-funguje.html" class="btn">Jak to funguje</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container footer__grid">
+        <div class="footer__info">
+          <img src="images/logo-psochazky.svg" alt="Logo">
+        </div>
+        <div class="footer__nav">
+          <h4>Navigace</h4>
+          <ul>
+            <li><a href="socializacni-prochazky.html">Socializační procházky</a></li>
+            <li><a href="dalsi-sluzby.html">Další služby</a></li>
+            <li><a href="o-mne.html">O mně</a></li>
+            <li><a href="cenik.html">Ceník</a></li>
+            <li><a href="jak-to-funguje.html">Jak to funguje</a></li>
+            <li><a href="aktualni-akce.html">Aktuální akce</a></li>
+            <li><a href="prihlaseni-kontakt.html">Přihlášení a kontakt</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Kontakt</h4>
+          <p>Šárka Trnečková</p>
+          <p>IČO: 11676566</p>
+          <p>Email: <a href="mailto:psochazky@gmail.com">psochazky@gmail.com</a></p>
+          <div class="footer__legal">
+            <a href="#">Obchodní podmínky</a> | <a href="#">GDPR</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Psocházky | Design a realizace: Barbora Vašíčková</p>
+      </div>
+    </footer>
+
+    <script>
+      const body = document.body;
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navigation = document.getElementById("primaryNavigation");
+
+      if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = body.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        navigation.addEventListener("click", (event) => {
+          if (event.target.matches("a")) {
+            body.classList.remove("nav-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
