@@ -388,16 +388,20 @@ body.nav-open .navigation {
   }
 }
 
-/* Desktop */
+/* Desktop – plná šířka, maximální výška */
 @media (min-width: 900px) {
   .booqito-embed {
-    max-width: 900px;
-    margin: 0 auto 1.5rem;
-    border-radius: 1rem;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 1.5rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
   .booqito-embed iframe {
-    height: 800px;
+    height: calc(100vh - 180px);
+    min-height: 700px;
   }
 }
 
@@ -585,7 +589,7 @@ body.nav-open .navigation {
 }
 
 .quote__content {
-  background-color: rgba(212, 163, 115, 0.2); /* #D4A373 with 20% opacity */
+  background-color: #F0E6D2; 
   padding: 5rem 1.5rem 2rem;
   border-radius: 1.5rem;
   margin: -5rem auto;
@@ -682,8 +686,9 @@ body.nav-open .navigation {
   position: absolute;
   left: 50%;
   top: 0;
-  transform: translate(-40%, -50%);
-  width: 800px;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   height: auto;
   object-fit: contain;
