@@ -329,6 +329,8 @@ body.nav-open .navigation {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  padding-top: 3rem;
+  justify-content: center;
 }
 
 /* O webu – stránka o autorech */
