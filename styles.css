@@ -77,6 +77,14 @@ h3 {
   height: 45px;
 }
 
+.header__container > a {
+  transition: opacity 0.2s ease;
+}
+
+.header__container > a:hover .logo {
+  opacity: 0.8;
+}
+
 .menu-toggle {
   border: none;
   background: transparent;
@@ -914,6 +922,10 @@ body.nav-open .navigation {
     height: 50px;
   }
 
+  .header__container > a:hover .logo {
+    opacity: 0.8;
+  }
+
   .menu-toggle {
     display: none;
   }
@@ -951,6 +963,95 @@ body.nav-open .navigation {
 
   .nav__link:hover {
     background-color: rgba(11, 51, 41, 0.06);
+  }
+
+  /* Dropdown menu styles */
+  .nav__dropdown {
+    position: relative;
+  }
+
+  .nav__dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+  }
+
+  .nav__dropdown-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .nav__dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem 0;
+    list-style: none;
+    min-width: 200px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav__dropdown:hover .nav__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav__dropdown:hover .nav__dropdown-icon {
+    transform: rotate(180deg);
+  }
+
+  .nav__dropdown-link {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .nav__dropdown-link:hover {
+    background-color: rgba(11, 51, 41, 0.06);
+  }
+
+  /* Mobile dropdown adjustments */
+  @media (max-width: 800px) {
+    .nav__dropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      background: transparent;
+      padding: 0;
+      margin-left: 1rem;
+    }
+
+    .nav__dropdown-icon {
+      display: none;
+    }
+
+    .nav__dropdown-toggle {
+      pointer-events: none;
+      color: var(--color-secondary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .nav__dropdown-link {
+      padding: 0.25rem 0;
+      font-size: 1.25rem;
+    }
   }
 
   .header__container {
