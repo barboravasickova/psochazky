@@ -327,6 +327,24 @@ body.nav-open .navigation {
   text-align: center;
 }
 
+/* Quote bubble - similar to main page quote */
+.quote-bubble {
+  background-color: #F0E6D2;
+  padding: 1rem 1rem;
+  border-radius: 1.5rem;
+  margin: 2rem auto;
+  max-width: 25rem;
+  text-align: center;
+}
+
+.quote-bubble__text {
+  font-family: var(--font-nadpisy);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-primary);
+}
+
 .page-content__meta {
   font-weight: 400;
   font-size: 0.9em;
@@ -339,6 +357,122 @@ body.nav-open .navigation {
   gap: 0.75rem;
   padding-top: 3rem;
   justify-content: center;
+}
+
+/* Cards */
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(11, 51, 41, 0.08);
+  border: 1px solid rgba(11, 51, 41, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(11, 51, 41, 0.15);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, rgba(11, 51, 41, 0.9) 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--font-nadpisy);
+}
+
+.card-meta {
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content p:first-child {
+  margin-top: 0;
+}
+
+.card-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Important card */
+.important-card {
+  background: linear-gradient(135deg, #f8fffe 0%, #e8f5f2 100%);
+  border-radius: 16px;
+  margin: 2.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(11, 51, 41, 0.15);
+}
+
+.important-card__header {
+  background: var(--color-primary);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.important-card__icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.important-card__header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--font-nadpisy);
+  color: white;
+}
+
+.important-card__content {
+  padding: 2rem;
+  background: white;
+}
+
+.important-card__content p:first-child {
+  margin-top: 0;
+}
+
+.important-card__content p:last-child,
+.important-card__content ul:last-child {
+  margin-bottom: 0;
+}
+
+.important-card__content ul {
+  margin-left: 1.5rem;
+}
+
+.important-card__content li {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 /* O webu – stránka o autorech */
@@ -1464,5 +1598,49 @@ body.nav-open .navigation {
 
   .page-content h2 {
     margin-top: 3rem;
+  }
+
+  /* Responsive cards */
+  .cards-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .card-header {
+    padding: 2rem;
+  }
+
+  .card-content {
+    padding: 2rem;
+  }
+
+  /* Quote bubble responsive */
+  .quote-bubble {
+    padding: 2.5rem 2rem;
+    margin: 2.5rem auto;
+  }
+
+  .quote-bubble__text {
+    font-size: 1.4rem;
+  }
+
+  /* Important card responsive */
+  .important-card__header {
+    padding: 2rem;
+    gap: 1.25rem;
+  }
+
+  .important-card__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .important-card__header h2 {
+    font-size: 1.5rem;
+  }
+
+  .important-card__content {
+    padding: 2.5rem;
   }
 }

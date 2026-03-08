@@ -19,7 +19,9 @@
     <header class="main-header">
       <div class="header__inner">
         <div class="container header__container">
-          <a href="index.html"><img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" /></a>
+          <a href="index.html" aria-label="Psocházky - úvodní stránka">
+            <img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" />
+          </a>
           <button class="menu-toggle" type="button" aria-label="Otevřít hlavní menu" aria-expanded="false" aria-controls="primaryNavigation">
             <span></span>
             <span></span>
@@ -87,37 +89,55 @@
             <li>chtějí se naučit svého psa číst a vést</li>
             <li>jsou ochotni na tom pracovat</li>
           </ul>
-          <p class="page-content__quote">Nemusíš mít ideálního psa.<br>Stačí, že to nechceš vzdát.</p>
+          <div class="quote-bubble">
+            <p class="quote-bubble__text">Nemusíš mít ideálního psa.<br>Stačí, že to nechceš vzdát.</p>
+          </div>
 
           <h2>Jak procházky probíhají</h2>
           <p>Socializační procházky vedu ve dvou základních formách:</p>
 
-          <h3>Vodítková socializace <span class="page-content__meta">(cca 1,5 hodiny)</span></h3>
-          <p>Probíhá na vodítku.</p>
-          <p>Zaměřujeme se na klid ve skupině, přepínání z akce do klidu, práci s prostorem, pozornost na psovoda i při rušivých podnětech, zvládání přítomnosti ostatních psů v pohybu a odpoutání se od rušivých podnětů.</p>
-          <p>Je vhodná pro psy, kteří:</p>
-          <ul>
-            <li>mají silné reakce</li>
-            <li>začínající i pokročilé</li>
-            <li>potřebují větší oporu a jasné vedení</li>
-            <li>potřebují posílit navázání na psovoda</li>
-            <li>potřebují natrénovat klid mezi psy</li>
-            <li>potřebují pracovat na neutralitě vůči ostatním psům</li>
-            <li>potřebují generalizaci cviků do praxe</li>
-          </ul>
+          <div class="cards-container">
+            <div class="card">
+              <div class="card-header">
+                <h3>Vodítková socializace</h3>
+                <span class="card-meta">(cca 1,5 hodiny)</span>
+              </div>
+              <div class="card-content">
+                <p>Probíhá na vodítku.</p>
+                <p>Zaměřujeme se na klid ve skupině, přepínání z akce do klidu, práci s prostorem, pozornost na psovoda i při rušivých podnětech, zvládání přítomnosti ostatních psů v pohybu a odpoutání se od rušivých podnětů.</p>
+                <p><strong>Je vhodná pro psy, kteří:</strong></p>
+                <ul>
+                  <li>mají silné reakce</li>
+                  <li>začínající i pokročilé</li>
+                  <li>potřebují větší oporu a jasné vedení</li>
+                  <li>potřebují posílit navázání na psovoda</li>
+                  <li>potřebují natrénovat klid mezi psy</li>
+                  <li>potřebují pracovat na neutralitě vůči ostatním psům</li>
+                  <li>potřebují generalizaci cviků do praxe</li>
+                </ul>
+              </div>
+            </div>
 
-          <h3>Socializace „PRO" <span class="page-content__meta">(cca 2 hodiny)</span></h3>
-          <p>Probíhá převážně na volno nebo na stopovacích vodítkách.</p>
-          <p>Není podmínkou psa pouštět – vždy se přizpůsobujeme tomu, co konkrétní pes zvládá.</p>
-          <p>Pracujeme více se:</p>
-          <ul>
-            <li>samostatností psa</li>
-            <li>přirozenou komunikací mezi psy</li>
-            <li>regulací emocí při přímějším kontaktu</li>
-            <li>schopností nevyletět, ale počkat</li>
-            <li>orientací v prostoru mezi ostatními psy</li>
-            <li>respektováním toho, že ne každý kontakt je žádoucí</li>
-          </ul>
+            <div class="card">
+              <div class="card-header">
+                <h3>Socializace „PRO"</h3>
+                <span class="card-meta">(cca 2 hodiny)</span>
+              </div>
+              <div class="card-content">
+                <p>Probíhá převážně na volno nebo na stopovacích vodítkách.</p>
+                <p>Není podmínkou psa pouštět – vždy se přizpůsobujeme tomu, co konkrétní pes zvládá.</p>
+                <p><strong>Pracujeme více se:</strong></p>
+                <ul>
+                  <li>samostatností psa</li>
+                  <li>přirozenou komunikací mezi psy</li>
+                  <li>regulací emocí při přímějším kontaktu</li>
+                  <li>schopností nevyletět, ale počkat</li>
+                  <li>orientací v prostoru mezi ostatními psy</li>
+                  <li>respektováním toho, že ne každý kontakt je žádoucí</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           <h2>Co se učí psi</h2>
           <p>Psi se na socializačních procházkách neučí „být hodní".</p>
@@ -164,15 +184,24 @@
           </ul>
           <p>Protože pes, který má vedle sebe člověka, který ví, co dělá, se chová jinak než pes, který je na to sám.</p>
 
-          <h2>Důležité</h2>
-          <p>Po celou dobu jsou psi pod vedením a kontrolou svých psovodů.</p>
-          <p>Nejde o „pustit a nechat být", ale o řízenou práci ve skupině.</p>
-          <p>Pes může zůstat na vodítku, pokud:</p>
-          <ul>
-            <li>nemá přivolání</li>
-            <li>je to pro něj bezpečnější</li>
-            <li>nebo jde poprvé</li>
-          </ul>
+          <div class="important-card">
+            <div class="important-card__header">
+              <svg class="important-card__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <h2>Důležité</h2>
+            </div>
+            <div class="important-card__content">
+              <p>Po celou dobu jsou psi pod vedením a kontrolou svých psovodů.</p>
+              <p>Nejde o „pustit a nechat být", ale o řízenou práci ve skupině.</p>
+              <p><strong>Pes může zůstat na vodítku, pokud:</strong></p>
+              <ul>
+                <li>nemá přivolání</li>
+                <li>je to pro něj bezpečnější</li>
+                <li>nebo jde poprvé</li>
+              </ul>
+            </div>
+          </div>
 
           <h2>Proč to funguje</h2>
           <p>Protože se psi učí v reálném prostředí, ne v izolaci.</p>
