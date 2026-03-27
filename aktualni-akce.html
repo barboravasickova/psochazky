@@ -61,30 +61,38 @@
     </header>
 
     <main>
-      <section class="section-padding">
-        <div class="container page-content">
+      <!-- Karty berou data z data/booqito-akce.json | aktualizace: node scripts/sync-booqito-akce.mjs -->
+      <section class="section-padding section-akce">
+        <div class="container page-content page-content--article">
           <h1>Aktuální akce</h1>
           <p class="page-content__intro">Přehled termínů a přihlášení na socializační procházky, individuální tréninky a další akce.</p>
-          <p>Všechny akce probíhají v Brně. V rezervačním systému uvidíš volné termíny, ceny a můžeš se rovnou přihlásit.</p>
+          <p>Všechny akce probíhají v Brně. Po kliknutí na kartu se otevře <strong>nové okno</strong> s rezervačním systémem Booqito, kde uvidíš volné termíny, detaily a dokončíš objednávku.</p>
 
-          <div class="page-content__cta" style="margin-bottom: 1.5rem;">
-            <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer" class="btn">Zobrazit akce a rezervovat →</a>
+          <p class="akce-notice" role="note">
+            <span class="akce-notice__label">Upozornění:</span>
+            Každá akce se otevírá na stránce <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">psochazky.booqito.com</a> v novém okně (nebo záložce).
+          </p>
+        </div>
+
+        <div class="akce-board">
+          <div class="container">
+            <p id="akce-loading" class="akce-loading">Načítám nabídku akcí…</p>
+            <p id="akce-error" class="akce-error" hidden>
+              Nabídku se nepodařilo načíst. Otevři ji přímo na
+              <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">Booqito</a>.
+            </p>
+            <div id="akce-grid" class="akce-grid" hidden></div>
           </div>
         </div>
 
-        <div class="booqito-embed">
-          <iframe
-            src="https://psochazky.booqito.com/"
-            title="Rezervační systém Psocházky – BOOQITO"
-            width="100%"
-            height="800"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <div class="container page-content page-content--article">
+          <p id="akce-sync-meta" class="akce-sync-meta" aria-live="polite"></p>
 
-        <div class="container page-content">
-          <p class="booqito-fallback">Nepracuje vložený přehled? <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">Otevři rezervační systém v novém okně</a>.</p>
+          <div class="page-content__cta">
+            <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer" class="btn">Celá nabídka na Booqito</a>
+            <a href="cenik.html" class="btn">Ceník</a>
+            <a href="kontakt.html" class="btn">Kontakt</a>
+          </div>
         </div>
       </section>
     </main>
@@ -152,6 +160,127 @@
           }
         });
       }
+
+      /* Aktuální akce – karty z data/booqito-akce.json (generuje scripts/sync-booqito-akce.mjs) */
+      (function () {
+        const grid = document.getElementById("akce-grid");
+        const loading = document.getElementById("akce-loading");
+        const errEl = document.getElementById("akce-error");
+        const meta = document.getElementById("akce-sync-meta");
+        if (!grid || !loading || !errEl) return;
+
+        function buildCard(item) {
+          const article = document.createElement("article");
+          article.className = "akce-card";
+          if (item.status === "unavailable") article.classList.add("akce-card--unavailable");
+
+          const a = document.createElement("a");
+          a.className = "akce-card__link";
+          a.href = item.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+
+          if (item.image) {
+            const media = document.createElement("div");
+            media.className = "akce-card__media";
+            const img = document.createElement("img");
+            img.src = item.image;
+            img.alt = "";
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.addEventListener("error", () => {
+              media.style.display = "none";
+            });
+            media.appendChild(img);
+            a.appendChild(media);
+          }
+
+          const bodyEl = document.createElement("div");
+          bodyEl.className = "akce-card__body";
+
+          if (item.badges && item.badges.length) {
+            const badges = document.createElement("div");
+            badges.className = "akce-card__badges";
+            item.badges.forEach((t) => {
+              const sp = document.createElement("span");
+              sp.className = "akce-card__badge";
+              sp.textContent = t;
+              badges.appendChild(sp);
+            });
+            bodyEl.appendChild(badges);
+          }
+
+          const h3 = document.createElement("h3");
+          h3.className = "akce-card__title";
+          h3.textContent = item.title;
+          bodyEl.appendChild(h3);
+
+          if (item.city) {
+            const loc = document.createElement("p");
+            loc.className = "akce-card__loc";
+            loc.textContent = item.city;
+            bodyEl.appendChild(loc);
+          }
+
+          if (item.price) {
+            const price = document.createElement("p");
+            price.className = "akce-card__price";
+            price.textContent = item.price;
+            bodyEl.appendChild(price);
+          }
+
+          if (item.isWidgetLink) {
+            const hint = document.createElement("p");
+            hint.className = "akce-card__hint";
+            hint.textContent = "Otevře Booqito – stejná nabídka jako na hlavní stránce rezervací.";
+            bodyEl.appendChild(hint);
+          }
+
+          const cta = document.createElement("span");
+          cta.className = "akce-card__cta";
+          cta.textContent = item.status === "unavailable" ? "Zobrazit detail" : "Objednat";
+          bodyEl.appendChild(cta);
+
+          a.appendChild(bodyEl);
+          article.appendChild(a);
+          return article;
+        }
+
+        fetch("data/booqito-akce.json", { cache: "no-store" })
+          .then((r) => {
+            if (!r.ok) throw new Error("fetch");
+            return r.json();
+          })
+          .then((data) => {
+            loading.hidden = true;
+            if (!data.items || !data.items.length) {
+              errEl.hidden = false;
+              return;
+            }
+            data.items.forEach((item) => grid.appendChild(buildCard(item)));
+            grid.hidden = false;
+            if (meta && data.syncedAt) {
+              try {
+                const d = new Date(data.syncedAt);
+                meta.textContent =
+                  "Údaje odpovídají nabídce stažené z Booqito: " +
+                  d.toLocaleString("cs-CZ", {
+                    day: "numeric",
+                    month: "numeric",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  });
+              } catch (_) {
+                meta.textContent = "";
+              }
+            }
+          })
+          .catch(() => {
+            loading.hidden = true;
+            errEl.hidden = false;
+          });
+      })();
     </script>
   </body>
 </html>

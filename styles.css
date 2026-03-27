@@ -186,6 +186,46 @@ body.nav-open .navigation {
   height: 24px;
 }
 
+/* Mobilní menu: bez rozbalovacího „Služby“ – jen stejné odkazy jako ostatní položky */
+@media (max-width: 899px) {
+  .nav__dropdown {
+    display: contents;
+  }
+
+  .nav__dropdown-toggle {
+    display: none;
+  }
+
+  .nav__dropdown-menu {
+    display: contents;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav__dropdown-menu > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__dropdown-link {
+    display: block;
+    text-decoration: none;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--font-nadpisy);
+    padding: 0.25rem 0;
+    text-align: center;
+  }
+
+  .nav__dropdown-link:hover,
+  .nav__dropdown-link:focus-visible {
+    opacity: 0.85;
+  }
+}
+
 .container {
   max-width: 540px;
   padding: 0 20px;
@@ -319,6 +359,24 @@ body.nav-open .navigation {
   font-weight: 600;
 }
 
+/* Další služby – podtitulek pod H1 */
+.dalsi-sluzby__lead {
+  margin-top: 0.35rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-nadpisy);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-primary);
+}
+
+@media (min-width: 900px) {
+  .dalsi-sluzby__lead {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
 .page-content__quote {
   font-family: var(--font-nadpisy);
   font-size: 1.25rem;
@@ -357,6 +415,123 @@ body.nav-open .navigation {
   gap: 0.75rem;
   padding-top: 3rem;
   justify-content: center;
+}
+
+/* Článková stránka (socializacni-prochazky) – přehled, fotky, oddělovače */
+.page-content--article {
+  max-width: 560px;
+}
+
+.article-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.article-intro {
+  margin-bottom: 0.25rem;
+}
+
+.article-divider {
+  border: none;
+  height: 0;
+  margin: 2.25rem 0;
+  padding: 0;
+  background: transparent;
+  border-top: 1px solid rgba(11, 51, 41, 0.12);
+  position: relative;
+}
+
+.article-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-secondary);
+  opacity: 0.55;
+}
+
+.article-figure {
+  margin: 1.75rem 0 0.25rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 32px rgba(11, 51, 41, 0.1);
+  border: 1px solid rgba(11, 51, 41, 0.08);
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.article-figure--medium {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-two-col {
+  display: grid;
+  gap: 1.5rem 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-two-col__block h3 {
+  margin-top: 0;
+}
+
+.article-two-col__block ul {
+  margin-bottom: 0;
+}
+
+.article-two-col--compare .article-two-col__block > h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.article-two-col--compare .article-two-col__block > p:first-of-type {
+  margin-top: 0.25rem;
+}
+
+.article-two-col--compare .article-two-col__block h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-family: var(--font-text);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.article-two-col--compare .article-two-col__block h3:first-of-type {
+  margin-top: 1rem;
+}
+
+.article-two-col__foot {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .article-two-col {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .article-two-col__block {
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 1rem;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid rgba(11, 51, 41, 0.08);
+  }
 }
 
 /* Cards */
@@ -432,24 +607,22 @@ body.nav-open .navigation {
 .important-card__header {
   background: var(--color-primary);
   color: white;
-  padding: 1.5rem;
+  padding: 1rem 1rem 1rem;
+  font-size: 1.4rem;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 1rem;
-}
-
-.important-card__icon {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
 }
 
 .important-card__header h2 {
   margin: 0;
-  font-size: 1.4rem;
+  padding: 0.1em 0 0;
+  font-size: 1em;
   font-weight: 700;
   font-family: var(--font-nadpisy);
   color: white;
+  line-height: 1.12;
 }
 
 .important-card__content {
@@ -556,25 +729,231 @@ body.nav-open .navigation {
   text-align: center;
 }
 
-.price-item {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(11, 51, 41, 0.15);
+/* Ceník – přehledný seznam, bez „bublin“ a oddělených karet */
+.cenik__intro {
+  margin-bottom: 1.75rem;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
-.price-item:last-of-type {
-  border-bottom: none;
+.cenik__intro p {
+  margin-bottom: 0.45rem;
+  line-height: 1.55;
 }
 
-.price-item__meta {
-  font-size: 0.9rem;
-  opacity: 0.8;
+.cenik__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.cenik__section {
+  margin-bottom: 0.5rem;
+}
+
+.cenik__section > h2:first-child {
+  margin-top: 0;
+}
+
+.cenik__subsection-title {
+  margin-top: 1.85rem;
   margin-bottom: 0.25rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.cenik__grid {
+  display: grid;
+  gap: 0;
+  margin-top: 0.65rem;
+}
+
+/* Na Ceníku jeden sloupec = souvislý blok s linkami místo mřížky karet */
+.cenik .cenik__grid--2 {
+  grid-template-columns: 1fr;
+}
+
+.cenik .quote-bubble--cenik {
+  margin: 1.35rem 0;
+  padding: 1.1rem 0;
+  max-width: none;
+  background: none;
+  border-radius: 0;
+  border-top: 1px solid rgba(11, 51, 41, 0.12);
+  border-bottom: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.cenik .quote-bubble--cenik .quote-bubble__text {
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.cenik__prose {
+  margin: 1.35rem 0 0;
+  line-height: 1.65;
+}
+
+.cenik__info-box {
+  margin-top: 1.35rem;
+  padding: 0.85rem 0 0.85rem 1rem;
+  background: rgba(11, 51, 41, 0.03);
+  border: none;
+  border-left: 3px solid var(--color-secondary);
+  border-radius: 0;
+}
+
+.cenik__info-box p {
+  margin-bottom: 0.55rem;
+}
+
+.cenik__info-box p:last-child {
+  margin-bottom: 0;
+}
+
+.cenik__payments {
+  margin-top: 0.65rem;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.cenik__payments > p {
+  margin-bottom: 0.65rem;
+}
+
+.cenik__payments ul {
+  margin: 0.4rem 0 0.85rem;
+  padding-left: 1.25rem;
+}
+
+.cenik__payments-note {
+  margin-bottom: 0 !important;
+  font-weight: 600;
+}
+
+.price-item {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 1.15rem 0;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.price-item:first-child {
+  padding-top: 0.35rem;
+}
+
+.cenik__grid .price-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0.35rem;
+}
+
+.cenik__section > .price-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0.35rem;
+}
+
+.price-item--solo {
+  max-width: 36rem;
+}
+
+.price-item--compact .price-item__meta {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.price-item__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
+}
+
+.price-item__header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  max-width: none;
 }
 
 .price-item__price {
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.price-item__amount {
+  display: inline;
+  background: none;
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 1.12rem;
+  padding: 0;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.price-item__unit--suffix {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  opacity: 0.82;
+  vertical-align: baseline;
+}
+
+.price-item__meta {
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 0.7;
+  margin: 0 0 0.65rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.price-item__body {
+  font-size: 0.98rem;
+}
+
+.price-item__body p {
+  margin-bottom: 0.55rem;
+}
+
+.price-item__body p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 520px) {
+  .price-item__header {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+
+  .price-item__header h3 {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+
+  .price-item__price {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .price-item__unit--suffix {
+    margin-left: 0;
+    margin-top: 0.2rem;
+    display: block;
+    text-align: right;
+  }
 }
 
 .faq-list {
@@ -594,6 +973,341 @@ body.nav-open .navigation {
 .faq-list dd {
   margin-left: 0;
   margin-bottom: 0.5rem;
+}
+
+/* Stránka Jak to funguje */
+.jak-page .jak-section > h2:first-of-type {
+  margin-top: 1.75rem;
+}
+
+.jak-page .jak-section:first-of-type > h2:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.jak-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0.65rem;
+}
+
+.jak-option {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 1.1rem 0;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.jak-option:first-child {
+  padding-top: 0.35rem;
+}
+
+.jak-option:last-child {
+  border-bottom: none;
+  padding-bottom: 0.35rem;
+}
+
+.jak-option h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.12rem;
+}
+
+.jak-option p {
+  margin-bottom: 0.5rem;
+}
+
+.jak-option ul {
+  margin-bottom: 0.65rem;
+}
+
+.jak-option__note {
+  margin: 0.75rem 0 0 !important;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(11, 51, 41, 0.1);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.jak-callout {
+  margin-top: 0.65rem;
+  padding: 0.35rem 0 0.35rem 1rem;
+  background: rgba(11, 51, 41, 0.03);
+  border: none;
+  border-left: 3px solid var(--color-secondary);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.jak-callout ul,
+.jak-callout ol {
+  margin-bottom: 0.5rem;
+}
+
+.jak-callout__foot {
+  margin: 0.65rem 0 0 !important;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(11, 51, 41, 0.1);
+  font-weight: 600;
+  font-size: 0.97rem;
+}
+
+.jak-steps {
+  margin: 0;
+  padding-left: 1.35rem;
+  list-style: decimal;
+}
+
+.jak-steps li {
+  margin-bottom: 0.35rem;
+  padding-left: 0.25rem;
+}
+
+.jak-faq {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
+.jak-faq__item {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.jak-faq__item:first-child {
+  padding-top: 0.35rem;
+}
+
+.jak-faq__item:last-child {
+  border-bottom: none;
+  padding-bottom: 0.35rem;
+}
+
+.jak-faq__item dt {
+  margin-top: 0;
+  font-size: 1.02rem;
+  color: var(--color-primary);
+}
+
+.jak-faq__item dd {
+  margin-bottom: 0;
+  margin-top: 0.35rem;
+  line-height: 1.55;
+}
+
+.jak-packing {
+  margin-top: 0.65rem;
+  padding: 0.35rem 0 0.35rem 1rem;
+  background: rgba(11, 51, 41, 0.03);
+  border: none;
+  border-left: 3px solid var(--color-secondary);
+  border-radius: 0;
+}
+
+.jak-packing p {
+  margin-bottom: 0.4rem;
+}
+
+.jak-packing p + ul {
+  margin-top: 0.35rem;
+}
+
+.jak-info__list {
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.jak-info.cenik__info-box {
+  margin-top: 0.75rem;
+}
+
+/* Aktuální akce – karty z Booqito (data/booqito-akce.json) */
+.section-akce .akce-notice {
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+  background: linear-gradient(135deg, #faf6ee 0%, #f0e8d8 100%);
+  border: 1px solid rgba(11, 51, 41, 0.12);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.akce-notice__label {
+  font-weight: 700;
+  margin-right: 0.35rem;
+}
+
+.akce-board {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.akce-loading {
+  text-align: center;
+  opacity: 0.85;
+  margin: 2rem 0;
+}
+
+.akce-error {
+  text-align: center;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.akce-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+.akce-card {
+  margin: 0;
+}
+
+.akce-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: var(--color-primary);
+  background: #fff;
+  border: 1px solid rgba(11, 51, 41, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(11, 51, 41, 0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.akce-card__link:hover,
+.akce-card__link:focus-visible {
+  box-shadow: 0 8px 28px rgba(11, 51, 41, 0.12);
+  transform: translateY(-2px);
+}
+
+.akce-card__media {
+  aspect-ratio: 310 / 186;
+  background: var(--color-secondary-light);
+  overflow: hidden;
+}
+
+.akce-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.akce-card__body {
+  padding: 1.15rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.35rem;
+}
+
+.akce-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.akce-card__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(11, 51, 41, 0.08);
+  color: var(--color-primary);
+}
+
+.akce-card--unavailable .akce-card__badge {
+  background: rgba(180, 60, 50, 0.12);
+  color: #6b2a22;
+}
+
+.akce-card__title {
+  margin: 0;
+  font-family: var(--font-nadpisy);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.akce-card__loc {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.akce-card__price {
+  margin: 0.15rem 0 0;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.akce-card__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  opacity: 0.78;
+  line-height: 1.4;
+}
+
+.akce-card__cta {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-secondary-dark);
+}
+
+.akce-card__link:hover .akce-card__cta,
+.akce-card__link:focus-visible .akce-card__cta {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.akce-card--unavailable {
+  opacity: 0.95;
+}
+
+.akce-card--unavailable .akce-card__link {
+  box-shadow: 0 2px 12px rgba(11, 51, 41, 0.05);
+}
+
+.akce-sync-meta {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  .akce-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .akce-board .container {
+    max-width: var(--stredovy-kontejner);
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .akce-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
 }
 
 .manifest {
@@ -1158,36 +1872,6 @@ body.nav-open .navigation {
     background-color: rgba(11, 51, 41, 0.06);
   }
 
-  /* Mobile dropdown adjustments */
-  @media (max-width: 800px) {
-    .nav__dropdown-menu {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      box-shadow: none;
-      background: transparent;
-      padding: 0;
-      margin-left: 1rem;
-    }
-
-    .nav__dropdown-icon {
-      display: none;
-    }
-
-    .nav__dropdown-toggle {
-      pointer-events: none;
-      color: var(--color-secondary);
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .nav__dropdown-link {
-      padding: 0.25rem 0;
-      font-size: 1.25rem;
-    }
-  }
-
   .header__container {
     align-items: center;
   }
@@ -1592,6 +2276,22 @@ body.nav-open .navigation {
     padding: 2rem 0;
   }
 
+  .page-content--article {
+    max-width: 720px;
+  }
+
+  .article-divider {
+    margin: 3rem 0;
+  }
+
+  .article-figure--medium {
+    max-width: 520px;
+  }
+
+  .article-two-col--compare .article-two-col__block > h2 {
+    font-size: 1.85rem;
+  }
+
   .page-content h1 {
     margin-bottom: 1.25rem;
   }
@@ -1627,20 +2327,35 @@ body.nav-open .navigation {
 
   /* Important card responsive */
   .important-card__header {
-    padding: 2rem;
-    gap: 1.25rem;
-  }
-
-  .important-card__icon {
-    width: 32px;
-    height: 32px;
+    padding: 1.6rem 2.35rem 1.75rem;
+    font-size: 1.5rem;
   }
 
   .important-card__header h2 {
-    font-size: 1.5rem;
+    padding: 0.08em 0 0;
   }
 
   .important-card__content {
     padding: 2.5rem;
+  }
+
+  .price-item {
+    padding: 1.2rem 0;
+  }
+
+  .price-item__header h3 {
+    font-size: 1.15rem;
+  }
+
+  .price-item__amount {
+    font-size: 1.18rem;
+  }
+
+  .cenik .quote-bubble--cenik .quote-bubble__text {
+    font-size: 1.3rem;
+  }
+
+  .jak-option h3 {
+    font-size: 1.15rem;
   }
 }

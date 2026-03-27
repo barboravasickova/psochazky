@@ -1,0 +1,77 @@
+{
+  "source": "https://psochazky.booqito.com/",
+  "syncedAt": "2026-03-27T20:07:00.282Z",
+  "items": [
+    {
+      "title": "Vodítková socializace - ÚT v 18:00",
+      "url": "https://psochazky.booqito.com/voditkova-socializace-uterky-od-18-00-p8781",
+      "image": "https://www.skvelecesko.cz/upload/1768828925_696e2ffdd9e26_310x186.jpg",
+      "price": "od 220 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 31.3.",
+        "18:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
+    },
+    {
+      "title": "Socializace „PRO“ – SO v 9:00",
+      "url": "https://psochazky.booqito.com/socializace-pro-pousteci-socializace-so-v-9h-p8782",
+      "image": "https://www.skvelecesko.cz/upload/1769077665_6971fba1611d6_310x186.jpg",
+      "price": "od 220 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 28.3.",
+        "9:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
+    },
+    {
+      "title": "Individuální trénink",
+      "url": "https://psochazky.booqito.com/individualni-trenink-p8801",
+      "image": "https://www.skvelecesko.cz/upload/1769074372_6971eec49832d_310x186.jpg",
+      "price": "od 500 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 30.3.",
+        "9:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
+    },
+    {
+      "title": "PSOCHAJDA aneb ÚTĚK Z BRNA - VÝLET",
+      "url": "https://psochazky.booqito.com/psochajda-aneb-utek-z-brna-vylet-p8898",
+      "image": "https://www.skvelecesko.cz/upload/1773063021_69aecb6db39b0_310x186.jpg",
+      "price": "od 450 Kč",
+      "city": "Brno",
+      "badges": [
+        "NEDOSTUPNÉ"
+      ],
+      "status": "unavailable",
+      "isWidgetLink": false
+    },
+    {
+      "title": "Permanentky",
+      "url": "https://psochazky.booqito.com/",
+      "image": "https://www.skvelecesko.cz/upload/1771621824_6998cdc0a2b7c_310x186.jpg",
+      "price": "od 1 045 Kč",
+      "city": "Brno",
+      "badges": [],
+      "status": "neutral",
+      "isWidgetLink": true
+    },
+    {
+      "title": "Dárkový poukaz",
+      "url": "https://psochazky.booqito.com/",
+      "image": "https://psochazky.booqito.com/inc/img/product-voucher.webp",
+      "price": "",
+      "city": "",
+      "badges": [],
+      "status": "neutral",
+      "isWidgetLink": true
+    }
+  ]
+}
