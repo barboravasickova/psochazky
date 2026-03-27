@@ -1,0 +1,18 @@
+{
+  "posts": [
+    {
+      "slug": "jak-psovi-pomoci-v-rusnem-meste",
+      "title": "Jak psovi pomoci v rušném městě",
+      "date": "2026-03-27",
+      "excerpt": "Tři jednoduché kroky, jak zklidnit psa v prostředí s mnoha podněty.",
+      "image": "images/group-foto.jpg",
+      "content": [
+        "Městské prostředí je pro mnoho psů náročné. Důležité je nezačít řešit všechno najednou, ale postupovat po malých krocích.",
+        "Nejprve pomáhá snížit tempo. Kratší trasy, časté pauzy a jasné vedení často udělají větší službu než dlouhá procházka v přetěžujícím prostředí.",
+        "Druhý krok je čtení psa. Sledujte, kdy se pes napíná, kdy začíná fixovat okolí a kdy ještě umí zareagovat na vás. Právě v této fázi se dá situace dobře usměrnit.",
+        "Třetí krok je pravidelnost. Krátké, dobře zvládnuté vycházky opakovaně vytvoří lepší základ než náhodné dlouhé výpravy. Cílem je pes, který se umí orientovat na svého člověka i venku."
+      ],
+      "published": true
+    }
+  ]
+}

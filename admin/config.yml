@@ -1,0 +1,38 @@
+backend:
+  name: github
+  repo: REPLACE_WITH_YOUR_GITHUB_REPO
+  branch: main
+  base_url: REPLACE_WITH_OAUTH_PROVIDER_URL
+  auth_endpoint: auth
+
+site_url: REPLACE_WITH_PUBLIC_WEBSITE_URL
+display_url: REPLACE_WITH_PUBLIC_WEBSITE_URL
+logo_url: /images/logo-psochazky.svg
+
+media_folder: "images/blog"
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog_data"
+    label: "Blog příspěvky"
+    files:
+      - label: "Příspěvky"
+        name: "posts"
+        file: "data/blog-posts.json"
+        format: "json"
+        fields:
+          - label: "Příspěvky"
+            name: "posts"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.date}})"
+            fields:
+              - { label: "Slug", name: "slug", widget: "string", hint: "Například jak-se-pripravit-na-prochazku" }
+              - { label: "Titulek", name: "title", widget: "string" }
+              - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+              - { label: "Perex", name: "excerpt", widget: "text" }
+              - { label: "Obrázek", name: "image", widget: "image", required: false }
+              - label: "Obsah (odstavce)"
+                name: "content"
+                widget: "list"
+                field: { label: "Odstavec", name: "paragraph", widget: "text" }
+              - { label: "Publikováno", name: "published", widget: "boolean", default: true }
