@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Blog | Psocházky</title>
+    <meta name="description" content="Článek na blogu Psocházky – tipy k socializaci, výcviku a životu se psem v Brně." />
+    <link rel="canonical" href="https://psochazky.cz/blog-detail.html" />
+    <meta property="og:site_name" content="Psocházky" />
+    <meta property="og:title" content="Blog | Psocházky" />
+    <meta property="og:description" content="Článek na blogu Psocházky – tipy k socializaci, výcviku a životu se psem v Brně." />
+    <meta property="og:url" content="https://psochazky.cz/blog-detail.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blog | Psocházky" />
+    <meta name="twitter:description" content="Článek na blogu Psocházky – tipy k socializaci, výcviku a životu se psem v Brně." />
+    <meta name="twitter:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -144,6 +157,22 @@
         return date.toLocaleDateString("cs-CZ", { day: "numeric", month: "long", year: "numeric" });
       }
 
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderContentLine(line) {
+        if (typeof line !== "string") return "";
+        const trimmed = line.trim();
+        if (trimmed.startsWith("### ")) return `<h3>${escapeHtml(trimmed.slice(4))}</h3>`;
+        if (trimmed.startsWith("## ")) return `<h2>${escapeHtml(trimmed.slice(3))}</h2>`;
+        return `<p>${escapeHtml(line)}</p>`;
+      }
+
       async function loadPost() {
         const params = new URLSearchParams(window.location.search);
         const slug = params.get("slug");
@@ -164,7 +193,7 @@
             return;
           }
           document.title = `${post.title} | Blog | Psocházky`;
-          const paragraphs = Array.isArray(post.content) ? post.content.map((line) => `<p>${line}</p>`).join("") : "";
+          const paragraphs = Array.isArray(post.content) ? post.content.map(renderContentLine).join("") : "";
           content.innerHTML = `
             <header class="blog-post__header">
               <h1>${post.title || "Bez názvu"}</h1>

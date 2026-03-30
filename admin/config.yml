@@ -34,5 +34,11 @@ collections:
               - label: "Obsah (odstavce)"
                 name: "content"
                 widget: "list"
-                field: { label: "Odstavec", name: "paragraph", widget: "text" }
+                field:
+                  {
+                    label: "Odstavec / nadpis",
+                    name: "paragraph",
+                    widget: "text",
+                    hint: "Pro podnadpis v článku začni řádek ## nebo ### (mezera za křížky).",
+                  }
               - { label: "Publikováno", name: "published", widget: "boolean", default: true }
