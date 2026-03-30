@@ -1,0 +1,44 @@
+# Denní stažení nabídky z Booqito → data/booqito-akce.json (stránka Aktuální akce).
+# V repozitáři: Settings → Actions → General → Workflow permissions = Read and write
+
+name: Sync Booqito akce
+
+on:
+  schedule:
+    # Každý den 03:30 UTC (~04:30 zimní / ~05:30 letní čas v ČR)
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-booqito-akce
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Stáhnout a zapsat JSON
+        run: node scripts/sync-booqito-akce.mjs
+
+      - name: Commit a push při změně
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/booqito-akce.json
+          if git diff --staged --quiet; then
+            echo "Žádná změna v data/booqito-akce.json — commit se přeskočí."
+          else
+            git commit -m "chore: sync Booqito akce (automaticky)"
+            git push
+          fi
