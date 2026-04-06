@@ -1,21 +1,164 @@
 {
-  "title": "Ceník",
-  "intro1": "Ceny platí za tým - člověk + pes / psi.",
-  "intro2": "Jednoho nebo dva psy? Cena se nemění.",
-  "sectionWalksTitle": "Socializační procházky",
-  "sectionIndividualTitle": "Individuální trénink",
-  "sectionTripTitle": "Výlet",
-  "sectionPaymentsTitle": "Jak fungují platby",
-  "quote": "Neučíme psa chovat se na tréninku. Učíme ho fungovat venku.",
-  "paymentItems": [
-    "obdržíš platební údaje",
-    "doporučená platba je QR kódem",
-    "případně lze zaplatit přes platební bránu"
-  ],
-  "paymentNote": "Platba potvrzuje místo na akci.",
-  "ctaButtons": [
-    { "text": "Přihlášení přes BOOQITO" },
-    { "text": "Jak služby fungují" },
-    { "text": "Kontakt" }
+  "blocks": [
+    { "type": "h1", "text": "Ceník" },
+    {
+      "type": "cenik_intro",
+      "lines": [
+        "Ceny platí za tým – člověk + pes / psi.",
+        "Jednoho nebo dva psy? Cena se nemění."
+      ]
+    },
+    {
+      "type": "cenik_section",
+      "ariaLabelledBy": "cenik-prochazky",
+      "blocks": [
+        { "type": "h2", "id": "cenik-prochazky", "text": "Socializační procházky" },
+        {
+          "type": "price_grid",
+          "layout": "two",
+          "items": [
+            {
+              "title": "Socializační procházka – vodítková",
+              "amount": "220 Kč",
+              "unitSuffix": "/ tým",
+              "meta": "Cca 1,5 hodiny",
+              "variant": "full",
+              "bodyLines": [
+                "Probíhá na vodítku a je doplněná o krátká cvičení.",
+                "Během trasy se zastavujeme a pracujeme se psem v konkrétních situacích, které běžně řešíte venku."
+              ]
+            },
+            {
+              "title": "Socializační procházka – PRO",
+              "amount": "220 Kč",
+              "unitSuffix": "/ tým",
+              "meta": "Cca 2 hodiny",
+              "variant": "full",
+              "bodyLines": [
+                "Delší práce v provozu, bez cíleného cvičení.",
+                "Zaměřeno na přirozenější komunikaci, reakce psa a orientaci na psovoda v reálném prostředí."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "quote_bubble_cenik",
+          "text": "Neučíme psa chovat se na tréninku.\nUčíme ho fungovat venku."
+        },
+        { "type": "h3", "className": "cenik__subsection-title", "text": "Permanentky" },
+        {
+          "type": "price_grid",
+          "layout": "two",
+          "items": [
+            {
+              "title": "5× socializační procházka",
+              "amount": "1 045 Kč",
+              "variant": "full",
+              "bodyLines": [
+                "Pro pravidelnou práci a kontinuitu.",
+                "Vhodné, pokud chceš, aby pes získával zkušenosti postupně a měl čas změny skutečně zpracovat."
+              ]
+            },
+            {
+              "title": "10× socializační procházka",
+              "amount": "1 980 Kč",
+              "variant": "full",
+              "bodyLines": [
+                "Pro dlouhodobé posouvání v reálném prostředí.",
+                "Umožňuje pracovat s vývojem psa v čase, sledovat změny chování a zvládání situací v různých kontextech."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    { "type": "hr" },
+    {
+      "type": "cenik_section",
+      "ariaLabelledBy": "cenik-individual",
+      "blocks": [
+        { "type": "h2", "id": "cenik-individual", "text": "Individuální trénink" },
+        {
+          "type": "price_grid",
+          "layout": "two",
+          "items": [
+            {
+              "title": "Jednorázová konzultace",
+              "amount": "1 000 Kč",
+              "meta": "60 minut",
+              "variant": "compact"
+            },
+            {
+              "title": "Permanentka 5× individuální trénink",
+              "amount": "2 500 Kč",
+              "meta": "5 lekcí po 60 minutách",
+              "variant": "compact"
+            }
+          ]
+        },
+        {
+          "type": "prose",
+          "text": "Individuální trénink je vhodný ve chvíli, kdy potřebuješ řešit konkrétní problém, chceš individuální přístup a prostor ptát se, zkoušet a upravovat. Cílem není pes, který funguje jen na tréninku – ale aby sis věděla rady i bez trenéra za zády."
+        },
+        {
+          "type": "info_box",
+          "title": "Domluva termínů u permanentky",
+          "body": "Termíny individuálních lekcí se po zakoupení permanentky domlouvají výhradně ve zprávě na Messengeru. Rezervační systém slouží pouze k nákupu, ne k výběru termínu."
+        }
+      ]
+    },
+    { "type": "hr" },
+    {
+      "type": "cenik_section",
+      "ariaLabelledBy": "cenik-vylet",
+      "blocks": [
+        { "type": "h2", "id": "cenik-vylet", "text": "Výlet" },
+        {
+          "type": "price_grid",
+          "layout": "solo",
+          "items": [
+            {
+              "title": "Tréninkový výlet",
+              "amount": "450 Kč",
+              "unitSuffix": "/ tým",
+              "meta": "6–8 hodin",
+              "variant": "solo",
+              "bodyLines": [
+                "Výlety nejsou odměna ani procházka navíc – jsou to tréninky v reálném provozu a delší zátěži.",
+                "To, co pes zvládne deset minut, nemusí zvládnout dvě hodiny; to, co zvládne dvě hodiny, nemusí zvládnout osm. Právě tam se ukazuje, jak na tom skutečně je."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    { "type": "hr" },
+    {
+      "type": "cenik_section",
+      "ariaLabelledBy": "cenik-platby",
+      "sectionClass": "cenik__section--payments",
+      "blocks": [
+        { "type": "h2", "id": "cenik-platby", "text": "Jak fungují platby" },
+        {
+          "type": "payments",
+          "intro": "Přihlašování a platby probíhají přes rezervační systém BOOQITO.",
+          "afterIntroBold": "Po přihlášení:",
+          "listItems": [
+            "obdržíš platební údaje",
+            "doporučená platba je QR kódem",
+            "případně lze zaplatit přes platební bránu"
+          ],
+          "note": "Platba potvrzuje místo na akci."
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "buttons": [
+        { "text": "Přihlášení přes BOOQITO", "href": "https://psochazky.booqito.com/", "external": true },
+        { "text": "Jak služby fungují", "href": "jak-to-funguje.html", "external": false },
+        { "text": "Kontakt", "href": "kontakt.html", "external": false }
+      ]
+    }
   ]
 }

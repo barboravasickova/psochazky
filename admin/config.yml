@@ -51,37 +51,178 @@ collections:
         file: "data/o-mne-content.json"
         format: "json"
         fields:
-          - { label: "Nadpis stránky", name: "title", widget: "string" }
-          - { label: "Úvodní věta", name: "intro", widget: "string" }
-          - { label: "Sekce 1 nadpis", name: "section1Title", widget: "string" }
-          - { label: "Sekce 2 nadpis", name: "section2Title", widget: "string" }
-          - { label: "Sekce 3 nadpis", name: "section3Title", widget: "string" }
-          - { label: "Sekce 4 nadpis", name: "section4Title", widget: "string" }
-          - { label: "Citace", name: "quote", widget: "text" }
+          - label: "Bloky stránky"
+            name: "blocks"
+            widget: "list"
+            types:
+              - label: "Nadpis H1"
+                name: "h1"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+              - label: "Odstavec"
+                name: "p"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "text" }
+                  - { label: "CSS třída (volitelné)", name: "className", widget: "string", required: false }
+              - label: "Úvodní box (odstavce)"
+                name: "article_intro"
+                widget: "object"
+                fields:
+                  - label: "Odstavce"
+                    name: "paragraphs"
+                    widget: "list"
+                    field: { label: "Odstavec", name: "text", widget: "text" }
+              - label: "Obrázek"
+                name: "figure"
+                widget: "object"
+                fields:
+                  - { label: "Cesta k souboru", name: "src", widget: "string" }
+                  - { label: "Alt text", name: "alt", widget: "string" }
+              - label: "Oddělovač"
+                name: "hr"
+                widget: "object"
+                fields: []
+              - label: "Nadpis H2"
+                name: "h2"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "HTML id (volitelné)", name: "id", widget: "string", required: false }
+              - label: "Odrážkový seznam"
+                name: "ul"
+                widget: "object"
+                fields:
+                  - label: "Položky"
+                    name: "items"
+                    widget: "list"
+                    field: { label: "Text", name: "item", widget: "string" }
+              - label: "Citace (bublina)"
+                name: "quote_bubble"
+                widget: "object"
+                fields:
+                  - { label: "Text (nový řádek = zalomení)", name: "text", widget: "text" }
+              - label: "CTA tlačítka"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - label: "Tlačítka"
+                    name: "buttons"
+                    widget: "list"
+                    fields:
+                      - { label: "Text", name: "text", widget: "string" }
+                      - { label: "Odkaz", name: "href", widget: "string" }
+                      - { label: "Externí odkaz", name: "external", widget: "boolean", default: false }
 
       - label: "Ceník"
         name: "pricing_content"
         file: "data/cenik-content.json"
         format: "json"
         fields:
-          - { label: "Nadpis stránky", name: "title", widget: "string" }
-          - { label: "Úvodní text 1", name: "intro1", widget: "string" }
-          - { label: "Úvodní text 2", name: "intro2", widget: "string" }
-          - { label: "Nadpis Socializační procházky", name: "sectionWalksTitle", widget: "string" }
-          - { label: "Nadpis Individuální trénink", name: "sectionIndividualTitle", widget: "string" }
-          - { label: "Nadpis Výlet", name: "sectionTripTitle", widget: "string" }
-          - { label: "Nadpis Jak fungují platby", name: "sectionPaymentsTitle", widget: "string" }
-          - { label: "Citace", name: "quote", widget: "text" }
-          - label: "Platební body"
-            name: "paymentItems"
+          - label: "Bloky stránky"
+            name: "blocks"
             widget: "list"
-            field: { label: "Bod", name: "item", widget: "string" }
-          - { label: "Poznámka k platbě", name: "paymentNote", widget: "string" }
-          - label: "CTA tlačítka"
-            name: "ctaButtons"
-            widget: "list"
-            fields:
-              - { label: "Text tlačítka", name: "text", widget: "string" }
+            types:
+              - label: "Nadpis H1"
+                name: "h1"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+              - label: "Úvod ceníku (řádky)"
+                name: "cenik_intro"
+                widget: "object"
+                fields:
+                  - label: "Řádky"
+                    name: "lines"
+                    widget: "list"
+                    field: { label: "Řádek", name: "line", widget: "string" }
+              - label: "Sekce ceníku"
+                name: "cenik_section"
+                widget: "object"
+                fields:
+                  - { label: "ARIA labelledby (id nadpisu)", name: "ariaLabelledBy", widget: "string", required: false }
+                  - { label: "Extra třída sekce", name: "sectionClass", widget: "string", required: false }
+                  - label: "Obsah sekce"
+                    name: "blocks"
+                    widget: "list"
+                    types:
+                      - label: "Nadpis H2"
+                        name: "h2"
+                        widget: "object"
+                        fields:
+                          - { label: "Text", name: "text", widget: "string" }
+                          - { label: "HTML id (volitelné)", name: "id", widget: "string", required: false }
+                      - label: "Nadpis H3"
+                        name: "h3"
+                        widget: "object"
+                        fields:
+                          - { label: "Text", name: "text", widget: "string" }
+                          - { label: "CSS třída (volitelné)", name: "className", widget: "string", required: false }
+                      - label: "Oddělovač"
+                        name: "hr"
+                        widget: "object"
+                        fields: []
+                      - label: "Mřížka cen"
+                        name: "price_grid"
+                        widget: "object"
+                        fields:
+                          - { label: "Layout", name: "layout", widget: "select", options: ["two", "solo"], default: "two" }
+                          - label: "Položky"
+                            name: "items"
+                            widget: "list"
+                            fields:
+                              - { label: "Název", name: "title", widget: "string" }
+                              - { label: "Částka", name: "amount", widget: "string" }
+                              - { label: "Přípona jednotky", name: "unitSuffix", widget: "string", required: false }
+                              - { label: "Meta", name: "meta", widget: "string", required: false }
+                              - { label: "Varianta", name: "variant", widget: "select", options: ["full", "compact", "solo"], default: "full" }
+                              - label: "Odstavce pod cenou"
+                                name: "bodyLines"
+                                widget: "list"
+                                field: { label: "Řádek", name: "line", widget: "string" }
+                      - label: "Citace (ceník)"
+                        name: "quote_bubble_cenik"
+                        widget: "object"
+                        fields:
+                          - { label: "Text (nový řádek = zalomení)", name: "text", widget: "text" }
+                      - label: "Souvislý text"
+                        name: "prose"
+                        widget: "object"
+                        fields:
+                          - { label: "Text", name: "text", widget: "text" }
+                      - label: "Info box"
+                        name: "info_box"
+                        widget: "object"
+                        fields:
+                          - { label: "Tučný nadpis", name: "title", widget: "string" }
+                          - { label: "Text", name: "body", widget: "text" }
+                      - label: "Platby BOOQITO"
+                        name: "payments"
+                        widget: "object"
+                        fields:
+                          - { label: "Úvodní odstavec", name: "intro", widget: "text" }
+                          - { label: "Tučný řádek (po úvodu)", name: "afterIntroBold", widget: "string" }
+                          - label: "Položky seznamu"
+                            name: "listItems"
+                            widget: "list"
+                            field: { label: "Bod", name: "item", widget: "string" }
+                          - { label: "Poznámka dole", name: "note", widget: "string" }
+              - label: "Oddělovač"
+                name: "hr"
+                widget: "object"
+                fields: []
+              - label: "CTA tlačítka"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - label: "Tlačítka"
+                    name: "buttons"
+                    widget: "list"
+                    fields:
+                      - { label: "Text", name: "text", widget: "string" }
+                      - { label: "Odkaz", name: "href", widget: "string" }
+                      - { label: "Externí odkaz", name: "external", widget: "boolean", default: false }
 
       - label: "Další služby"
         name: "extra_services_content"
@@ -117,14 +258,53 @@ collections:
         file: "data/kontakt-content.json"
         format: "json"
         fields:
-          - { label: "Nadpis stránky", name: "title", widget: "string" }
-          - { label: "Úvodní text", name: "intro", widget: "text" }
-          - { label: "Messenger text", name: "messengerText", widget: "string" }
-          - { label: "E-mail text", name: "emailText", widget: "string" }
-          - { label: "Lokalita text", name: "locationText", widget: "string" }
-          - { label: "Nadpis Přihlášení", name: "bookingTitle", widget: "string" }
-          - { label: "Nadpis Individuální tréninky", name: "individualTitle", widget: "string" }
-          - { label: "Nadpis Spolupráce", name: "cooperationTitle", widget: "string" }
+          - label: "Bloky stránky"
+            name: "blocks"
+            widget: "list"
+            types:
+              - label: "Nadpis H1"
+                name: "h1"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+              - label: "Odstavec"
+                name: "p"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "text" }
+                  - { label: "CSS třída (volitelné)", name: "className", widget: "string", required: false }
+              - label: "Kontaktní řádky (ikony)"
+                name: "contact_list"
+                widget: "object"
+                fields:
+                  - label: "Řádky"
+                    name: "rows"
+                    widget: "list"
+                    fields:
+                      - { label: "Typ", name: "kind", widget: "select", options: ["messenger", "email", "location"] }
+                      - { label: "URL (Messenger / mailto)", name: "href", widget: "string", required: false }
+                      - { label: "Text odkazu", name: "linkLabel", widget: "string", required: false }
+                      - { label: "Text za odkazem", name: "suffix", widget: "string", required: false }
+                      - { label: "Čistý text (lokalita)", name: "text", widget: "string", required: false }
+              - label: "Nadpis H2"
+                name: "h2"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string" }
+                  - { label: "HTML id (volitelné)", name: "id", widget: "string", required: false }
+              - label: "Markdown (odstavce, odkazy)"
+                name: "markdown"
+                widget: "object"
+                fields:
+                  - { label: "Markdown", name: "body", widget: "text" }
+              - label: "Odrážkový seznam"
+                name: "ul"
+                widget: "object"
+                fields:
+                  - label: "Položky"
+                    name: "items"
+                    widget: "list"
+                    field: { label: "Text", name: "item", widget: "string" }
 
       - label: "O webu"
         name: "about_site_content"

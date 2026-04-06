@@ -1,10 +1,66 @@
 {
-  "title": "Kontakt",
-  "intro": "Máš dotaz nebo potřebuješ poradit s výběrem? Pokud si nejsi jistá, co je pro tebe a tvého psa vhodné, napiš mi.",
-  "messengerText": "Messenger - nejrychlejší cesta (výběr služby, individuální domluva, hárání fen)",
-  "emailText": "psochazky@gmail.com (dotazy, spolupráce, spolky, dočasné péče)",
-  "locationText": "Brno a okolí",
-  "bookingTitle": "Přihlášení na akce",
-  "individualTitle": "Individuální tréninky",
-  "cooperationTitle": "Spolupráce a speciální případy"
+  "blocks": [
+    { "type": "h1", "text": "Kontakt" },
+    {
+      "type": "p",
+      "text": "Máš dotaz nebo potřebuješ poradit s výběrem? Pokud si nejsi jistá, co je pro tebe a tvého psa vhodné, napiš mi."
+    },
+    {
+      "type": "contact_list",
+      "rows": [
+        {
+          "kind": "messenger",
+          "href": "https://m.me/psochazky",
+          "linkLabel": "Messenger – nejrychlejší cesta",
+          "suffix": "(výběr služby, individuální domluva, hárání fen)"
+        },
+        {
+          "kind": "email",
+          "href": "mailto:psochazky@gmail.com",
+          "linkLabel": "psochazky@gmail.com",
+          "suffix": "(dotazy, spolupráce, spolky, dočasné péče)"
+        },
+        {
+          "kind": "location",
+          "text": "Brno a okolí"
+        }
+      ]
+    },
+    { "type": "h2", "text": "Přihlášení na akce" },
+    {
+      "type": "markdown",
+      "body": "Na socializační procházky, výlety i individuální tréninky se přihlašuješ online přes rezervační systém [BOOQITO](https://psochazky.booqito.com/)."
+    },
+    {
+      "type": "ul",
+      "items": ["výběr termínu", "přehled volných míst", "platba předem (doporučený QR kód / platební brána)"]
+    },
+    {
+      "type": "markdown",
+      "body": "Platba potvrzuje místo na akci.\n\nAktuální termíny a přihlášení najdeš na stránce [Aktuální akce](aktualni-akce.html)."
+    },
+    { "type": "h2", "text": "Individuální tréninky" },
+    {
+      "type": "p",
+      "text": "Termíny individuálních lekcí se po zakoupení permanentky domlouvají výhradně ve zprávě na Messengeru."
+    },
+    {
+      "type": "p",
+      "text": "Rezervační systém slouží pouze k nákupu, ne k výběru termínu."
+    },
+    { "type": "h2", "text": "Spolupráce a speciální případy" },
+    {
+      "type": "ul",
+      "items": ["spolky a organizace", "dočasné péče", "socializace psů pro lepší uplatnění", "asistenční a pracovní psi"]
+    },
+    {
+      "type": "p",
+      "text": "Týmy z dočasné péče mají vstup zdarma na:"
+    },
+    {
+      "type": "ul",
+      "items": ["vodítkové socializační procházky", "socializační procházky PRO"]
+    },
+    { "type": "p", "text": "Stačí se ozvat předem." }
+  ]
 }

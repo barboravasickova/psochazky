@@ -1,9 +1,79 @@
 {
-  "title": "O mně",
-  "intro": "Cvičíme psy mezi psy.",
-  "section1Title": "Proč Psocházky",
-  "section2Title": "Jak pracuji",
-  "section3Title": "Pro koho to je",
-  "section4Title": "Spolupráce a přesah",
-  "quote": "Nemusíš mít ideálního psa. Stačí, že to nechceš vzdát."
+  "blocks": [
+    { "type": "h1", "text": "O mně" },
+    { "type": "p", "className": "page-content__intro", "text": "Cvičíme psy mezi psy." },
+    {
+      "type": "article_intro",
+      "paragraphs": [
+        "Pracuji se psy, kteří jsou reaktivní, nejistí, přetížení nebo nároční – se psy, u kterých se společné procházky změnily ve stres, napětí nebo pocit selhání. A s lidmi, kteří už nechtějí každý výstup ven řešit jako problém.",
+        "Ke socializaci a výcviku psů mě nepřivedla teorie, ale vlastní zkušenost se psem, který svět nezvládal."
+      ]
+    },
+    {
+      "type": "figure",
+      "src": "images/sarka-tig.jpg",
+      "alt": "Šárka Trnečková se psem"
+    },
+    { "type": "hr" },
+    { "type": "h2", "text": "Proč Psocházky" },
+    {
+      "type": "p",
+      "text": "Psocházky vznikly z praxe – z práce s lidmi, kteří už vyzkoušeli rady z internetu, slyšeli, že jejich pes je dominantní, nevychovaný, agresivní nebo nezvladatelný – a přesto pořád nevěděli, co mají dělat venku mezi lidmi a psy."
+    },
+    {
+      "type": "p",
+      "text": "Skupinový výcvik sám o sobě často nestačí. Izolace problém neřeší. A nahodilé pouštění psů dohromady už vůbec ne."
+    },
+    {
+      "type": "p",
+      "text": "Proto pracuji v reálném prostředí – mezi psy, lidmi a podněty, se kterými se potkáváte každý den."
+    },
+    { "type": "hr" },
+    { "type": "h2", "text": "Jak pracuji" },
+    {
+      "type": "p",
+      "text": "Neslibuji rychlé opravy ani zázraky přes noc. Pracuji systematicky, s respektem k psovi i člověku a s ohledem na to, co je dlouhodobě udržitelné."
+    },
+    {
+      "type": "p",
+      "text": "Cílem není dokonalý pes – cílem je vyrovnanější pes a člověk, který ví, co dělá."
+    },
+    {
+      "type": "p",
+      "text": "Neučíme psy fungovat na cvičišti. Učíme je fungovat venku."
+    },
+    { "type": "hr" },
+    { "type": "h2", "text": "Pro koho to je" },
+    { "type": "p", "text": "Pracuji s lidmi, kteří:" },
+    {
+      "type": "ul",
+      "items": [
+        "nechtějí se svým psem bojovat",
+        "nechtějí se světu vyhýbat",
+        "jsou ochotní převzít zodpovědnost a něco změnit"
+      ]
+    },
+    {
+      "type": "quote_bubble",
+      "text": "Nemusíš mít ideálního psa.\nStačí, že to nechceš vzdát."
+    },
+    { "type": "hr" },
+    { "type": "h2", "text": "Spolupráce a přesah" },
+    {
+      "type": "p",
+      "text": "Spolupracuji také s lidmi a organizacemi, které řeší socializaci psů v dočasné péči nebo přípravu psů na náročnější fungování ve společnosti."
+    },
+    {
+      "type": "p",
+      "text": "Pro tyto případy nabízím účast na vybraných socializačních procházkách zdarma – aby psi měli lepší start a větší šanci obstát v běžném světě."
+    },
+    {
+      "type": "cta",
+      "buttons": [
+        { "text": "Socializační procházky", "href": "socializacni-prochazky.html", "external": false },
+        { "text": "Služby", "href": "dalsi-sluzby.html", "external": false },
+        { "text": "Kontakt / Přihlášení", "href": "kontakt.html", "external": false }
+      ]
+    }
+  ]
 }
