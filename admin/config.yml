@@ -83,7 +83,8 @@ collections:
               - label: "Oddělovač"
                 name: "hr"
                 widget: "object"
-                fields: []
+                fields:
+                  - { label: "Typ", name: "_divider", widget: "hidden", default: "hr" }
               - label: "Nadpis H2"
                 name: "h2"
                 widget: "object"
@@ -162,7 +163,8 @@ collections:
                       - label: "Oddělovač"
                         name: "hr"
                         widget: "object"
-                        fields: []
+                        fields:
+                          - { label: "Typ", name: "_divider", widget: "hidden", default: "hr" }
                       - label: "Mřížka cen"
                         name: "price_grid"
                         widget: "object"
@@ -211,7 +213,8 @@ collections:
               - label: "Oddělovač"
                 name: "hr"
                 widget: "object"
-                fields: []
+                fields:
+                  - { label: "Typ", name: "_divider", widget: "hidden", default: "hr" }
               - label: "CTA tlačítka"
                 name: "cta"
                 widget: "object"
