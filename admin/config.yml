@@ -1,18 +1,143 @@
 backend:
   name: github
-  repo: REPLACE_WITH_YOUR_GITHUB_REPO
+  repo: barboravasickova/psochazky
   branch: main
-  base_url: REPLACE_WITH_OAUTH_PROVIDER_URL
+  base_url: https://netlify-cms-github-oauth-provider-bay.vercel.app
   auth_endpoint: auth
 
-site_url: REPLACE_WITH_PUBLIC_WEBSITE_URL
-display_url: REPLACE_WITH_PUBLIC_WEBSITE_URL
+site_url: https://psochazky.cz
+display_url: https://psochazky.cz
 logo_url: /images/logo-psochazky.svg
+locale: cs
 
-media_folder: "images/blog"
-public_folder: "/images/blog"
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
+  - name: "web_content"
+    label: "Texty webu"
+    files:
+      - label: "Úvodní stránka"
+        name: "home_content"
+        file: "data/home-content.json"
+        format: "json"
+        fields:
+          - { label: "Hero nadpis", name: "heroTitle", widget: "string" }
+          - { label: "Hero popis", name: "heroDescription", widget: "text" }
+          - { label: "Hero tlačítko", name: "heroButtonText", widget: "string" }
+          - { label: "Manifest nadpis", name: "manifestTitle", widget: "string" }
+          - { label: "Manifest text", name: "manifestText", widget: "text" }
+          - { label: "Manifest tlačítko", name: "manifestButtonText", widget: "string" }
+          - { label: "Nadpis služeb", name: "servicesTitle", widget: "string" }
+          - label: "Karty služeb"
+            name: "servicesCards"
+            widget: "list"
+            fields:
+              - { label: "Nadpis", name: "title", widget: "string" }
+              - { label: "Popis", name: "text", widget: "text" }
+              - { label: "Text tlačítka", name: "buttonText", widget: "string" }
+          - { label: "Citace", name: "quoteText", widget: "text" }
+          - { label: "Podpis u citace", name: "quoteSignature", widget: "text" }
+          - { label: "Nadpis Pro koho", name: "forWhomTitle", widget: "string" }
+          - label: "Body Pro koho"
+            name: "forWhomItems"
+            widget: "list"
+            field: { label: "Bod", name: "item", widget: "string" }
+          - { label: "Tlačítko Pro koho", name: "forWhomButtonText", widget: "string" }
+          - { label: "Spodní text úvodu", name: "bottomText", widget: "text" }
+
+      - label: "O mně"
+        name: "about_content"
+        file: "data/o-mne-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Úvodní věta", name: "intro", widget: "string" }
+          - { label: "Sekce 1 nadpis", name: "section1Title", widget: "string" }
+          - { label: "Sekce 2 nadpis", name: "section2Title", widget: "string" }
+          - { label: "Sekce 3 nadpis", name: "section3Title", widget: "string" }
+          - { label: "Sekce 4 nadpis", name: "section4Title", widget: "string" }
+          - { label: "Citace", name: "quote", widget: "text" }
+
+      - label: "Ceník"
+        name: "pricing_content"
+        file: "data/cenik-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Úvodní text 1", name: "intro1", widget: "string" }
+          - { label: "Úvodní text 2", name: "intro2", widget: "string" }
+          - { label: "Nadpis Socializační procházky", name: "sectionWalksTitle", widget: "string" }
+          - { label: "Nadpis Individuální trénink", name: "sectionIndividualTitle", widget: "string" }
+          - { label: "Nadpis Výlet", name: "sectionTripTitle", widget: "string" }
+          - { label: "Nadpis Jak fungují platby", name: "sectionPaymentsTitle", widget: "string" }
+          - { label: "Citace", name: "quote", widget: "text" }
+          - label: "Platební body"
+            name: "paymentItems"
+            widget: "list"
+            field: { label: "Bod", name: "item", widget: "string" }
+          - { label: "Poznámka k platbě", name: "paymentNote", widget: "string" }
+          - label: "CTA tlačítka"
+            name: "ctaButtons"
+            widget: "list"
+            fields:
+              - { label: "Text tlačítka", name: "text", widget: "string" }
+
+      - label: "Další služby"
+        name: "extra_services_content"
+        file: "data/dalsi-sluzby-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Podnadpis", name: "lead", widget: "string" }
+          - { label: "Nadpis Individuální tréninky", name: "section1Title", widget: "string" }
+          - { label: "Nadpis S čím pracujeme", name: "section2Title", widget: "string" }
+          - { label: "Nadpis Jak probíhají", name: "section3Title", widget: "string" }
+          - { label: "Nadpis Výlety", name: "section4Title", widget: "string" }
+          - { label: "Nadpis Proč fungují", name: "section5Title", widget: "string" }
+          - { label: "Nadpis Pro koho to je", name: "section6Title", widget: "string" }
+
+      - label: "Jak to funguje"
+        name: "how_it_works_content"
+        file: "data/jak-to-funguje-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Úvodní věta", name: "intro", widget: "text" }
+          - { label: "Nadpis 1", name: "section1Title", widget: "string" }
+          - { label: "Nadpis 2", name: "section2Title", widget: "string" }
+          - { label: "Nadpis 3", name: "section3Title", widget: "string" }
+          - { label: "Nadpis 4", name: "section4Title", widget: "string" }
+          - { label: "Nadpis 5", name: "section5Title", widget: "string" }
+          - { label: "Nadpis 6", name: "section6Title", widget: "string" }
+          - { label: "Nadpis 7", name: "section7Title", widget: "string" }
+
+      - label: "Kontakt"
+        name: "contact_content"
+        file: "data/kontakt-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Úvodní text", name: "intro", widget: "text" }
+          - { label: "Messenger text", name: "messengerText", widget: "string" }
+          - { label: "E-mail text", name: "emailText", widget: "string" }
+          - { label: "Lokalita text", name: "locationText", widget: "string" }
+          - { label: "Nadpis Přihlášení", name: "bookingTitle", widget: "string" }
+          - { label: "Nadpis Individuální tréninky", name: "individualTitle", widget: "string" }
+          - { label: "Nadpis Spolupráce", name: "cooperationTitle", widget: "string" }
+
+      - label: "O webu"
+        name: "about_site_content"
+        file: "data/o-webu-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Nadpis 1. blok", name: "firstHeading", widget: "string" }
+          - { label: "Text 1. blok", name: "firstText", widget: "text" }
+          - { label: "Nadpis 2. blok", name: "secondHeading", widget: "string" }
+          - { label: "Text 2. blok", name: "secondText", widget: "text" }
+          - { label: "Text tlačítka zpět", name: "backButtonText", widget: "string" }
+
   - name: "blog_data"
     label: "Blog příspěvky"
     files:
@@ -39,6 +164,6 @@ collections:
                     label: "Odstavec / nadpis",
                     name: "paragraph",
                     widget: "text",
-                    hint: "Pro podnadpis v článku začni řádek ## nebo ### (mezera za křížky).",
+                    hint: "Pro podnadpis v článku začni řádek ## nebo ### (mezera za křížky)."
                   }
               - { label: "Publikováno", name: "published", widget: "boolean", default: true }

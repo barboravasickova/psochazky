@@ -1,12 +1,11 @@
-# Blog a admin - další kroky
+# Decap CMS - další kroky
 
 ## Co je už připraveno
 
-- `blog.html` - výpis článků
-- `blog-detail.html` - detail článku
-- `data/blog-posts.json` - datový soubor článků
 - `admin/index.html` + `admin/config.yml` - Decap CMS admin
-- Odkaz `Blog` v hlavní navigaci i patičce
+- Datové soubory v `data/` pro jednotlivé sekce webu
+- Blog (`blog.html`, `blog-detail.html`, `data/blog-posts.json`)
+- CMS načítání textů přes skripty v `js/cms-*.js`
 
 ## 1) Doplňte hodnoty v `admin/config.yml`
 
@@ -44,7 +43,7 @@ Možnosti:
 ## 5) Jak klientka pracuje
 
 1. Otevře `/admin`
-2. V sekci **Blog příspěvky** otevře soubor **Příspěvky**
+2. V sekci **Texty webu** upraví stránku nebo v sekci **Blog příspěvky** otevře soubor **Příspěvky**
 3. Přidá, upraví nebo smaže příspěvek
 4. Klikne **Publish**
 

@@ -1,0 +1,21 @@
+{
+  "title": "Ceník",
+  "intro1": "Ceny platí za tým - člověk + pes / psi.",
+  "intro2": "Jednoho nebo dva psy? Cena se nemění.",
+  "sectionWalksTitle": "Socializační procházky",
+  "sectionIndividualTitle": "Individuální trénink",
+  "sectionTripTitle": "Výlet",
+  "sectionPaymentsTitle": "Jak fungují platby",
+  "quote": "Neučíme psa chovat se na tréninku. Učíme ho fungovat venku.",
+  "paymentItems": [
+    "obdržíš platební údaje",
+    "doporučená platba je QR kódem",
+    "případně lze zaplatit přes platební bránu"
+  ],
+  "paymentNote": "Platba potvrzuje místo na akci.",
+  "ctaButtons": [
+    { "text": "Přihlášení přes BOOQITO" },
+    { "text": "Jak služby fungují" },
+    { "text": "Kontakt" }
+  ]
+}
