@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-04-07T05:24:35.256Z",
+  "syncedAt": "2026-04-08T05:25:50.149Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -9,7 +9,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ DNES",
+        "DOSTUPNÉ 14.4.",
         "18:00"
       ],
       "status": "available",
@@ -32,10 +32,10 @@
       "title": "Individuální trénink",
       "url": "https://psochazky.booqito.com/individualni-trenink-p8801",
       "image": "https://www.skvelecesko.cz/upload/1769074372_6971eec49832d_310x186.jpg",
-      "price": "od 500 Kč",
+      "price": "od 700 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 9.4.",
+        "DOSTUPNÉ 10.4.",
         "9:00"
       ],
       "status": "available",
