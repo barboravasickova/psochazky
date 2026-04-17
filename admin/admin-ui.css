@@ -1,0 +1,20 @@
+/* Decap CMS – větší přehlednost pro netechnické editory */
+body {
+  font-size: 16px;
+}
+
+/* Širší hlavní sloupec formuláře, kde to prohlížeč dovolí */
+[class*="AppMainContent"],
+[class*="Pane"] {
+  max-width: 960px;
+}
+
+/* Delší textové pole pro delší odstavce */
+textarea {
+  min-height: 7rem;
+}
+
+/* Oddělení sekcí (object widgety) */
+[class*="ObjectWidget"] > [class*="TopLevelPanel"] {
+  margin-bottom: 0.75rem;
+}

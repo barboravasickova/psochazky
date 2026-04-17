@@ -10,6 +10,9 @@ display_url: https://psochazky.cz
 logo_url: /images/logo-psochazky.svg
 locale: cs
 
+editor:
+  preview: false
+
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
@@ -22,36 +25,75 @@ collections:
         file: "data/home-content.json"
         format: "json"
         fields:
-          - { label: "Hero nadpis", name: "heroTitle", widget: "string" }
-          - { label: "Hero popis", name: "heroDescription", widget: "text" }
-          - { label: "Hero tlačítko", name: "heroButtonText", widget: "string" }
-          - { label: "Manifest nadpis", name: "manifestTitle", widget: "string" }
-          - { label: "Manifest text", name: "manifestText", widget: "text" }
-          - { label: "Manifest tlačítko", name: "manifestButtonText", widget: "string" }
-          - { label: "Nadpis služeb", name: "servicesTitle", widget: "string" }
-          - {
-              label: "Úvod sekce služeb (text pod nadpisem)",
-              name: "servicesIntroText",
-              widget: "text",
-              required: false,
-              hint: "Text pod „Co u mě najdeš“ před kartami služeb (prostý text, bez HTML)."
-            }
-          - label: "Karty služeb"
-            name: "servicesCards"
-            widget: "list"
+          - label: "1) Horní část – titulek u fotky (Hero)"
+            name: "hero"
+            widget: "object"
+            collapsed: false
             fields:
-              - { label: "Nadpis", name: "title", widget: "string" }
-              - { label: "Popis", name: "text", widget: "text" }
-              - { label: "Text tlačítka", name: "buttonText", widget: "string" }
-          - { label: "Citace", name: "quoteText", widget: "text" }
-          - { label: "Podpis u citace", name: "quoteSignature", widget: "text" }
-          - { label: "Nadpis Pro koho", name: "forWhomTitle", widget: "string" }
-          - label: "Body Pro koho"
-            name: "forWhomItems"
-            widget: "list"
-            field: { label: "Bod", name: "item", widget: "string" }
-          - { label: "Tlačítko Pro koho", name: "forWhomButtonText", widget: "string" }
-          - { label: "Spodní text úvodu", name: "bottomText", widget: "text" }
+              - { label: "Hlavní nadpis", name: "heroTitle", widget: "string", hint: "Krátký titulek vedle nebo nad fotkou." }
+              - { label: "Popis pod nadpisem", name: "heroDescription", widget: "text", hint: "Delší věta nebo odstavec. Bez HTML." }
+              - { label: "Text na zeleném tlačítku", name: "heroButtonText", widget: "string" }
+
+          - label: "2) Modrá lišta s mottem (Manifest)"
+            name: "manifest"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Nadpis", name: "manifestTitle", widget: "string" }
+              - { label: "Text v pruhu", name: "manifestText", widget: "text", hint: "Prostý text. Bez HTML." }
+              - { label: "Text na tlačítku", name: "manifestButtonText", widget: "string" }
+
+          - label: "3) Sekce „Co u mě najdeš“ (služby + karty)"
+            name: "services"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Nadpis sekce", name: "servicesTitle", widget: "string" }
+              - {
+                  label: "Úvodní text pod nadpisem",
+                  name: "servicesIntroText",
+                  widget: "text",
+                  required: false,
+                  hint: "Zobrazí se před kartami. Pro SEO klíčová slova klidně sem – stále bez HTML, jen text."
+                }
+              - label: "Karty (obvykle dvě)"
+                name: "servicesCards"
+                widget: "list"
+                summary: "{{fields.title}}"
+                collapsed: true
+                fields:
+                  - { label: "Nadpis na kartě", name: "title", widget: "string" }
+                  - { label: "Text na kartě", name: "text", widget: "text" }
+                  - { label: "Text na tlačítku", name: "buttonText", widget: "string" }
+
+          - label: "4) Citace (šedý blok s uvozovkami)"
+            name: "quote"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Text citace", name: "quoteText", widget: "text", hint: "Uvozovky můžeš nechat v textu." }
+              - { label: "Podpis (jméno, titul…)", name: "quoteSignature", widget: "text", hint: "Nový řádek = Enter v editoru." }
+
+          - label: "5) Sekce „Pro koho jsou Psocházky?“"
+            name: "forWhom"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Nadpis sekce", name: "forWhomTitle", widget: "string" }
+              - label: "Odrážky se seznamem výhod"
+                name: "forWhomItems"
+                widget: "list"
+                summary: "{{fields.item}}"
+                collapsed: true
+                field: { label: "Text odrážky", name: "item", widget: "string" }
+              - { label: "Text na spodním tlačítku", name: "forWhomButtonText", widget: "string", hint: "Např. Kontakt." }
+
+          - label: "6) Závěrečný odstavec (zelený blok dole)"
+            name: "bottom"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Text", name: "bottomText", widget: "text" }
 
       - label: "O mně"
         name: "about_content"
