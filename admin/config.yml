@@ -29,6 +29,13 @@ collections:
           - { label: "Manifest text", name: "manifestText", widget: "text" }
           - { label: "Manifest tlačítko", name: "manifestButtonText", widget: "string" }
           - { label: "Nadpis služeb", name: "servicesTitle", widget: "string" }
+          - {
+              label: "Úvod sekce služeb (text pod nadpisem)",
+              name: "servicesIntroText",
+              widget: "text",
+              required: false,
+              hint: "Text pod „Co u mě najdeš“ před kartami služeb (prostý text, bez HTML)."
+            }
           - label: "Karty služeb"
             name: "servicesCards"
             widget: "list"

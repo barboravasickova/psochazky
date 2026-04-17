@@ -21,6 +21,9 @@
     const servicesTitle = document.querySelector(".services .section-title");
     if (servicesTitle && data.servicesTitle) servicesTitle.textContent = data.servicesTitle;
 
+    const servicesIntro = document.querySelector(".services > .container > p");
+    if (servicesIntro && data.servicesIntroText) servicesIntro.textContent = data.servicesIntroText;
+
     const serviceCards = document.querySelectorAll(".service__card");
     if (Array.isArray(data.servicesCards)) {
       data.servicesCards.forEach((card, index) => {
