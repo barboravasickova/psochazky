@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-05-08T05:39:07.316Z",
+  "syncedAt": "2026-05-09T06:03:19.450Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -22,7 +22,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 9.5.",
+        "DOSTUPNÉ DNES",
         "9:00"
       ],
       "status": "available",
@@ -35,8 +35,8 @@
       "price": "od 700 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 10.5.",
-        "10:00"
+        "DOSTUPNÉ 15.5.",
+        "15:00"
       ],
       "status": "available",
       "isWidgetLink": false
