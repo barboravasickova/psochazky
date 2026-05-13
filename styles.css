@@ -575,6 +575,11 @@ body.nav-open .navigation {
   margin-right: auto;
 }
 
+/* Hlavní obrázek článku – větší mezera před textem (první nadpis má margin-top: 0) */
+#blogPostContent > .article-figure {
+  margin-bottom: 2.25rem;
+}
+
 .article-two-col {
   display: grid;
   gap: 1.5rem 2rem;
