@@ -1739,14 +1739,14 @@ body.nav-open .navigation {
   text-decoration: none;
 }
 
-/* Odkazy (ne tlačítka) – tmavší varianta secondary */
-.page-content a:not(.btn) {
+/* Odkazy (ne tlačítka) – tmavší varianta secondary (karty blogu vyloučeny – celý blok je v <a>) */
+.page-content a:not(.btn):not(.blog-card__link) {
   color: var(--color-secondary-dark);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
-.page-content a:not(.btn):hover {
+.page-content a:not(.btn):not(.blog-card__link):hover {
   color: var(--color-secondary-darker);
 }
 
