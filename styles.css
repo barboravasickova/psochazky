@@ -244,9 +244,9 @@ body.nav-open .navigation {
 .hero::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 49.8%;
   bottom: 0;
-  transform: translate(-50%, 55%);
+  transform: translate(-49.99%, 55%);
   width: 100%;
   max-width: 100%;
   aspect-ratio: 390 / 196; /* poměr z blob-bottom.svg */
@@ -282,6 +282,10 @@ body.nav-open .navigation {
 .hero__description {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
+}
+
+.hero__description-lead {
+  font-weight: 700;
 }
 
 .hero h1,

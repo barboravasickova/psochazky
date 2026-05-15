@@ -30,7 +30,8 @@ collections:
         fields:
           # --- Horní část u fotky (Hero) ---
           - { label: "Hero: hlavní nadpis", name: "heroTitle", widget: "string", hint: "Velký titulek u úvodní fotky." }
-          - { label: "Hero: popis pod nadpisem", name: "heroDescription", widget: "text", hint: "Bez HTML, jen souvislý text." }
+          - { label: "Hero: tučný úvod popisu", name: "heroDescriptionLead", widget: "string", hint: "První věta pod nadpisem, zobrazí se tučně." }
+          - { label: "Hero: zbytek popisu", name: "heroDescription", widget: "text", hint: "Text za tučným úvodem. Bez HTML." }
           - { label: "Hero: text zeleného tlačítka", name: "heroButtonText", widget: "string" }
           # --- Modrá lišta (Manifest) ---
           - { label: "Manifest: nadpis", name: "manifestTitle", widget: "string" }

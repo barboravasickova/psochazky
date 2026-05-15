@@ -10,6 +10,28 @@
       return data[key];
     }
 
+    function setHeadingWithLineBreaks(el, text) {
+      el.textContent = "";
+      String(text)
+        .split("\n")
+        .forEach((line, index) => {
+          if (index > 0) el.appendChild(document.createElement("br"));
+          el.appendChild(document.createTextNode(line));
+        });
+    }
+
+    function setHeroDescription(el, lead, body) {
+      el.textContent = "";
+      if (lead) {
+        const strong = document.createElement("strong");
+        strong.className = "hero__description-lead";
+        strong.textContent = lead;
+        el.appendChild(strong);
+        if (body) el.appendChild(document.createTextNode(" "));
+      }
+      if (body) el.appendChild(document.createTextNode(body));
+    }
+
     const heroTitle = document.querySelector(".hero__text-content h1");
     const heroDescription = document.querySelector(".hero__description");
     const heroButton = document.querySelector(".hero__text-content .btn");
@@ -18,8 +40,9 @@
       if (v) heroTitle.textContent = v;
     }
     if (heroDescription) {
-      const v = pick("hero", "heroDescription");
-      if (v) heroDescription.textContent = v;
+      const lead = pick("hero", "heroDescriptionLead");
+      const body = pick("hero", "heroDescription");
+      if (lead || body) setHeroDescription(heroDescription, lead, body);
     }
     if (heroButton) {
       const v = pick("hero", "heroButtonText");
@@ -31,7 +54,7 @@
     const manifestButton = document.querySelector(".manifest .btn");
     if (manifestTitle) {
       const v = pick("manifest", "manifestTitle");
-      if (v) manifestTitle.textContent = v;
+      if (v) setHeadingWithLineBreaks(manifestTitle, v);
     }
     if (manifestText) {
       const v = pick("manifest", "manifestText");
