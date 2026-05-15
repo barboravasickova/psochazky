@@ -1614,6 +1614,27 @@ body.nav-open .navigation {
   margin-bottom: 1.75rem;
 }
 
+.for-whom .checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.for-whom .checklist__icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin: 0.15em 0 0;
+}
+
+.for-whom .checklist__text {
+  flex: 1;
+  min-width: 0;
+}
+
 .for-whom__image-wrapper {
   display: flex;
   justify-content: center;
@@ -2229,7 +2250,7 @@ body.nav-open .navigation {
   .for-whom .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 1rem;
     align-items: center;
     max-width: 1000px;
     margin-left: auto;
@@ -2261,11 +2282,11 @@ body.nav-open .navigation {
 
   .for-whom .checklist {
     align-items: flex-start;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
-  .checklist li {
-    font-size: 1.0625rem;
+  .for-whom .checklist li {
+    font-size: 1.15rem;
   }
 
   /* Psochazky – logo nahoře, text pod ním, vše vycentrované */
@@ -2370,6 +2391,17 @@ body.nav-open .navigation {
   }
 
   .footer__nav ul {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: repeat(4, auto);
+    grid-auto-flow: column;
+    column-gap: 3rem;
+    row-gap: 0.25rem;
+    width: max-content;
+  }
+
+  .footer__nav li + li {
     margin-top: 0;
   }
 

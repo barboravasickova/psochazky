@@ -115,9 +115,16 @@
         const text = typeof entry === "string" ? entry : entry && entry.item;
         const li = listItems[index];
         if (!li || !text) return;
-        const icon = li.querySelector("img");
-        li.textContent = text;
-        if (icon) li.prepend(icon);
+        let textEl = li.querySelector(".checklist__text");
+        if (!textEl) {
+          const icon = li.querySelector(".checklist__icon, img");
+          li.replaceChildren();
+          if (icon) li.appendChild(icon);
+          textEl = document.createElement("span");
+          textEl.className = "checklist__text";
+          li.appendChild(textEl);
+        }
+        textEl.textContent = text;
       });
     }
     const forWhomButton = document.querySelector(".for-whom__action .button");
