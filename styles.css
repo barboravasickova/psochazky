@@ -209,15 +209,19 @@ body.nav-open .navigation {
     padding: 0;
   }
 
+  .nav__link,
+  .nav__dropdown-link {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--font-nadpisy);
+    text-align: center;
+  }
+
   .nav__dropdown-link {
     display: block;
     text-decoration: none;
     color: var(--color-primary);
-    font-size: 1.5rem;
-    font-weight: 700;
-    font-family: var(--font-nadpisy);
     padding: 0.25rem 0;
-    text-align: center;
   }
 
   .nav__dropdown-link:hover,
