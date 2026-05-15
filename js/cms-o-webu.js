@@ -14,16 +14,16 @@
     if (title && data.title) title.textContent = data.title;
 
     if (blocks[0]) {
-      const h2 = blocks[0].querySelector("h2");
-      const p = blocks[0].querySelectorAll("p")[1];
-      if (h2 && data.firstHeading) h2.textContent = data.firstHeading;
+      const headingText = blocks[0].querySelector(".o-webu__heading-text");
+      const p = blocks[0].querySelector("p");
+      if (headingText && data.firstHeading) headingText.textContent = data.firstHeading;
       if (p && data.firstText) p.textContent = data.firstText;
     }
 
     if (blocks[1]) {
-      const h2 = blocks[1].querySelector("h2");
-      const p = blocks[1].querySelectorAll("p")[1];
-      if (h2 && data.secondHeading) h2.textContent = data.secondHeading;
+      const headingText = blocks[1].querySelector(".o-webu__heading-text");
+      const p = blocks[1].querySelector("p");
+      if (headingText && data.secondHeading) headingText.textContent = data.secondHeading;
       if (p && data.secondText) p.textContent = data.secondText;
     }
 
