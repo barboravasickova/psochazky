@@ -146,7 +146,7 @@
     {
       "type": "cenik_service_card",
       "headingId": "cenik-platby",
-      "title": "Jak fungují platby",
+      "title": "Jak fungují platby?",
       "sectionClass": "cenik-service-card--muted",
       "blocks": [
         {

@@ -880,8 +880,9 @@ body.nav-open .navigation {
 }
 
 .cenik-service-card--muted {
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
 }
 
@@ -909,6 +910,16 @@ body.nav-open .navigation {
 
 .cenik .cenik__grid--solo .price-item--card {
   max-width: none;
+  padding: 1rem 0.95rem 1.25rem;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.08);
+}
+
+.cenik__grid--solo .price-item--card .price-item__body {
+  margin-top: 0.15rem;
+}
+
+.cenik__grid--solo .price-item--card .price-item__body p:last-child {
+  margin-bottom: 0;
 }
 
 .cenik .cenik__grid--2 {
@@ -1118,9 +1129,10 @@ body.nav-open .navigation {
 }
 
 .cenik__grid--cards .price-item--card:last-child,
-.cenik__grid--row .price-item--card:last-child {
+.cenik__grid--row .price-item--card:last-child,
+.cenik__grid--solo .price-item--card:last-child {
   border-bottom: 1px solid rgba(11, 51, 41, 0.08);
-  padding-bottom: 1.1rem;
+  padding-bottom: 1.25rem;
 }
 
 .cenik__section > .price-item:last-child {
