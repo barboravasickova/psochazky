@@ -318,8 +318,7 @@ body.nav-open .navigation {
 
 .manifest__content,
 .services p,
-.psochazky__text p,
-.quote__text {
+.psochazky__text p {
   margin-bottom: 1.5rem;
 }
 
@@ -1550,7 +1549,7 @@ body.nav-open .navigation {
 
 .quote {
   background-color: var(--color-bg);
-  padding: 2.5rem 0;
+  padding: 3rem 1.25rem 0.5rem;
   margin-top: -5rem;
   text-align: center;
 }
@@ -1570,11 +1569,14 @@ body.nav-open .navigation {
 }
 
 .quote__content {
-  background-color: #F0E6D2; 
-  padding: 5rem 1.5rem 2rem;
-  border-radius: 1.5rem;
-  margin: -5rem auto;
-  max-width: 25rem;
+  position: relative;
+  width: 100%;
+  max-width: 52rem;
+  margin: -5rem auto 0;
+  padding: 2.5rem 1.25rem 1.75rem;
+  background-color: var(--color-secondary-light);
+  border-radius: 1.75rem;
+  box-shadow: 0 14px 48px rgba(11, 51, 41, 0.01);
 }
 
 .quote__btn {
@@ -1582,24 +1584,42 @@ body.nav-open .navigation {
   margin-top: 1.5rem;
 }
 
+.quote__blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
 .quote__text {
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.4;
+  max-width: 40rem;
   margin: 0 auto;
-  max-width: 32rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.75;
   font-family: var(--font-nadpisy);
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.quote__text + .quote__text {
+  margin-top: 1.35rem;
 }
 
 .quote__signature {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4;
-  margin: 0 auto;
-  max-width: 32rem;
-  font-family: var(--font-nadpisy);
-  opacity: 0.5;
-  padding-top: 1rem;
+  margin: 1.35rem auto 0;
+  max-width: 40rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.5;
+  font-family: var(--font-text);
+  color: var(--color-primary);
+  opacity: 0.6;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.quote__signature p {
+  margin: 0;
 }
 
 .for-whom {
@@ -2225,21 +2245,36 @@ body.nav-open .navigation {
     margin-bottom: 0.75rem;
   }
 
-  /* Quote – širší, elegantnější */
+  /* Quote – wide statement card */
   .quote {
-    padding: 4rem 0;
+    padding: 5.5rem 0 7rem;
     margin-top: -6rem;
   }
 
+  .quote .container {
+    max-width: 60rem;
+  }
+
   .quote__content {
-    max-width: 36rem;
-    padding: 5rem 3rem 2.5rem;
-    margin: -5rem auto;
+    max-width: 60rem;
+    padding: 4.75rem 2.75rem 2.5rem;
+    margin-top: -5.5rem;
+    border-radius: 2rem;
   }
 
   .quote__text {
-    font-size: 1.35rem;
-    line-height: 1.5;
+    max-width: 46rem;
+    font-size: 1.3rem;
+    line-height: 1.8;
+  }
+
+  .quote__text + .quote__text {
+    margin-top: 1.5rem;
+  }
+
+  .quote__signature {
+    margin-top: 1.75rem;
+    font-size: 0.85rem;
   }
 
   /* For-whom – dvousloupcový layout */
@@ -2307,7 +2342,7 @@ body.nav-open .navigation {
     gap: 2rem;
     align-items: center;
     text-align: center;
-    max-width: 640px;
+    max-width: 60rem;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2327,11 +2362,11 @@ body.nav-open .navigation {
 
   .psochazky__text {
     text-align: center;
-    max-width: 520px;
+    max-width: 60rem;
   }
 
   .psochazky__text p {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.75;
   }
 

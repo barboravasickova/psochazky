@@ -92,15 +92,27 @@
       });
     }
 
-    const quoteText = document.querySelector(".quote__text");
+    const quoteBlock = document.querySelector(".quote__blockquote");
     const quoteSignature = document.querySelector(".quote__signature p");
-    if (quoteText) {
+    if (quoteBlock) {
       const v = pick("quote", "quoteText");
-      if (v) quoteText.textContent = v;
+      if (v) {
+        const clean = String(v)
+          .replace(/^[\s"„"']+|[\s"„"']+$/g, "")
+          .trim();
+        const parts = clean.split(/\n\n+/).filter(Boolean);
+        quoteBlock.replaceChildren();
+        parts.forEach((part) => {
+          const p = document.createElement("p");
+          p.className = "quote__text";
+          p.textContent = part.trim();
+          quoteBlock.appendChild(p);
+        });
+      }
     }
     if (quoteSignature) {
       const v = pick("quote", "quoteSignature");
-      if (v) quoteSignature.textContent = v;
+      if (v) setHeadingWithLineBreaks(quoteSignature, v);
     }
 
     const forWhomTitle = document.querySelector(".for-whom .section-title");
