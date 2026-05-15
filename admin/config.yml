@@ -162,7 +162,98 @@ collections:
                     name: "lines"
                     widget: "list"
                     field: { label: "Řádek", name: "line", widget: "string" }
-              - label: "Sekce ceníku"
+              - label: "Karta služby (ceník)"
+                name: "cenik_service_card"
+                widget: "object"
+                fields:
+                  - { label: "ID nadpisu (pro kotvu)", name: "headingId", widget: "string", required: false }
+                  - { label: "Nadpis sekce", name: "title", widget: "string" }
+                  - { label: "Extra třída", name: "sectionClass", widget: "string", required: false }
+                  - label: "Obsah karty"
+                    name: "blocks"
+                    widget: "list"
+                    types:
+                      - label: "Mřížka cen"
+                        name: "price_grid"
+                        widget: "object"
+                        fields:
+                          - { label: "Layout", name: "layout", widget: "select", options: ["cards", "row", "solo", "two"], default: "cards" }
+                          - label: "Položky"
+                            name: "items"
+                            widget: "list"
+                            fields:
+                              - { label: "Název", name: "title", widget: "string" }
+                              - { label: "Částka", name: "amount", widget: "string" }
+                              - { label: "Přípona jednotky", name: "unitSuffix", widget: "string", required: false }
+                              - { label: "Meta", name: "meta", widget: "string", required: false }
+                              - { label: "Varianta", name: "variant", widget: "select", options: ["card", "full", "compact", "solo"], default: "card" }
+                              - label: "Odstavce pod cenou"
+                                name: "bodyLines"
+                                widget: "list"
+                                field: { label: "Řádek", name: "line", widget: "string" }
+                      - label: "Citace (ceník)"
+                        name: "quote_bubble_cenik"
+                        widget: "object"
+                        fields:
+                          - { label: "Text (nový řádek = zalomení)", name: "text", widget: "text" }
+                      - label: "Permanentky (široký box)"
+                        name: "permanentky_box"
+                        widget: "object"
+                        fields:
+                          - { label: "Nadpis", name: "title", widget: "string", default: "Permanentky" }
+                          - label: "Varianty"
+                            name: "items"
+                            widget: "list"
+                            fields:
+                              - { label: "Název", name: "title", widget: "string" }
+                              - { label: "Částka", name: "amount", widget: "string" }
+                              - label: "Texty"
+                                name: "bodyLines"
+                                widget: "list"
+                                field: { label: "Řádek", name: "line", widget: "string" }
+                          - label: "CTA pod boxem"
+                            name: "link"
+                            widget: "object"
+                            required: false
+                            fields:
+                              - { label: "Text tlačítka", name: "buttonText", widget: "string", required: false }
+                              - { label: "URL", name: "href", widget: "string" }
+                              - { label: "Otevřít v novém okně", name: "external", widget: "boolean", default: true, required: false }
+                              - { label: "Poznámka pod tlačítkem", name: "note", widget: "string", required: false }
+                              - { label: "Text před odkazem (starší)", name: "intro", widget: "string", required: false }
+                              - { label: "Text odkazu (starší)", name: "text", widget: "string", required: false }
+                      - label: "Souvislý text"
+                        name: "prose"
+                        widget: "object"
+                        fields:
+                          - { label: "Text", name: "text", widget: "text" }
+                      - label: "Info box"
+                        name: "info_box"
+                        widget: "object"
+                        fields:
+                          - { label: "Tučný nadpis", name: "title", widget: "string" }
+                          - { label: "Text", name: "body", widget: "text" }
+                      - label: "Tlačítko (Booqito)"
+                        name: "cenik_cta"
+                        widget: "object"
+                        fields:
+                          - { label: "Text tlačítka", name: "buttonText", widget: "string" }
+                          - { label: "URL", name: "href", widget: "string" }
+                          - { label: "Otevřít v novém okně", name: "external", widget: "boolean", default: true, required: false }
+                          - { label: "Poznámka pod tlačítkem", name: "note", widget: "string", required: false }
+                      - label: "Platby BOOQITO"
+                        name: "payments"
+                        widget: "object"
+                        fields:
+                          - { label: "Úvodní odstavec", name: "intro", widget: "text" }
+                          - { label: "Tučný řádek (po úvodu)", name: "afterIntroBold", widget: "string" }
+                          - label: "Položky seznamu"
+                            name: "listItems"
+                            widget: "list"
+                            field: { label: "Bod", name: "item", widget: "string" }
+                          - { label: "Text po seznamu (po přihlášení)", name: "afterList", widget: "string", required: false }
+                          - { label: "Poznámka dole", name: "note", widget: "string" }
+              - label: "Sekce ceníku (starší)"
                 name: "cenik_section"
                 widget: "object"
                 fields:
@@ -193,7 +284,7 @@ collections:
                         name: "price_grid"
                         widget: "object"
                         fields:
-                          - { label: "Layout", name: "layout", widget: "select", options: ["two", "solo"], default: "two" }
+                          - { label: "Layout", name: "layout", widget: "select", options: ["cards", "row", "solo", "two"], default: "two" }
                           - label: "Položky"
                             name: "items"
                             widget: "list"
@@ -202,7 +293,7 @@ collections:
                               - { label: "Částka", name: "amount", widget: "string" }
                               - { label: "Přípona jednotky", name: "unitSuffix", widget: "string", required: false }
                               - { label: "Meta", name: "meta", widget: "string", required: false }
-                              - { label: "Varianta", name: "variant", widget: "select", options: ["full", "compact", "solo"], default: "full" }
+                              - { label: "Varianta", name: "variant", widget: "select", options: ["card", "full", "compact", "solo"], default: "full" }
                               - label: "Odstavce pod cenou"
                                 name: "bodyLines"
                                 widget: "list"
@@ -233,6 +324,7 @@ collections:
                             name: "listItems"
                             widget: "list"
                             field: { label: "Bod", name: "item", widget: "string" }
+                          - { label: "Text po seznamu (po přihlášení)", name: "afterList", widget: "string", required: false }
                           - { label: "Poznámka dole", name: "note", widget: "string" }
               - label: "Oddělovač"
                 name: "hr"

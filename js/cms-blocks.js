@@ -21,32 +21,51 @@
   const CONTACT_ICON_WRAP =
     "width: 45px; height: 45px; background-color: #d4a373; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 15px; flex-shrink: 0;";
 
+  function bodyLinesToHtml(lines, wrapperClass) {
+    if (!Array.isArray(lines) || !lines.length) return "";
+    const lineStrs = lines.map((line) =>
+      typeof line === "string" ? line : line && (line.line || line.text || "")
+    );
+    const ps = lineStrs.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
+    return wrapperClass ? `<div class="${wrapperClass}">${ps}</div>` : ps;
+  }
+
+  function renderPriceTop(amount, unitSuffix) {
+    const amountHtml = escapeHtml(amount || "");
+    if (unitSuffix) {
+      return `<p class="price-item__price-top"><span class="price-item__amount">${amountHtml}</span><span class="price-item__unit price-item__unit--suffix">${escapeHtml(unitSuffix)}</span></p>`;
+    }
+    return `<p class="price-item__price-top"><span class="price-item__amount">${amountHtml}</span></p>`;
+  }
+
   function renderPriceArticle(item) {
     const variant = item.variant || "full";
+    const amount = item.amount || "";
+    const unitSuffix = item.unitSuffix;
+
+    if (variant === "card") {
+      const metaHtml = item.meta ? `<p class="price-item__meta">${escapeHtml(item.meta)}</p>` : "";
+      const bodyHtml = bodyLinesToHtml(item.bodyLines, "price-item__body");
+      return `
+        <article class="price-item price-item--card">
+          <h3 class="price-item__title">${escapeHtml(item.title || "")}</h3>
+          ${metaHtml}
+          ${renderPriceTop(amount, unitSuffix)}
+          ${bodyHtml}
+        </article>
+      `;
+    }
+
     const classes = ["price-item"];
     if (variant === "compact") classes.push("price-item--compact");
     if (variant === "solo") classes.push("price-item--solo");
 
-    const amount = escapeHtml(item.amount || "");
-    const unitSuffix = item.unitSuffix;
+    const priceInner = unitSuffix
+      ? `<span class="price-item__amount">${escapeHtml(amount)}</span><span class="price-item__unit price-item__unit--suffix">${escapeHtml(unitSuffix)}</span>`
+      : `<span class="price-item__amount">${escapeHtml(amount)}</span>`;
 
-    let priceInner = unitSuffix
-      ? `<span class="price-item__amount">${amount}</span><span class="price-item__unit price-item__unit--suffix">${escapeHtml(item.unitSuffix)}</span>`
-      : `<span class="price-item__amount">${amount}</span>`;
-
-    let metaHtml = "";
-    if (item.meta) {
-      metaHtml = `<p class="price-item__meta">${escapeHtml(item.meta)}</p>`;
-    }
-
-    let bodyHtml = "";
-    if (Array.isArray(item.bodyLines) && item.bodyLines.length) {
-      const lineStrs = item.bodyLines.map((line) =>
-        typeof line === "string" ? line : line && (line.line || line.text || "")
-      );
-      const ps = lineStrs.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
-      bodyHtml = `<div class="price-item__body">${ps}</div>`;
-    }
+    const metaHtml = item.meta ? `<p class="price-item__meta">${escapeHtml(item.meta)}</p>` : "";
+    const bodyHtml = bodyLinesToHtml(item.bodyLines, "price-item__body");
 
     return `
       <article class="${classes.join(" ")}">
@@ -55,6 +74,33 @@
           <p class="price-item__price">${priceInner}</p>
         </header>
         ${metaHtml}
+        ${bodyHtml}
+      </article>
+    `;
+  }
+
+  function renderCenikCta(cta) {
+    if (!cta || !cta.href) return "";
+    if (cta.buttonText) {
+      const noteHtml = cta.note ? `<p class="cenik-cta__note">${escapeHtml(cta.note)}</p>` : "";
+      const isExternal =
+        cta.external === true || /^https?:\/\//i.test(String(cta.href || ""));
+      const extAttrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : "";
+      return `<div class="cenik-cta"><a href="${escapeAttr(cta.href)}" class="btn"${extAttrs}>${escapeHtml(cta.buttonText)}</a>${noteHtml}</div>`;
+    }
+    const linkText = cta.text || cta.href;
+    const intro = cta.intro
+      ? `<span class="cenik-cta__link-intro">${escapeHtml(cta.intro)} </span>`
+      : "";
+    return `<p class="cenik-cta__link">${intro}<a href="${escapeAttr(cta.href)}">${escapeHtml(linkText)}</a></p>`;
+  }
+
+  function renderPermanentkyItem(item) {
+    const bodyHtml = bodyLinesToHtml(item.bodyLines, "cenik-permanentky__body");
+    return `
+      <article class="cenik-permanentky__item">
+        <h4 class="cenik-permanentky__item-title">${escapeHtml(item.title || "")}</h4>
+        ${renderPriceTop(item.amount, item.unitSuffix)}
         ${bodyHtml}
       </article>
     `;
@@ -147,15 +193,46 @@
         return `<section class="cenik__section${mod}"${labelledBy}>${inner}</section>`;
       }
 
+      case "cenik_service_card": {
+        const headingId = block.headingId ? escapeAttr(block.headingId) : "";
+        const idAttr = headingId ? ` id="${headingId}"` : "";
+        const mod = block.sectionClass ? ` ${escapeAttr(block.sectionClass)}` : "";
+        const labelledBy = headingId ? ` aria-labelledby="${headingId}"` : "";
+        const inner = Array.isArray(block.blocks) ? block.blocks.map(renderBlock).join("") : "";
+        const title = block.title
+          ? `<h2 class="cenik-service-card__title"${idAttr}>${escapeHtml(block.title)}</h2>`
+          : "";
+        return `<section class="cenik-service-card${mod}"${labelledBy}>${title}${inner}</section>`;
+      }
+
+      case "permanentky_box": {
+        if (!Array.isArray(block.items) || !block.items.length) return "";
+        const items = block.items.map(renderPermanentkyItem).join("");
+        const title = block.title
+          ? `<h3 class="cenik-permanentky__title">${escapeHtml(block.title)}</h3>`
+          : "";
+        const linkHtml = renderCenikCta(block.link);
+        return `<div class="cenik-permanentky">${title}<div class="cenik-permanentky__grid">${items}</div></div>${linkHtml}`;
+      }
+
       case "price_grid": {
         if (!Array.isArray(block.items)) return "";
         const inner = block.items.map(renderPriceArticle).join("");
         const layout = block.layout || "two";
         if (layout === "solo") {
-          return inner;
+          return `<div class="cenik__grid cenik__grid--solo">${inner}</div>`;
+        }
+        if (layout === "cards") {
+          return `<div class="cenik__grid cenik__grid--cards">${inner}</div>`;
+        }
+        if (layout === "row") {
+          return `<div class="cenik__grid cenik__grid--row">${inner}</div>`;
         }
         return `<div class="cenik__grid cenik__grid--2">${inner}</div>`;
       }
+
+      case "cenik_cta":
+        return renderCenikCta(block);
 
       case "prose":
         return `<p class="cenik__prose">${escapeHtml(block.text)}</p>`;
@@ -175,11 +252,15 @@
             return `<li>${escapeHtml(s)}</li>`;
           })
           .join("");
+        const afterListHtml = block.afterList
+          ? `<p class="cenik__payments-after-list">${escapeHtml(block.afterList)}</p>`
+          : "";
         return `
           <div class="cenik__payments">
             <p>${escapeHtml(block.intro)}</p>
             <p><strong>${escapeHtml(block.afterIntroBold)}</strong></p>
             <ul>${listItems}</ul>
+            ${afterListHtml}
             <p class="cenik__payments-note">${escapeHtml(block.note)}</p>
           </div>
         `;
