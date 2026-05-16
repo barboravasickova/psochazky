@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-05-15T06:45:00.395Z",
+  "syncedAt": "2026-05-16T06:10:07.161Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -22,7 +22,33 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 16.5.",
+        "DOSTUPNÉ DNES",
+        "9:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
+    },
+    {
+      "title": "Městská socializace v HAFPARKu",
+      "url": "https://psochazky.booqito.com/mestska-socializace-v-hafparku-p9019",
+      "image": "https://www.skvelecesko.cz/upload/1778756203_6a05aa6b20485_310x186.jpg",
+      "price": "od 220 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 24.5.",
+        "13:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
+    },
+    {
+      "title": "Vodítková socializace ŽIDLOCHOVICE, Komenského",
+      "url": "https://psochazky.booqito.com/voditkova-socializace-zidlochovice-komenskeho-p9023",
+      "image": "https://www.skvelecesko.cz/upload/1778755651_6a05a843365cb_310x186.jpg",
+      "price": "od 220 Kč",
+      "city": "Židlochovice",
+      "badges": [
+        "DOSTUPNÉ 24.5.",
         "9:00"
       ],
       "status": "available",
@@ -35,8 +61,8 @@
       "price": "od 700 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 17.5.",
-        "10:00"
+        "DOSTUPNÉ 22.5.",
+        "15:00"
       ],
       "status": "available",
       "isWidgetLink": false
