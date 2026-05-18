@@ -114,6 +114,11 @@
       const v = pick("quote", "quoteSignature");
       if (v) setHeadingWithLineBreaks(quoteSignature, v);
     }
+    const quoteButton = document.querySelector(".quote__btn");
+    if (quoteButton) {
+      const v = pick("quote", "quoteButtonText");
+      if (v) quoteButton.textContent = v;
+    }
 
     const forWhomTitle = document.querySelector(".for-whom .section-title");
     if (forWhomTitle) {

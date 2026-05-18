@@ -527,7 +527,16 @@ body.nav-open .navigation {
 
 /* Článková stránka (socializacni-prochazky) – přehled, fotky, oddělovače */
 .page-content--article {
-  max-width: 560px;
+  max-width: 100%;
+}
+
+.page-content--article .quote-bubble {
+  max-width: none;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 1.35rem 1.25rem;
+  box-sizing: border-box;
 }
 
 .article-intro p:last-child {
@@ -589,9 +598,17 @@ body.nav-open .navigation {
 
 .article-two-col {
   display: grid;
-  gap: 1.5rem 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.article-two-col__block {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 1rem;
+  padding: 1.25rem 1.25rem 1rem;
+  border: 1px solid rgba(11, 51, 41, 0.08);
 }
 
 .article-two-col__block h3 {
@@ -631,20 +648,6 @@ body.nav-open .navigation {
   margin-bottom: 0;
   font-size: 0.95rem;
   line-height: 1.55;
-}
-
-@media (min-width: 640px) {
-  .article-two-col {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-
-  .article-two-col__block {
-    background: rgba(255, 255, 255, 0.55);
-    border-radius: 1rem;
-    padding: 1.25rem 1.25rem 1rem;
-    border: 1px solid rgba(11, 51, 41, 0.08);
-  }
 }
 
 /* Cards */
@@ -791,6 +794,313 @@ body.nav-open .navigation {
 .o-webu__social-link svg {
   width: 28px;
   height: 28px;
+}
+
+/* ——— Stránka Kontakt ——— */
+.kontakt-page {
+  background-color: var(--color-bg);
+}
+
+.kontakt-page__body {
+  padding: 2.5rem 0 0;
+}
+
+.kontakt-page__container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.kontakt-page__header h1 {
+  margin-bottom: 0.75rem;
+}
+
+.kontakt-page__intro {
+  max-width: none;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.kontakt-page__section {
+  margin-top: 2.5rem;
+}
+
+.kontakt-page__quick {
+  margin-top: 2rem;
+}
+
+.kontakt-quick {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.kontakt-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding: 1.5rem 1.25rem;
+  background: var(--color-white);
+  border: 1px solid rgba(11, 51, 41, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(11, 51, 41, 0.06);
+}
+
+.kontakt-card__icon-link {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.kontakt-card__icon-link:hover,
+.kontakt-card__icon-link:focus-visible {
+  transform: scale(1.06);
+}
+
+.kontakt-card__icon-link:hover .kontakt-card__icon,
+.kontakt-card__icon-link:focus-visible .kontakt-card__icon {
+  background-color: #c99563;
+}
+
+.kontakt-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.kontakt-card__icon-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.kontakt-card__title {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-nadpisy);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.kontakt-card__link {
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.kontakt-card__link:hover,
+.kontakt-card__link:focus-visible {
+  color: var(--color-secondary-dark);
+}
+
+.kontakt-card__detail,
+.kontakt-card__text {
+  margin: 0.35rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(11, 51, 41, 0.85);
+}
+
+.kontakt-page__columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.kontakt-panel {
+  padding: 1.5rem 1.35rem;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(11, 51, 41, 0.1);
+  border-radius: 1rem;
+  box-shadow: none;
+}
+
+.kontakt-panel__title {
+  margin: 0 0 1rem;
+  font-size: 1.45rem;
+}
+
+.kontakt-panel p {
+  margin-bottom: 0.85rem;
+  line-height: 1.6;
+}
+
+.kontakt-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.kontakt-panel__list {
+  margin: 0 0 1rem 1.15rem;
+  padding: 0;
+  list-style: disc;
+}
+
+.kontakt-panel__list li {
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+.kontakt-panel__list li:last-child {
+  margin-bottom: 0;
+}
+
+.kontakt-panel__cta {
+  margin: 1rem 0 1.15rem;
+}
+
+.btn--booqito {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn--booqito:hover,
+.btn--booqito:focus-visible {
+  background-color: #082820;
+  color: var(--color-white);
+}
+
+.kontakt-panel__note a {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.kontakt-cooperation {
+  padding: 1.75rem 1.5rem;
+  background: var(--color-secondary-light);
+  border: 1px solid rgba(11, 51, 41, 0.08);
+  border-radius: 1.25rem;
+}
+
+.kontakt-cooperation__title {
+  margin: 0 0 1rem;
+  font-size: 1.45rem;
+}
+
+.kontakt-cooperation .kontakt-panel__list {
+  margin-bottom: 1rem;
+}
+
+.kontakt-cooperation__docasky-intro {
+  margin: 1.15rem 0 0.5rem;
+}
+
+.kontakt-cooperation__footer {
+  margin: 1rem 0 0;
+}
+
+.kontakt-page__operator {
+  margin: 2rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(11, 51, 41, 0.55);
+}
+
+.kontakt-page__map-section {
+  margin-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.kontakt-page__map-section .kontakt-page__container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.kontakt-page__map-title {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 1.45rem;
+}
+
+.kontakt-map {
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(11, 51, 41, 0.12);
+  box-shadow: 0 10px 32px rgba(11, 51, 41, 0.08);
+}
+
+.kontakt-map__iframe {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border: none;
+}
+
+@media (min-width: 900px) {
+  .kontakt-page__body {
+    padding-top: 3rem;
+  }
+
+  .kontakt-page__section {
+    margin-top: 3.75rem;
+  }
+
+  .kontakt-page__quick {
+    margin-top: 2.5rem;
+  }
+
+  .kontakt-quick {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .kontakt-page__columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    align-items: stretch;
+  }
+
+  .kontakt-panel {
+    padding: 1.75rem 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kontakt-panel__cta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .kontakt-cooperation {
+    padding: 2rem 2.25rem;
+  }
+
+  .kontakt-page__map-section {
+    margin-top: 3.75rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .kontakt-page__map-title {
+    font-size: 1.75rem;
+  }
+
+  .kontakt-map__iframe {
+    height: 420px;
+  }
 }
 
 .booqito-embed {
@@ -1696,8 +2006,13 @@ body.nav-open .navigation {
   margin: 0 0;
   position: relative;
   overflow: visible;
-  padding-top: 0;
+  padding-top: 5rem;
   padding-bottom: 8rem;
+}
+
+.services > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .services::after {
@@ -1734,7 +2049,7 @@ body.nav-open .navigation {
 
 .services .section-title {
   color: var(--color-secondary-bright);
-  padding-top: 2rem;
+  padding-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -1798,10 +2113,11 @@ body.nav-open .navigation {
   width: 100%;
   max-width: 52rem;
   margin: -5rem auto 0;
-  padding: 2.5rem 1.25rem 1.75rem;
+  padding: 4.5rem 1.25rem 1.75rem;
   background-color: var(--color-secondary-light);
   border-radius: 1.75rem;
   box-shadow: 0 14px 48px rgba(11, 51, 41, 0.01);
+  text-align: center;
 }
 
 .quote__btn {
@@ -1878,6 +2194,7 @@ body.nav-open .navigation {
 .for-whom .checklist__text {
   flex: 1;
   min-width: 0;
+  text-align: left;
 }
 
 .for-whom__image-wrapper {
@@ -2693,6 +3010,18 @@ body.nav-open .navigation {
 
   .page-content--article {
     max-width: 720px;
+  }
+
+  .article-two-col {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+    align-items: start;
+  }
+
+  .page-content--article .quote-bubble {
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .article-divider {

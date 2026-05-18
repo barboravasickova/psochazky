@@ -277,6 +277,22 @@
         return `<div class="page-content__cta">${btns}</div>`;
       }
 
+      case "map_embed": {
+        const src = block.src || "https://mapy.com/s/motedezapu";
+        const title = block.title || "Mapa";
+        return `
+          <div class="kontakt-map">
+            <iframe
+              class="kontakt-map__iframe"
+              src="${escapeAttr(src)}"
+              title="${escapeAttr(title)}"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        `;
+      }
+
       case "contact_list": {
         if (!Array.isArray(block.rows)) return "";
         const rows = block.rows

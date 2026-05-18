@@ -58,6 +58,7 @@ collections:
           # --- Citace ---
           - { label: "Citace: text", name: "quoteText", widget: "text", hint: "Uvozovky můžou zůstat v textu." }
           - { label: "Citace: podpis (jméno, role…)", name: "quoteSignature", widget: "text", hint: "Nový řádek = Enter v editoru." }
+          - { label: "Citace: text tlačítka", name: "quoteButtonText", widget: "string", hint: "Např. Více o mně." }
           # --- Pro koho jsou Psocházky? ---
           - { label: "Pro koho: nadpis sekce", name: "forWhomTitle", widget: "string" }
           - label: "Pro koho: odrážky"
@@ -66,7 +67,7 @@ collections:
             summary: "{{fields.item}}"
             collapsed: true
             field: { label: "Text řádku", name: "item", widget: "string" }
-          - { label: "Pro koho: text spodního tlačítka", name: "forWhomButtonText", widget: "string", hint: "Např. Kontakt." }
+          - { label: "Pro koho: text spodního tlačítka", name: "forWhomButtonText", widget: "string", hint: "Např. Aktuální akce." }
           # --- Závěr stránky ---
           - { label: "Závěr: text odstavce", name: "bottomText", widget: "text", hint: "Zelený blok před patičkou." }
 
@@ -377,53 +378,65 @@ collections:
         file: "data/kontakt-content.json"
         format: "json"
         fields:
-          - label: "Bloky stránky"
-            name: "blocks"
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Úvodní text", name: "intro", widget: "text" }
+          - label: "Rychlé kontakty (karty)"
+            name: "quickContacts"
             widget: "list"
-            types:
-              - label: "Nadpis H1"
-                name: "h1"
-                widget: "object"
-                fields:
-                  - { label: "Text", name: "text", widget: "string" }
-              - label: "Odstavec"
-                name: "p"
-                widget: "object"
-                fields:
-                  - { label: "Text", name: "text", widget: "text" }
-                  - { label: "CSS třída (volitelné)", name: "className", widget: "string", required: false }
-              - label: "Kontaktní řádky (ikony)"
-                name: "contact_list"
-                widget: "object"
-                fields:
-                  - label: "Řádky"
-                    name: "rows"
-                    widget: "list"
-                    fields:
-                      - { label: "Typ", name: "kind", widget: "select", options: ["messenger", "email", "location"] }
-                      - { label: "URL (Messenger / mailto)", name: "href", widget: "string", required: false }
-                      - { label: "Text odkazu", name: "linkLabel", widget: "string", required: false }
-                      - { label: "Text za odkazem", name: "suffix", widget: "string", required: false }
-                      - { label: "Čistý text (lokalita)", name: "text", widget: "string", required: false }
-              - label: "Nadpis H2"
-                name: "h2"
-                widget: "object"
-                fields:
-                  - { label: "Text", name: "text", widget: "string" }
-                  - { label: "HTML id (volitelné)", name: "id", widget: "string", required: false }
-              - label: "Markdown (odstavce, odkazy)"
-                name: "markdown"
-                widget: "object"
-                fields:
-                  - { label: "Markdown", name: "body", widget: "text" }
-              - label: "Odrážkový seznam"
-                name: "ul"
-                widget: "object"
-                fields:
-                  - label: "Položky"
-                    name: "items"
-                    widget: "list"
-                    field: { label: "Text", name: "item", widget: "string" }
+            fields:
+              - { label: "Typ", name: "kind", widget: "select", options: ["messenger", "email", "location"] }
+              - { label: "Nadpis karty", name: "cardTitle", widget: "string" }
+              - { label: "URL odkazu (Messenger / e-mail / mapa)", name: "href", widget: "string", required: false }
+              - { label: "Text odkazu", name: "linkText", widget: "string", required: false }
+              - { label: "Doplňující text", name: "detail", widget: "string", required: false }
+              - { label: "Text (lokalita)", name: "text", widget: "string", required: false }
+          - label: "Přihlášení na akce"
+            name: "booking"
+            widget: "object"
+            fields:
+              - { label: "Nadpis", name: "title", widget: "string" }
+              - { label: "Úvodní odstavec", name: "intro", widget: "text" }
+              - { label: "URL BOOQITO", name: "booqitoUrl", widget: "string" }
+              - { label: "Text tlačítka rezervace", name: "booqitoButtonText", widget: "string" }
+              - label: "Výhody (odrážky)"
+                name: "features"
+                widget: "list"
+                field: { label: "Položka", name: "item", widget: "string" }
+              - { label: "Poznámka k platbě", name: "paymentNote", widget: "string" }
+          - label: "Individuální tréninky"
+            name: "individual"
+            widget: "object"
+            fields:
+              - { label: "Nadpis", name: "title", widget: "string" }
+              - label: "Odstavce"
+                name: "paragraphs"
+                widget: "list"
+                field: { label: "Odstavec", name: "item", widget: "text" }
+              - { label: "URL rezervačního systému", name: "booqitoUrl", widget: "string", required: false }
+              - { label: "Text tlačítka rezervace", name: "booqitoButtonText", widget: "string", required: false }
+          - label: "Spolupráce"
+            name: "cooperation"
+            widget: "object"
+            fields:
+              - { label: "Nadpis", name: "title", widget: "string" }
+              - label: "Položky"
+                name: "items"
+                widget: "list"
+                field: { label: "Položka", name: "item", widget: "string" }
+              - { label: "Úvod k dočaskám", name: "docaskyIntro", widget: "string" }
+              - label: "Dočasky – výčet"
+                name: "docaskyItems"
+                widget: "list"
+                field: { label: "Položka", name: "item", widget: "string" }
+              - { label: "Závěrečná věta", name: "footer", widget: "string" }
+          - { label: "Provozovatel (pod spoluprácí)", name: "operatorInfo", widget: "string" }
+          - label: "Mapa"
+            name: "map"
+            widget: "object"
+            fields:
+              - { label: "Nadpis sekce", name: "sectionTitle", widget: "string" }
+              - { label: "URL iframe (src)", name: "src", widget: "string" }
+              - { label: "Popisek pro čtečky", name: "iframeTitle", widget: "string", required: false }
 
       - label: "O webu"
         name: "about_site_content"
