@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-06-06T06:42:01.313Z",
+  "syncedAt": "2026-06-07T07:40:35.135Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -16,13 +16,13 @@
       "isWidgetLink": false
     },
     {
-      "title": "Socializace „PRO“ – SO v 9:00",
+      "title": "Socializace „PRO“, SO v 9 hod., ŽEBĚTÍN",
       "url": "https://psochazky.booqito.com/socializace-pro-pousteci-socializace-so-v-9h-p8782",
       "image": "https://www.skvelecesko.cz/upload/1769077665_6971fba1611d6_310x186.jpg",
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ DNES",
+        "DOSTUPNÉ 13.6.",
         "9:00"
       ],
       "status": "available",
@@ -47,8 +47,8 @@
       "price": "od 220 Kč",
       "city": "Židlochovice",
       "badges": [
-        "DOSTUPNÉ 7.6.",
-        "9:00"
+        "DOSTUPNÉ 14.6.",
+        "8:00"
       ],
       "status": "available",
       "isWidgetLink": false
