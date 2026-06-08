@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-06-07T07:40:35.135Z",
+  "syncedAt": "2026-06-08T08:27:04.338Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -87,6 +87,19 @@
       "badges": [],
       "status": "neutral",
       "isWidgetLink": true
+    },
+    {
+      "title": "Socializace „PRO“, SO v 9 hod., SOBĚŠICE U Buku",
+      "url": "https://psochazky.booqito.com/socializace-pro-so-v-9-hod-sobesice-u-buku-p9124",
+      "image": "https://www.skvelecesko.cz/upload/1780774863_6a2477cf5df1c_310x186.jpg",
+      "price": "od 220 Kč",
+      "city": "Bílovice nad Svitavou",
+      "badges": [
+        "DOSTUPNÉ 13.6.",
+        "9:00"
+      ],
+      "status": "available",
+      "isWidgetLink": false
     },
     {
       "title": "Dárkový poukaz",
