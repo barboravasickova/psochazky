@@ -467,6 +467,13 @@ collections:
               - { label: "Titulek", name: "title", widget: "string" }
               - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, picker_utc: false }
               - { label: "Perex", name: "excerpt", widget: "text" }
+              - label: "Kategorie"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Příběhy", value: "pribehy" }
+                  - { label: "Tipy", value: "tipy" }
+                default: "tipy"
               - { label: "Obrázek", name: "image", widget: "image", required: false }
               - label: "Obsah (odstavce)"
                 name: "content"

@@ -19,7 +19,7 @@
     <meta name="twitter:description" content="Praktické články o socializaci, výcviku a převýchově psů v Brně. Tipy pro klidnější procházky se psem v každodenním provozu." />
     <meta name="twitter:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
-    <link rel="stylesheet" href="styles.css?v=25" />
+    <link rel="stylesheet" href="styles.css?v=27" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -77,6 +77,11 @@
         <div class="container page-content page-content--article blog-page">
           <h1>Blog</h1>
           <p class="page-content__intro">Příběhy účastníků socializačních procházek a jejich psů, praktické tipy a k socializaci, výchově a životu se psem.</p>
+          <div class="blog-filter" role="tablist" aria-label="Filtrovat články podle kategorie">
+            <button type="button" class="blog-filter__btn is-active" data-category="vse" role="tab" aria-selected="true">Vše</button>
+            <button type="button" class="blog-filter__btn" data-category="pribehy" role="tab" aria-selected="false">Příběhy</button>
+            <button type="button" class="blog-filter__btn" data-category="tipy" role="tab" aria-selected="false">Tipy</button>
+          </div>
           <div id="blogList" class="blog-list"></div>
           <p id="blogEmpty" class="blog-empty" hidden>Zatím tu není žádný publikovaný článek.</p>
         </div>
@@ -156,43 +161,108 @@
         });
       }
 
+      const CATEGORY_LABELS = {
+        pribehy: "Příběh",
+        tipy: "Tip",
+      };
+
+      let allPosts = [];
+      let activeCategory = "vse";
+
       function formatDate(input) {
         const date = new Date(input);
         if (Number.isNaN(date.getTime())) return input;
         return date.toLocaleDateString("cs-CZ", { day: "numeric", month: "long", year: "numeric" });
       }
 
-      async function loadBlog() {
+      function getPostCategory(post) {
+        if (post && post.category) return post.category;
+        if (post && String(post.slug || "").startsWith("pribeh-")) return "pribehy";
+        return "tipy";
+      }
+
+      function renderPosts() {
         const list = document.getElementById("blogList");
+        const empty = document.getElementById("blogEmpty");
+        const filtered =
+          activeCategory === "vse"
+            ? allPosts
+            : allPosts.filter((post) => getPostCategory(post) === activeCategory);
+
+        if (!filtered.length) {
+          list.innerHTML = "";
+          empty.hidden = false;
+          empty.textContent =
+            activeCategory === "vse"
+              ? "Zatím tu není žádný publikovaný článek."
+              : "V této kategorii zatím není žádný článek.";
+          return;
+        }
+
+        empty.hidden = true;
+        list.innerHTML = filtered
+          .map((post) => {
+            const category = getPostCategory(post);
+            const categoryLabel = CATEGORY_LABELS[category] || "";
+            return `
+              <article class="blog-card">
+                <a class="blog-card__link" href="blog-detail.html?slug=${encodeURIComponent(post.slug || "")}">
+                  ${post.image ? `<img class="blog-card__image" src="${post.image}" alt="${post.title || "Článek"}" loading="lazy" />` : ""}
+                  <div class="blog-card__body">
+                    <div class="blog-card__meta">
+                      <p class="blog-card__date">${formatDate(post.date || "")}</p>
+                      ${categoryLabel ? `<span class="blog-card__category">${categoryLabel}</span>` : ""}
+                    </div>
+                    <h2 class="blog-card__title">${post.title || "Bez názvu"}</h2>
+                    <p class="blog-card__excerpt">${post.excerpt || ""}</p>
+                    <p class="blog-card__more">Číst článek</p>
+                  </div>
+                </a>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      function setActiveCategory(category) {
+        activeCategory = category;
+        document.querySelectorAll(".blog-filter__btn").forEach((btn) => {
+          const isActive = btn.dataset.category === category;
+          btn.classList.toggle("is-active", isActive);
+          btn.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+        const url = new URL(window.location.href);
+        if (category === "vse") {
+          url.searchParams.delete("kategorie");
+        } else {
+          url.searchParams.set("kategorie", category);
+        }
+        window.history.replaceState({}, "", url);
+        renderPosts();
+      }
+
+      async function loadBlog() {
         const empty = document.getElementById("blogEmpty");
         try {
           const response = await fetch("data/blog-posts.json", { cache: "no-store" });
           if (!response.ok) throw new Error("Nepodařilo se načíst data blogu.");
           const data = await response.json();
           const posts = Array.isArray(data) ? data : data && Array.isArray(data.posts) ? data.posts : [];
-          const published = posts.filter((p) => p && p.published !== false);
-          published.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-          if (!published.length) {
-            empty.hidden = false;
-            return;
+          allPosts = posts
+            .filter((p) => p && p.published !== false)
+            .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+          const params = new URLSearchParams(window.location.search);
+          const requested = params.get("kategorie");
+          if (requested && ["pribehy", "tipy"].includes(requested)) {
+            activeCategory = requested;
           }
-          list.innerHTML = published
-            .map(
-              (post) => `
-                <article class="blog-card">
-                  <a class="blog-card__link" href="blog-detail.html?slug=${encodeURIComponent(post.slug || "")}">
-                    ${post.image ? `<img class="blog-card__image" src="${post.image}" alt="${post.title || "Článek"}" loading="lazy" />` : ""}
-                    <div class="blog-card__body">
-                      <p class="blog-card__date">${formatDate(post.date || "")}</p>
-                      <h2 class="blog-card__title">${post.title || "Bez názvu"}</h2>
-                      <p class="blog-card__excerpt">${post.excerpt || ""}</p>
-                      <p class="blog-card__more">Číst článek</p>
-                    </div>
-                  </a>
-                </article>
-              `
-            )
-            .join("");
+
+          document.querySelectorAll(".blog-filter__btn").forEach((btn) => {
+            btn.addEventListener("click", () => setActiveCategory(btn.dataset.category || "vse"));
+          });
+
+          setActiveCategory(activeCategory);
         } catch (error) {
           empty.hidden = false;
           empty.textContent = "Blog se nepodařilo načíst. Zkuste to prosím později.";
