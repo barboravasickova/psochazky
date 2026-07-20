@@ -344,19 +344,26 @@ collections:
                       - { label: "Odkaz", name: "href", widget: "string" }
                       - { label: "Externí odkaz", name: "external", widget: "boolean", default: false }
 
-      - label: "Další služby"
-        name: "extra_services_content"
-        file: "data/dalsi-sluzby-content.json"
+      - label: "Individuální tréninky"
+        name: "individual_training_content"
+        file: "data/individualni-treninky-content.json"
         format: "json"
         fields:
           - { label: "Nadpis stránky", name: "title", widget: "string" }
-          - { label: "Podnadpis", name: "lead", widget: "string" }
-          - { label: "Nadpis Individuální tréninky", name: "section1Title", widget: "string" }
-          - { label: "Nadpis S čím pracujeme", name: "section2Title", widget: "string" }
-          - { label: "Nadpis Jak probíhají", name: "section3Title", widget: "string" }
-          - { label: "Nadpis Výlety", name: "section4Title", widget: "string" }
-          - { label: "Nadpis Proč fungují", name: "section5Title", widget: "string" }
-          - { label: "Nadpis Pro koho to je", name: "section6Title", widget: "string" }
+          - { label: "Nadpis S čím pracujeme", name: "section1Title", widget: "string" }
+          - { label: "Nadpis Co získáš navíc", name: "sectionExtraTitle", widget: "string" }
+          - { label: "Nadpis Jak probíhají", name: "section2Title", widget: "string" }
+          - { label: "Nadpis Proč fungují", name: "section3Title", widget: "string" }
+          - { label: "Nadpis Pro koho to je", name: "section4Title", widget: "string" }
+
+      - label: "Výlety a akce"
+        name: "trips_events_content"
+        file: "data/vylety-a-akce-content.json"
+        format: "json"
+        fields:
+          - { label: "Nadpis stránky", name: "title", widget: "string" }
+          - { label: "Nadpis Proč fungují", name: "section1Title", widget: "string" }
+          - { label: "Nadpis Pro koho to je", name: "section2Title", widget: "string" }
 
       - label: "Jak to funguje"
         name: "how_it_works_content"

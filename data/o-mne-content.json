@@ -71,7 +71,8 @@
       "type": "cta",
       "buttons": [
         { "text": "Socializační procházky", "href": "socializacni-prochazky.html", "external": false },
-        { "text": "Služby", "href": "dalsi-sluzby.html", "external": false },
+        { "text": "Individuální tréninky", "href": "individualni-treninky.html", "external": false },
+        { "text": "Výlety a akce", "href": "vylety-a-akce.html", "external": false },
         { "text": "Kontakt / Přihlášení", "href": "kontakt.html", "external": false }
       ]
     }
