@@ -29,18 +29,6 @@
       "isWidgetLink": false
     },
     {
-      "title": "Městská socializace v HAFPARKu",
-      "url": "https://psochazky.booqito.com/mestska-socializace-v-hafparku-p9019",
-      "image": "https://www.skvelecesko.cz/upload/1778756203_6a05aa6b20485_310x186.jpg",
-      "price": "od 220 Kč",
-      "city": "Brno",
-      "badges": [
-        "NEDOSTUPNÉ"
-      ],
-      "status": "unavailable",
-      "isWidgetLink": false
-    },
-    {
       "title": "Vodítková socializace ŽIDLOCHOVICE, Komenského",
       "url": "https://psochazky.booqito.com/voditkova-socializace-zidlochovice-komenskeho-p9023",
       "image": "https://www.skvelecesko.cz/upload/1778755651_6a05a843365cb_310x186.jpg",
@@ -67,28 +55,6 @@
       "isWidgetLink": false
     },
     {
-      "title": "PSOCHAJDA aneb ÚTĚK Z BRNA - VÝLET",
-      "url": "https://psochazky.booqito.com/psochajda-aneb-utek-z-brna-vylet-p8898",
-      "image": "https://www.skvelecesko.cz/upload/1776240176_69df463072fbe_310x186.jpg",
-      "price": "od 450 Kč",
-      "city": "Brno",
-      "badges": [
-        "NEDOSTUPNÉ"
-      ],
-      "status": "unavailable",
-      "isWidgetLink": false
-    },
-    {
-      "title": "Permanentky",
-      "url": "https://psochazky.booqito.com/",
-      "image": "https://www.skvelecesko.cz/upload/1771621824_6998cdc0a2b7c_310x186.jpg",
-      "price": "od 1 045 Kč",
-      "city": "Brno",
-      "badges": [],
-      "status": "neutral",
-      "isWidgetLink": true
-    },
-    {
       "title": "Socializace „PRO“, SO v 9 hod., SOBĚŠICE U Buku",
       "url": "https://psochazky.booqito.com/socializace-pro-so-v-9-hod-sobesice-u-buku-p9124",
       "image": "https://www.skvelecesko.cz/upload/1780774863_6a2477cf5df1c_310x186.jpg",
@@ -100,16 +66,6 @@
       ],
       "status": "available",
       "isWidgetLink": false
-    },
-    {
-      "title": "Dárkový poukaz",
-      "url": "https://psochazky.booqito.com/",
-      "image": "https://psochazky.booqito.com/inc/img/product-voucher.webp",
-      "price": "",
-      "city": "",
-      "badges": [],
-      "status": "neutral",
-      "isWidgetLink": true
     }
   ]
 }

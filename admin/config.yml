@@ -453,8 +453,12 @@ collections:
           - { label: "Nadpis stránky", name: "title", widget: "string" }
           - { label: "Nadpis 1. blok", name: "firstHeading", widget: "string" }
           - { label: "Text 1. blok", name: "firstText", widget: "text" }
+          - { label: "URL odkazu 1. blok", name: "firstLinkUrl", widget: "string" }
+          - { label: "Popisek odkazu 1. blok (aria-label)", name: "firstLinkAriaLabel", widget: "string" }
           - { label: "Nadpis 2. blok", name: "secondHeading", widget: "string" }
           - { label: "Text 2. blok", name: "secondText", widget: "text" }
+          - { label: "URL odkazu 2. blok", name: "secondLinkUrl", widget: "string" }
+          - { label: "Popisek odkazu 2. blok (aria-label)", name: "secondLinkAriaLabel", widget: "string" }
           - { label: "Text tlačítka zpět", name: "backButtonText", widget: "string" }
 
   - name: "blog_data"

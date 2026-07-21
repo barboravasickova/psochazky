@@ -855,6 +855,22 @@ body.nav-open .navigation {
   height: 28px;
 }
 
+.o-webu__social-link--sm svg {
+  width: 22px;
+  height: 22px;
+}
+
+.page-content .o-webu__name-link {
+  color: var(--color-secondary-dark);
+  text-decoration: none;
+}
+
+.page-content .o-webu__name-link:hover {
+  color: var(--color-secondary-darker);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 /* ——— Stránka Kontakt ——— */
 .kontakt-page {
   background-color: var(--color-bg);
@@ -3029,10 +3045,8 @@ body.nav-open .navigation {
   .footer__nav ul {
     margin-top: 0;
     display: grid;
-    grid-template-columns: max-content max-content;
-    grid-template-rows: repeat(4, auto);
-    grid-auto-flow: column;
-    column-gap: 3rem;
+    grid-template-columns: repeat(3, max-content);
+    column-gap: 2.5rem;
     row-gap: 0.25rem;
     width: max-content;
   }

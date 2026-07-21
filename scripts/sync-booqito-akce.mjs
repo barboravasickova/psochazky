@@ -66,6 +66,8 @@ while ((m = anchorRe.exec(html)) !== null) {
   }
 
   if (!title) continue;
+  if (status === "unavailable") continue;
+  if (hrefRaw.startsWith("javascript:")) continue;
 
   items.push({
     title,
@@ -75,7 +77,6 @@ while ((m = anchorRe.exec(html)) !== null) {
     city,
     badges,
     status,
-    isWidgetLink: hrefRaw.startsWith("javascript:"),
   });
 }
 

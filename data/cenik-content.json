@@ -145,6 +145,24 @@
     },
     {
       "type": "cenik_service_card",
+      "headingId": "cenik-poukaz",
+      "title": "Darujte Psocházky",
+      "blocks": [
+        {
+          "type": "prose",
+          "text": "Dárkový poukaz je skvělý dárek pro majitele psů, kteří chtějí posunout se dál. Obdarovaný si sám vybere termín a typ akce podle toho, co právě potřebuje – socializační procházku, individuální trénink nebo výlet."
+        },
+        {
+          "type": "cenik_cta",
+          "buttonText": "Koupit dárkový poukaz",
+          "href": "https://psochazky.booqito.com/",
+          "external": true,
+          "note": "V novém okně se otevře náš rezervační systém, kde si poukaz objednáš."
+        }
+      ]
+    },
+    {
+      "type": "cenik_service_card",
       "headingId": "cenik-platby",
       "title": "Jak fungují platby?",
       "sectionClass": "cenik-service-card--muted",

@@ -186,10 +186,20 @@
         const meta = document.getElementById("akce-sync-meta");
         if (!grid || !loading || !errEl) return;
 
+        function shouldHideFromListing(item) {
+          if (item.status === "unavailable") return true;
+          if (item.isWidgetLink) return true;
+          if ((item.badges || []).some((badge) => badge.toUpperCase().includes("NEDOSTUPN"))) return true;
+          const title = (item.title || "").toLowerCase();
+          if (title.includes("permanentk") || title.includes("dárkový poukaz") || title.includes("darkovy poukaz")) {
+            return true;
+          }
+          return false;
+        }
+
         function buildCard(item) {
           const article = document.createElement("article");
           article.className = "akce-card";
-          if (item.status === "unavailable") article.classList.add("akce-card--unavailable");
 
           const a = document.createElement("a");
           a.className = "akce-card__link";
@@ -255,7 +265,7 @@
 
           const cta = document.createElement("span");
           cta.className = "akce-card__cta";
-          cta.textContent = item.status === "unavailable" ? "Zobrazit detail" : "Objednat";
+          cta.textContent = "Objednat";
           bodyEl.appendChild(cta);
 
           a.appendChild(bodyEl);
@@ -270,11 +280,14 @@
           })
           .then((data) => {
             loading.hidden = true;
-            if (!data.items || !data.items.length) {
+            const available = (data.items || []).filter((item) => !shouldHideFromListing(item));
+            if (!available.length) {
+              errEl.innerHTML =
+                'V přehledu momentálně nejsou žádné dostupné akce. Celou nabídku najdeš na <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">Booqito</a>.';
               errEl.hidden = false;
               return;
             }
-            data.items.forEach((item) => grid.appendChild(buildCard(item)));
+            available.forEach((item) => grid.appendChild(buildCard(item)));
             grid.hidden = false;
             if (meta && data.syncedAt) {
               try {
