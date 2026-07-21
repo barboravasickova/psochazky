@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <title>Texty webu | Administrace Psocházky</title>
+    <link rel="stylesheet" href="admin-ui.css" />
+  </head>
+  <body class="admin-cms-body">
+    <p class="admin-cms-back">
+      <a href="index.html">← Zpět na rozcestník administrace</a>
+    </p>
+    <aside class="admin-cms-guide" id="cms-guide">
+      <strong>Jak publikovat změny</strong>
+      <ol>
+        <li>V levém menu vyberte stránku nebo <strong>Blog → Příspěvky</strong>.</li>
+        <li>Upravte texty a klikněte <strong>Publikovat na web</strong>.</li>
+        <li>Web se obvykle aktualizuje do 1–2 minut.</li>
+      </ol>
+      <p class="admin-cms-guide__note">
+        U blogu můžete nechat <strong>Zobrazit na webu</strong> vypnuté – článek zůstane jako koncept.
+      </p>
+      <button type="button" class="admin-cms-guide__dismiss" id="cms-guide-dismiss" aria-label="Skrýt nápovědu">
+        Rozumím
+      </button>
+    </aside>
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+    <script src="cms-init.js"></script>
+    <script>
+      (function () {
+        var guide = document.getElementById("cms-guide");
+        var dismiss = document.getElementById("cms-guide-dismiss");
+        if (!guide || !dismiss) return;
+        if (localStorage.getItem("psochazky-cms-guide-dismissed") === "1") {
+          guide.hidden = true;
+          return;
+        }
+        dismiss.addEventListener("click", function () {
+          guide.hidden = true;
+          localStorage.setItem("psochazky-cms-guide-dismissed", "1");
+        });
+      })();
+    </script>
+  </body>
+</html>

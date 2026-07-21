@@ -6,12 +6,16 @@ backend:
   auth_endpoint: auth
 
 site_url: https://psochazky.cz
-display_url: https://psochazky.cz
 logo_url: /images/logo-psochazky.svg
 locale: cs
 
-# Koncepty na větvi + sloučení do main až po „Publikovat“ (GitHub PR workflow)
-publish_mode: editorial_workflow
+# Jednoduché publikování: „Publikovat na web“ → commit na main → GitHub Pages
+publish_mode: simple
+
+commit_messages:
+  create: "CMS: nový obsah – {{collection}}"
+  update: "CMS: úprava – {{collection}}"
+  publish: "CMS: publikováno – {{collection}}"
 
 editor:
   preview: false
@@ -20,8 +24,8 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "web_content"
-    label: "Texty webu"
+  - name: "web_home"
+    label: "Úvodní stránka"
     files:
       - label: "Úvodní stránka"
         name: "home_content"
@@ -71,6 +75,9 @@ collections:
           # --- Závěr stránky ---
           - { label: "Závěr: text odstavce", name: "bottomText", widget: "text", hint: "Zelený blok před patičkou." }
 
+  - name: "web_pages"
+    label: "Stránky webu"
+    files:
       - label: "O mně"
         name: "about_content"
         file: "data/o-mne-content.json"
@@ -461,8 +468,8 @@ collections:
           - { label: "Popisek odkazu 2. blok (aria-label)", name: "secondLinkAriaLabel", widget: "string" }
           - { label: "Text tlačítka zpět", name: "backButtonText", widget: "string" }
 
-  - name: "blog_data"
-    label: "Blog příspěvky"
+  - name: "blog"
+    label: "Blog"
     files:
       - label: "Příspěvky"
         name: "posts"
@@ -472,12 +479,13 @@ collections:
           - label: "Příspěvky"
             name: "posts"
             widget: "list"
-            summary: "{{fields.title}} ({{fields.date}})"
+            summary: "{{fields.title}} · {{fields.date}}"
+            hint: "Nejnovější příspěvky dejte nahoru. U konceptu vypněte „Zobrazit na webu“."
             fields:
-              - { label: "Slug", name: "slug", widget: "string", hint: "Například jak-se-pripravit-na-prochazku" }
+              - { label: "Slug (URL)", name: "slug", widget: "string", hint: "Např. jak-se-pripravit-na-prochazku – malá písmena, pomlčky." }
               - { label: "Titulek", name: "title", widget: "string" }
               - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: false, picker_utc: false }
-              - { label: "Perex", name: "excerpt", widget: "text" }
+              - { label: "Perex (krátký úvod)", name: "excerpt", widget: "text" }
               - label: "Kategorie"
                 name: "category"
                 widget: "select"
@@ -485,8 +493,8 @@ collections:
                   - { label: "Příběhy", value: "pribehy" }
                   - { label: "Tipy", value: "tipy" }
                 default: "tipy"
-              - { label: "Obrázek", name: "image", widget: "image", required: false }
-              - label: "Obsah (odstavce)"
+              - { label: "Náhledový obrázek", name: "image", widget: "image", required: false }
+              - label: "Obsah článku"
                 name: "content"
                 widget: "list"
                 field:
@@ -494,6 +502,12 @@ collections:
                     label: "Odstavec / nadpis",
                     name: "paragraph",
                     widget: "text",
-                    hint: "Pro podnadpis v článku začni řádek ## nebo ### (mezera za křížky)."
+                    hint: "Podnadpis v článku: začni řádek ## nebo ### (mezera za křížky)."
                   }
-              - { label: "Publikováno", name: "published", widget: "boolean", default: true }
+              - {
+                  label: "Zobrazit na webu",
+                  name: "published",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Vypnuto = koncept. Uloží se do systému, ale na webu se neukáže.",
+                }

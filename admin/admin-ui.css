@@ -18,3 +18,231 @@ textarea {
 [class*="ObjectWidget"] > [class*="TopLevelPanel"] {
   margin-bottom: 0.75rem;
 }
+
+/* ——— Rozcestník administrace ——— */
+.admin-hub {
+  --admin-primary: #0b3329;
+  --admin-secondary: #d4a373;
+  --admin-bg: #f4efe1;
+  --admin-card: #f1e8d6;
+
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  color: var(--admin-primary);
+  background: var(--admin-bg);
+}
+
+.admin-hub__main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.admin-hub__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-hub__logo {
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+.admin-hub__title {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.admin-hub__lead {
+  font-size: 1.05rem;
+  opacity: 0.85;
+}
+
+.admin-hub__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-hub__card {
+  display: block;
+  padding: 1.5rem 1.35rem;
+  border-radius: 1.25rem;
+  background: var(--admin-card);
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid rgba(11, 51, 41, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-hub__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(11, 51, 41, 0.1);
+}
+
+.admin-hub__card-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--admin-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.admin-hub__card-title {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.admin-hub__card-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.admin-hub__card-action {
+  font-weight: 600;
+  color: var(--admin-primary);
+}
+
+.admin-hub__footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.admin-hub__footer a {
+  color: var(--admin-primary);
+}
+
+.admin-cms-body {
+  margin: 0;
+}
+
+.admin-cms-back {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  background: #f4efe1;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.1);
+}
+
+.admin-cms-back a {
+  color: #0b3329;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.admin-cms-back a:hover {
+  text-decoration: underline;
+}
+
+/* Decap CMS – skrýt „Vrátit se na stránku“ a odkaz na web v hlavičce */
+.admin-cms-body #nc-root a[href="https://psochazky.cz"],
+.admin-cms-body #nc-root a[href^="https://psochazky.cz/"],
+.admin-cms-body #nc-root a[href="http://psochazky.cz"],
+.admin-cms-body #nc-root a[href^="http://psochazky.cz/"] {
+  display: none !important;
+}
+
+.admin-cms-guide {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  padding: 1rem 1.15rem 1.1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #0b3329;
+  background: #fff8e8;
+  border-bottom: 1px solid rgba(11, 51, 41, 0.12);
+}
+
+.admin-cms-guide strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+.admin-cms-guide ol {
+  margin: 0 0 0.65rem 1.15rem;
+  padding: 0;
+}
+
+.admin-cms-guide li + li {
+  margin-top: 0.25rem;
+}
+
+.admin-cms-guide__note {
+  margin: 0 0 0.75rem;
+  opacity: 0.9;
+}
+
+.admin-cms-guide__dismiss {
+  appearance: none;
+  border: 1px solid rgba(11, 51, 41, 0.2);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font: inherit;
+  font-weight: 600;
+  color: #0b3329;
+  background: #fff;
+  cursor: pointer;
+}
+
+.admin-cms-guide__dismiss:hover {
+  background: #f1e8d6;
+}
+
+/* Jednoduchý režim: skrýt záložku Schvalovací workflow (staré koncepty) */
+.admin-cms-body #nc-root a[href="#/workflow"],
+.admin-cms-body #nc-root a[href$="/workflow"] {
+  display: none !important;
+}
+
+.admin-shop__main {
+  max-width: 720px;
+}
+
+.admin-shop__panel {
+  padding: 1.25rem 1.35rem;
+  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid rgba(11, 51, 41, 0.08);
+  margin-bottom: 1.25rem;
+}
+
+.admin-shop__panel h2 {
+  font-family: "Winky Rough", sans-serif;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-shop__panel code {
+  font-size: 0.85em;
+  background: #f1e8d6;
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+}
+
+.admin-shop__actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-shop__preview {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .admin-hub__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -42,10 +42,15 @@ Možnosti:
 
 ## 5) Jak klientka pracuje
 
-1. Otevře `/admin`
-2. V sekci **Texty webu** upraví stránku nebo v sekci **Blog příspěvky** otevře soubor **Příspěvky**
-3. Přidá, upraví nebo smaže příspěvek
-4. Klikne **Publish**
+1. Otevře `/admin` → **Texty webu** (CMS)
+2. V levém menu vybere **Úvodní stránku**, **Stránky webu** nebo **Blog**
+3. Upraví obsah
+4. Klikne **Publikovat na web** – změna se uloží a web se během 1–2 minut aktualizuje
+
+### Koncepty u blogu
+
+- U nového článku nechte **Zobrazit na webu** vypnuté → článek se uloží, ale na webu se neukáže
+- Až bude hotový, zapněte **Zobrazit na webu** a znovu **Publikovat na web**
 
 ## Struktura jednoho příspěvku
 
@@ -55,4 +60,4 @@ Možnosti:
 - `excerpt` - krátký perex do výpisu
 - `image` - obrázek
 - `content` - seznam odstavců
-- `published` - zda se má článek zobrazit
+- `published` - zapnuto = článek je vidět na webu; vypnuto = koncept

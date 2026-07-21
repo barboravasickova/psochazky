@@ -6,10 +6,46 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
-    <title>Úpravy webu | Psocházky</title>
+    <title>Administrace | Psocházky</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Winky+Rough:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="admin-ui.css" />
   </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+  <body class="admin-hub">
+    <main class="admin-hub__main">
+      <header class="admin-hub__header">
+        <img class="admin-hub__logo" src="../images/logo-psochazky.svg" alt="Psocházky" />
+        <h1 class="admin-hub__title">Administrace</h1>
+        <p class="admin-hub__lead">Vyber, co chceš upravit.</p>
+      </header>
+
+      <div class="admin-hub__grid">
+        <a href="cms.html" class="admin-hub__card">
+          <span class="admin-hub__card-label">Texty webu</span>
+          <h2 class="admin-hub__card-title">Obsah a blog</h2>
+          <p class="admin-hub__card-text">
+            Úvodní stránka, služby, ceník, blog a další texty. Přihlášení přes GitHub.
+          </p>
+          <span class="admin-hub__card-action">Otevřít CMS →</span>
+        </a>
+
+        <a href="obchod/index.html" class="admin-hub__card">
+          <span class="admin-hub__card-label">Obchod</span>
+          <h2 class="admin-hub__card-title">Produkty a objednávky</h2>
+          <p class="admin-hub__card-text">
+            Správa merche a e-shopu. Stránka obchodu zatím není v menu webu.
+          </p>
+          <span class="admin-hub__card-action">Spravovat obchod →</span>
+        </a>
+      </div>
+
+      <p class="admin-hub__footer">
+        <a href="../index.html">Zpět na web Psocházky</a>
+      </p>
+    </main>
   </body>
 </html>
