@@ -25,8 +25,8 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "web_home"
-    label: "Úvodní stránka"
+  - name: "web_pages"
+    label: "Stránky webu"
     files:
       - label: "Úvodní stránka"
         name: "home_content"
@@ -76,9 +76,6 @@ collections:
           # --- Závěr stránky ---
           - { label: "Závěr: text odstavce", name: "bottomText", widget: "text", hint: "Zelený blok před patičkou." }
 
-  - name: "web_pages"
-    label: "Stránky webu"
-    files:
       - label: "O mně"
         name: "about_content"
         file: "data/o-mne-content.json"

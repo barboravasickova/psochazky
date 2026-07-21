@@ -152,6 +152,10 @@ textarea {
   display: none !important;
 }
 
+html.cms-guide-dismissed .admin-cms-guide {
+  display: none;
+}
+
 .admin-cms-guide {
   position: relative;
   z-index: 10;
@@ -204,6 +208,21 @@ textarea {
 /* Jednoduchý režim: skrýt záložku Schvalovací workflow (staré koncepty) */
 .admin-cms-body #nc-root a[href="#/workflow"],
 .admin-cms-body #nc-root a[href$="/workflow"] {
+  display: none !important;
+}
+
+/* Sidebar: skrýt vyhledávání a nadpis Collections / Kolekce */
+.admin-cms-body #nc-root [class*="Sidebar"] input[type="search"],
+.admin-cms-body #nc-root [class*="Sidebar"] [class*="Search"],
+.admin-cms-body #nc-root [class*="CollectionSearch"],
+.admin-cms-body #nc-root [class*="SearchInput"] {
+  display: none !important;
+}
+
+.admin-cms-body #nc-root [class*="Sidebar"] [class*="SidebarHeading"],
+.admin-cms-body #nc-root [class*="SidebarCollectionGroup"] > h2,
+.admin-cms-body #nc-root [class*="CollectionGroups"] > h2,
+.admin-cms-body #nc-root [class*="Sidebar"] > div > h2 {
   display: none !important;
 }
 

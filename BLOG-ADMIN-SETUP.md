@@ -44,7 +44,7 @@ Stručně:
 ## 5) Jak klientka pracuje
 
 1. Otevře `/admin` → **Texty webu** (CMS)
-2. V levém menu vybere **Úvodní stránku**, **Stránky webu** nebo **Blog**
+2. V levém menu vybere **Stránky webu** (všechny stránky včetně úvodu) nebo **Blog**
 3. Upraví obsah
 4. Klikne **Publikovat na web** – změna se uloží a web se během 1–2 minut aktualizuje
 
