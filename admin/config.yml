@@ -2,7 +2,8 @@ backend:
   name: github
   repo: barboravasickova/psochazky
   branch: main
-  base_url: https://netlify-cms-github-oauth-provider-bay.vercel.app
+  # Vlastní OAuth proxy – viz CMS-OAUTH-SETUP.md (nasadit složku cms-oauth/ na Vercel)
+  base_url: https://psochazky-cms-oauth.vercel.app
   auth_endpoint: auth
 
 site_url: https://psochazky.cz

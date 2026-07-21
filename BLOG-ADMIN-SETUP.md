@@ -24,14 +24,15 @@ Nahradit placeholdery:
 
 ## 3) OAuth pro přihlášení do `/admin`
 
-Decap CMS s backendem `github` potřebuje OAuth provider (proxy).
-Bez něj nebude přihlášení fungovat.
+Decap CMS s backendem `github` potřebuje OAuth proxy (Vercel).  
+**Podrobný návod:** viz [`CMS-OAUTH-SETUP.md`](CMS-OAUTH-SETUP.md).
 
-Možnosti:
+Stručně:
 
-- Netlify OAuth (pokud by web běžel na Netlify)
-- Vercel / vlastní serverless funkce jako OAuth proxy
-- Externí OAuth proxy služba
+1. Nasadit složku `cms-oauth/` na Vercel
+2. Vytvořit GitHub OAuth App s callback `https://psochazky-cms-oauth.vercel.app/callback`
+3. Do Vercel nastavit `OAUTH_GITHUB_CLIENT_ID` a `OAUTH_GITHUB_CLIENT_SECRET`
+4. V `admin/config.yml` je `base_url` nastaveno na vlastní proxy (ne starou `…-bay.vercel.app`)
 
 ## 4) Oprávnění pro klientku
 
