@@ -3,10 +3,9 @@ body {
   font-size: 16px;
 }
 
-/* Širší hlavní sloupec formuláře, kde to prohlížeč dovolí */
-[class*="AppMainContent"],
-[class*="Pane"] {
-  max-width: 960px;
+/* Širší obsah v seznamu kolekcí */
+.admin-cms-body #nc-root [class*="AppMainContent"] {
+  max-width: none;
 }
 
 /* Delší textové pole pro delší odstavce */
@@ -223,6 +222,29 @@ html.cms-guide-dismissed .admin-cms-guide {
 .admin-cms-body #nc-root [class*="SidebarCollectionGroup"] > h2,
 .admin-cms-body #nc-root [class*="CollectionGroups"] > h2,
 .admin-cms-body #nc-root [class*="Sidebar"] > div > h2 {
+  display: none !important;
+}
+
+/* Editor přes celou šířku – skrýt prázdný náhled vpravo */
+.admin-cms-body #nc-root .SplitPane .Pane2,
+.admin-cms-body #nc-root .SplitPane .Resizer,
+.admin-cms-body #nc-root [class*="SplitPane"] .Pane2,
+.admin-cms-body #nc-root [class*="SplitPane"] .Resizer {
+  display: none !important;
+}
+
+.admin-cms-body #nc-root .SplitPane .Pane1,
+.admin-cms-body #nc-root [class*="SplitPane"] .Pane1 {
+  width: 100% !important;
+  max-width: none !important;
+  flex: 1 1 100% !important;
+}
+
+.admin-cms-body #nc-root [class*="ControlPaneContainer"] {
+  max-width: none;
+}
+
+.admin-cms-body #nc-root [class*="ViewControls"] {
   display: none !important;
 }
 

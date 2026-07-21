@@ -27,6 +27,9 @@ public_folder: "/images/uploads"
 collections:
   - name: "web_pages"
     label: "Stránky webu"
+    sortable_fields: []
+    editor:
+      preview: false
     files:
       - label: "Úvodní stránka"
         name: "home_content"
@@ -468,6 +471,9 @@ collections:
 
   - name: "blog"
     label: "Blog"
+    sortable_fields: []
+    editor:
+      preview: false
     files:
       - label: "Příspěvky"
         name: "posts"
