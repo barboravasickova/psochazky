@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-07-21T06:10:57.436Z",
+  "syncedAt": "2026-07-22T06:09:39.964Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -9,11 +9,10 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ DNES",
+        "DOSTUPNÉ 28.7.",
         "18:00"
       ],
-      "status": "available",
-      "isWidgetLink": false
+      "status": "available"
     },
     {
       "title": "Socializace „PRO“, SO v 9 hod., ŽEBĚTÍN",
@@ -25,8 +24,7 @@
         "DOSTUPNÉ 25.7.",
         "9:00"
       ],
-      "status": "available",
-      "isWidgetLink": false
+      "status": "available"
     },
     {
       "title": "Vodítková socializace ŽIDLOCHOVICE, Komenského",
@@ -35,11 +33,10 @@
       "price": "od 220 Kč",
       "city": "Židlochovice",
       "badges": [
-        "DOSTUPNÉ 26.7.",
+        "DOSTUPNÉ 6.9.",
         "8:00"
       ],
-      "status": "available",
-      "isWidgetLink": false
+      "status": "available"
     },
     {
       "title": "Individuální trénink",
@@ -51,8 +48,7 @@
         "DOSTUPNÉ 24.7.",
         "15:00"
       ],
-      "status": "available",
-      "isWidgetLink": false
+      "status": "available"
     },
     {
       "title": "Socializace „PRO“, SO v 9 hod., SOBĚŠICE U Buku",
@@ -61,11 +57,10 @@
       "price": "od 220 Kč",
       "city": "Bílovice nad Svitavou",
       "badges": [
-        "DOSTUPNÉ 25.7.",
+        "DOSTUPNÉ 1.8.",
         "9:00"
       ],
-      "status": "available",
-      "isWidgetLink": false
+      "status": "available"
     }
   ]
 }
