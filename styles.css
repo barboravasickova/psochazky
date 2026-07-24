@@ -1864,12 +1864,14 @@ body.nav-open .navigation {
 
 .booqito-widget-wrap .sccz-widget {
   min-height: 420px;
+  overflow: hidden;
 }
 
 .booqito-widget-wrap .sccz-widget iframe {
   display: block;
   width: 100%;
   border: none;
+  overflow: hidden;
 }
 
 .booqito-widget-fallback {
@@ -1885,10 +1887,8 @@ body.nav-open .navigation {
 }
 
 @media (min-width: 900px) {
-  .booqito-widget-wrap .sccz-widget,
-  .booqito-widget-wrap .sccz-widget iframe {
-    height: 2200px;
-    min-height: 2200px;
+  .booqito-widget-wrap .sccz-widget {
+    min-height: 560px;
   }
 }
 
