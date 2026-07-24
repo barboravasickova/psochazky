@@ -1864,6 +1864,26 @@ body.nav-open .navigation {
 
 .booqito-widget-wrap .sccz-widget {
   min-height: 420px;
+  position: relative;
+}
+
+.booqito-widget-wrap--loading .sccz-widget,
+.booqito-widget-wrap--settling .sccz-widget {
+  overflow: hidden;
+}
+
+.booqito-widget-wrap--loading .sccz-widget {
+  background: linear-gradient(135deg, #faf6ee 0%, #f4ede0 100%);
+  border-radius: 14px;
+}
+
+.booqito-widget-wrap--loading .sccz-widget iframe {
+  opacity: 0;
+}
+
+.booqito-widget-wrap--ready .sccz-widget iframe {
+  opacity: 1;
+  transition: opacity 0.2s ease;
 }
 
 .booqito-widget-wrap .sccz-widget iframe {
