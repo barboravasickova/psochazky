@@ -2,6 +2,7 @@
   var DESKTOP_BREAKPOINT = 900;
   var wrapOuterSelector = ".booqito-widget-wrap";
   var widgetSelector = ".booqito-widget-wrap .sccz-widget";
+  var BOOQITO_ORIGIN = "https://app.booqito.com";
   var lastHeight = null;
   var isFullscreen = false;
   var settleTimer = null;
@@ -35,6 +36,13 @@
     retryTimers = [];
   }
 
+  function markReady() {
+    var outer = getOuterWrap();
+    if (!outer) return;
+    outer.classList.remove("booqito-widget-wrap--settling");
+    outer.classList.add("booqito-widget-wrap--ready");
+  }
+
   function applyHeight() {
     if (!shouldApplyDesktopHeight()) return;
 
@@ -65,13 +73,8 @@
     if (!outer) return;
 
     outer.classList.add("booqito-widget-wrap--settling");
-    outer.classList.remove("booqito-widget-wrap--ready");
     clearTimeout(settleTimer);
-    settleTimer = setTimeout(function () {
-      outer.classList.remove("booqito-widget-wrap--settling");
-      outer.classList.remove("booqito-widget-wrap--loading");
-      outer.classList.add("booqito-widget-wrap--ready");
-    }, 250);
+    settleTimer = setTimeout(markReady, 250);
   }
 
   function ensureStyleObserver() {
@@ -84,15 +87,20 @@
     styleObserver.observe(iframe, { attributes: true, attributeFilter: ["style"] });
   }
 
+  function onIframeReady() {
+    ensureStyleObserver();
+    markSettling();
+    scheduleApplies();
+  }
+
   function watchIframeInsert() {
     var widget = getWidget();
     if (!widget) return;
 
+    if (getIframe(widget)) onIframeReady();
+
     new MutationObserver(function () {
-      if (getIframe(widget)) {
-        ensureStyleObserver();
-        scheduleApplies();
-      }
+      if (getIframe(widget)) onIframeReady();
     }).observe(widget, { childList: true, subtree: true });
   }
 
@@ -101,11 +109,15 @@
     if (!data || typeof data.height !== "number") return;
 
     var iframe = getIframe(getWidget());
-    if (!iframe || iframe.contentWindow !== event.source) return;
+    if (iframe) {
+      if (iframe.contentWindow !== event.source) return;
+    } else if (event.origin !== BOOQITO_ORIGIN) {
+      return;
+    }
 
     lastHeight = data.height;
     isFullscreen = !!data.fullscreen;
-    ensureStyleObserver();
+    if (iframe) ensureStyleObserver();
     markSettling();
     scheduleApplies();
   }
@@ -123,4 +135,5 @@
   );
 
   watchIframeInsert();
+  setTimeout(markReady, 3000);
 })();
