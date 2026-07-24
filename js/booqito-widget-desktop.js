@@ -1,10 +1,14 @@
 (function () {
   var DESKTOP_BREAKPOINT = 900;
   var widgetSelector = ".booqito-widget-wrap .sccz-widget";
+  var HEIGHT_BUFFER = 16;
+  var RETRY_DELAYS = [0, 50, 100, 200, 400, 800, 1500, 2500, 4000];
   var targetHeight = null;
   var isFullscreen = false;
   var styleObserver = null;
-  var applyTimer = null;
+  var debounceTimer = null;
+  var retryTimers = [];
+  var scrollTimer = null;
 
   function isDesktop() {
     return window.innerWidth >= DESKTOP_BREAKPOINT;
@@ -20,6 +24,11 @@
 
   function shouldApply() {
     return isDesktop() && !isFullscreen && targetHeight !== null;
+  }
+
+  function clearRetries() {
+    retryTimers.forEach(clearTimeout);
+    retryTimers = [];
   }
 
   function clearAppliedHeight() {
@@ -38,6 +47,10 @@
     }
   }
 
+  function formatHeight(value) {
+    return Math.ceil(value) + HEIGHT_BUFFER + "px";
+  }
+
   function applyHeight() {
     if (!shouldApply()) return;
 
@@ -45,12 +58,12 @@
     var iframe = getIframe(widget);
     if (!widget || !iframe) return;
 
-    var height = Math.ceil(targetHeight) + 4 + "px";
+    var height = formatHeight(targetHeight);
     iframe.setAttribute("scrolling", "no");
 
     iframe.style.setProperty("height", height, "important");
     iframe.style.setProperty("min-height", height, "important");
-    iframe.style.setProperty("max-height", height, "important");
+    iframe.style.setProperty("max-height", "none", "important");
     iframe.style.setProperty("overflow", "hidden", "important");
 
     widget.style.setProperty("height", height, "important");
@@ -58,20 +71,35 @@
     widget.style.setProperty("overflow", "hidden", "important");
   }
 
-  function scheduleApply() {
+  function scheduleApplies() {
+    clearRetries();
     applyHeight();
-    clearTimeout(applyTimer);
-    applyTimer = setTimeout(applyHeight, 50);
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(applyHeight, 50);
+
     requestAnimationFrame(function () {
       requestAnimationFrame(applyHeight);
     });
+
+    RETRY_DELAYS.forEach(function (delay) {
+      retryTimers.push(setTimeout(applyHeight, delay));
+    });
+  }
+
+  function updateTargetHeight(nextHeight) {
+    if (targetHeight === null || nextHeight >= targetHeight - 20) {
+      targetHeight = Math.max(targetHeight || 0, nextHeight);
+      return;
+    }
+
+    targetHeight = nextHeight;
   }
 
   function ensureStyleObserver() {
     var iframe = getIframe(getWidget());
     if (!iframe || styleObserver) return;
 
-    styleObserver = new MutationObserver(scheduleApply);
+    styleObserver = new MutationObserver(scheduleApplies);
     styleObserver.observe(iframe, { attributes: true, attributeFilter: ["style"] });
   }
 
@@ -80,7 +108,7 @@
     if (!iframe) return;
     iframe.setAttribute("scrolling", "no");
     ensureStyleObserver();
-    scheduleApply();
+    scheduleApplies();
   }
 
   function watchIframe() {
@@ -101,21 +129,32 @@
     var iframe = getIframe(getWidget());
     if (iframe && iframe.contentWindow !== event.source) return;
 
-    targetHeight = data.height;
     isFullscreen = !!data.fullscreen;
 
     if (isFullscreen) {
+      clearRetries();
       clearAppliedHeight();
       return;
     }
 
+    updateTargetHeight(data.height);
     ensureStyleObserver();
-    scheduleApply();
+    scheduleApplies();
   });
 
   window.addEventListener("resize", function () {
-    if (shouldApply()) scheduleApply();
+    if (shouldApply()) scheduleApplies();
   });
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!shouldApply()) return;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(scheduleApplies, 80);
+    },
+    { passive: true }
+  );
 
   watchIframe();
 })();
