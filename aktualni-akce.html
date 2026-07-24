@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Aktuální akce | Psocházky</title>
-    <meta name="description" content="Aktuální termíny a přihlášení na akce Psocházky v Brně přes rezervační systém Booqito." />
+    <meta name="description" content="Aktuální termíny a online objednávka socializačních procházek, tréninků a akcí Psocházky v Brně – kalendář a rezervace přímo na webu." />
     <link rel="canonical" href="https://psochazky.cz/aktualni-akce.html" />
     <meta property="og:site_name" content="Psocházky" />
     <meta property="og:title" content="Aktuální akce | Psocházky" />
-    <meta property="og:description" content="Aktuální termíny a přihlášení na akce Psocházky v Brně přes rezervační systém Booqito." />
+    <meta property="og:description" content="Aktuální termíny a online objednávka socializačních procházek, tréninků a akcí Psocházky v Brně – kalendář a rezervace přímo na webu." />
     <meta property="og:url" content="https://psochazky.cz/aktualni-akce.html" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="cs_CZ" />
     <meta property="og:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Aktuální akce | Psocházky" />
-    <meta name="twitter:description" content="Aktuální termíny a přihlášení na akce Psocházky v Brně přes rezervační systém Booqito." />
+    <meta name="twitter:description" content="Aktuální termíny a online objednávka socializačních procházek, tréninků a akcí Psocházky v Brně – kalendář a rezervace přímo na webu." />
     <meta name="twitter:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg">
-    <link rel="stylesheet" href="styles.css?v=25" />
+    <link rel="stylesheet" href="styles.css?v=27" />
+    <link rel="preconnect" href="https://app.booqito.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -76,35 +77,30 @@
     </header>
 
     <main>
-      <!-- Karty berou data z data/booqito-akce.json | aktualizace: node scripts/sync-booqito-akce.mjs -->
       <section class="section-padding section-akce">
         <div class="container page-content page-content--article">
           <h1>Aktuální akce</h1>
-          <p class="page-content__intro">Přehled termínů a přihlášení na socializační procházky, individuální tréninky a další akce.</p>
-          <p>Většina akcí probíhá v Brně. Po kliknutí na kartu se otevře <strong>nové okno</strong> s rezervačním systémem Booqito, kde uvidíš volné termíny, detaily a dokončíš objednávku.</p>
-
-          <p class="akce-notice" role="note">
-            <span class="akce-notice__label">Upozornění:</span>
-            Každá akce se otevírá na stránce <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">psochazky.booqito.com</a> v novém okně (nebo záložce).
-          </p>
+          <p class="page-content__intro">Přehled termínů a online objednávka socializačních procházek, individuálních tréninků a dalších akcí.</p>
+          <p>Vyber akci v kalendáři níže, zvol termín a dokonči objednávku.</p>
         </div>
 
-        <div class="akce-board">
+        <div class="booqito-widget-wrap">
           <div class="container">
-            <p id="akce-loading" class="akce-loading">Načítám nabídku akcí…</p>
-            <p id="akce-error" class="akce-error" hidden>
-              Nabídku se nepodařilo načíst. Otevři ji přímo na
-              <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">Booqito</a>.
+            <script>
+              var sccz_id = "1528/56f5d3bf8e3f4e9f94c62c8ff28e44c7c88247df";
+            </script>
+            <script src="https://app.booqito.com/inc/js/widget.js" async></script>
+            <script src="js/booqito-widget-desktop.js" defer></script>
+            <div class="sccz-widget" data-options="id=599"></div>
+            <p class="booqito-widget-fallback">
+              Kalendář se nenačetl?
+              <a href="https://psochazky.booqito.com/" rel="noopener noreferrer">Otevřít rezervace na Booqito</a>.
             </p>
-            <div id="akce-grid" class="akce-grid" hidden></div>
           </div>
         </div>
 
         <div class="container page-content page-content--article">
-          <p id="akce-sync-meta" class="akce-sync-meta" aria-live="polite"></p>
-
           <div class="page-content__cta">
-            <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer" class="btn">Celá nabídka na Booqito</a>
             <a href="cenik.html" class="btn">Ceník</a>
             <a href="kontakt.html" class="btn">Kontakt</a>
           </div>
@@ -177,140 +173,6 @@
           }
         });
       }
-
-      /* Aktuální akce – karty z data/booqito-akce.json (generuje scripts/sync-booqito-akce.mjs) */
-      (function () {
-        const grid = document.getElementById("akce-grid");
-        const loading = document.getElementById("akce-loading");
-        const errEl = document.getElementById("akce-error");
-        const meta = document.getElementById("akce-sync-meta");
-        if (!grid || !loading || !errEl) return;
-
-        function shouldHideFromListing(item) {
-          if (item.status === "unavailable") return true;
-          if (item.isWidgetLink) return true;
-          if ((item.badges || []).some((badge) => badge.toUpperCase().includes("NEDOSTUPN"))) return true;
-          const title = (item.title || "").toLowerCase();
-          if (title.includes("permanentk") || title.includes("dárkový poukaz") || title.includes("darkovy poukaz")) {
-            return true;
-          }
-          return false;
-        }
-
-        function buildCard(item) {
-          const article = document.createElement("article");
-          article.className = "akce-card";
-
-          const a = document.createElement("a");
-          a.className = "akce-card__link";
-          a.href = item.url;
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-
-          if (item.image) {
-            const media = document.createElement("div");
-            media.className = "akce-card__media";
-            const img = document.createElement("img");
-            img.src = item.image;
-            img.alt = "";
-            img.loading = "lazy";
-            img.decoding = "async";
-            img.addEventListener("error", () => {
-              media.style.display = "none";
-            });
-            media.appendChild(img);
-            a.appendChild(media);
-          }
-
-          const bodyEl = document.createElement("div");
-          bodyEl.className = "akce-card__body";
-
-          if (item.badges && item.badges.length) {
-            const badges = document.createElement("div");
-            badges.className = "akce-card__badges";
-            item.badges.forEach((t) => {
-              const sp = document.createElement("span");
-              sp.className = "akce-card__badge";
-              sp.textContent = t;
-              badges.appendChild(sp);
-            });
-            bodyEl.appendChild(badges);
-          }
-
-          const h3 = document.createElement("h3");
-          h3.className = "akce-card__title";
-          h3.textContent = item.title;
-          bodyEl.appendChild(h3);
-
-          if (item.city) {
-            const loc = document.createElement("p");
-            loc.className = "akce-card__loc";
-            loc.textContent = item.city;
-            bodyEl.appendChild(loc);
-          }
-
-          if (item.price) {
-            const price = document.createElement("p");
-            price.className = "akce-card__price";
-            price.textContent = item.price;
-            bodyEl.appendChild(price);
-          }
-
-          if (item.isWidgetLink) {
-            const hint = document.createElement("p");
-            hint.className = "akce-card__hint";
-            hint.textContent = "Otevře Booqito – stejná nabídka jako na hlavní stránce rezervací.";
-            bodyEl.appendChild(hint);
-          }
-
-          const cta = document.createElement("span");
-          cta.className = "akce-card__cta";
-          cta.textContent = "Objednat";
-          bodyEl.appendChild(cta);
-
-          a.appendChild(bodyEl);
-          article.appendChild(a);
-          return article;
-        }
-
-        fetch("data/booqito-akce.json", { cache: "no-store" })
-          .then((r) => {
-            if (!r.ok) throw new Error("fetch");
-            return r.json();
-          })
-          .then((data) => {
-            loading.hidden = true;
-            const available = (data.items || []).filter((item) => !shouldHideFromListing(item));
-            if (!available.length) {
-              errEl.innerHTML =
-                'V přehledu momentálně nejsou žádné dostupné akce. Celou nabídku najdeš na <a href="https://psochazky.booqito.com/" target="_blank" rel="noopener noreferrer">Booqito</a>.';
-              errEl.hidden = false;
-              return;
-            }
-            available.forEach((item) => grid.appendChild(buildCard(item)));
-            grid.hidden = false;
-            if (meta && data.syncedAt) {
-              try {
-                const d = new Date(data.syncedAt);
-                meta.textContent =
-                  "Údaje odpovídají nabídce stažené z Booqito: " +
-                  d.toLocaleString("cs-CZ", {
-                    day: "numeric",
-                    month: "numeric",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  });
-              } catch (_) {
-                meta.textContent = "";
-              }
-            }
-          })
-          .catch(() => {
-            loading.hidden = true;
-            errEl.hidden = false;
-          });
-      })();
     </script>
     <script src="js/cookies.js"></script>
   </body>
