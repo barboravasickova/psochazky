@@ -1,7 +1,8 @@
 (function () {
   var DESKTOP_BREAKPOINT = 900;
   var widgetSelector = ".booqito-widget-wrap .sccz-widget";
-  var HEIGHT_BUFFER = 16;
+  var DESKTOP_HEIGHT_BUFFER = 16;
+  var MOBILE_HEIGHT_BUFFER = 48;
   var RETRY_DELAYS = [0, 50, 100, 200, 400, 800, 1500, 2500, 4000];
   var targetHeight = null;
   var isFullscreen = false;
@@ -23,7 +24,11 @@
   }
 
   function shouldApply() {
-    return isDesktop() && !isFullscreen && targetHeight !== null;
+    return !isFullscreen && targetHeight !== null;
+  }
+
+  function heightBuffer() {
+    return isDesktop() ? DESKTOP_HEIGHT_BUFFER : MOBILE_HEIGHT_BUFFER;
   }
 
   function clearRetries() {
@@ -48,7 +53,7 @@
   }
 
   function formatHeight(value) {
-    return Math.ceil(value) + HEIGHT_BUFFER + "px";
+    return Math.ceil(value) + heightBuffer() + "px";
   }
 
   function applyHeight() {
@@ -64,11 +69,17 @@
     iframe.style.setProperty("height", height, "important");
     iframe.style.setProperty("min-height", height, "important");
     iframe.style.setProperty("max-height", "none", "important");
-    iframe.style.setProperty("overflow", "hidden", "important");
 
     widget.style.setProperty("height", height, "important");
     widget.style.setProperty("min-height", height, "important");
-    widget.style.setProperty("overflow", "hidden", "important");
+
+    if (isDesktop()) {
+      iframe.style.setProperty("overflow", "hidden", "important");
+      widget.style.setProperty("overflow", "hidden", "important");
+    } else {
+      iframe.style.removeProperty("overflow");
+      widget.style.removeProperty("overflow");
+    }
   }
 
   function scheduleApplies() {

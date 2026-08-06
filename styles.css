@@ -164,7 +164,7 @@ body.nav-open .navigation {
 .nav__link {
   text-decoration: none;
   color: var(--color-primary);
-  font-size: 2rem;
+  font-size: 1.45rem;
   font-weight: 700;
   font-family: var(--font-nadpisy);
 }
@@ -211,7 +211,7 @@ body.nav-open .navigation {
 
   .nav__link,
   .nav__dropdown-link {
-    font-size: 2rem;
+    font-size: 1.45rem;
     font-weight: 700;
     font-family: var(--font-nadpisy);
     text-align: center;
@@ -1865,6 +1865,16 @@ body.nav-open .navigation {
 .booqito-widget-wrap .sccz-widget {
   min-height: 420px;
   overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .booqito-widget-wrap .sccz-widget {
+    overflow: visible;
+  }
+
+  .booqito-widget-wrap .sccz-widget iframe {
+    overflow: visible;
+  }
 }
 
 .booqito-widget-wrap .sccz-widget iframe {
