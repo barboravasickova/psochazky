@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Košík | Obchod Psocházky</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
+    <link rel="stylesheet" href="styles.css?v=45" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header__inner">
+        <div class="container header__container">
+          <a href="index.html"><img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" /></a>
+          <button class="menu-toggle" type="button" aria-label="Otevřít hlavní menu" aria-expanded="false" aria-controls="primaryNavigation">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+        <nav id="primaryNavigation" class="navigation">
+          <a href="index.html" class="navigation__logo" aria-label="Psocházky – úvodní stránka"></a>
+          <ul class="nav__list">
+            <li class="nav__dropdown">
+              <a href="#" class="nav__link nav__dropdown-toggle">Služby<svg class="nav__dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></a>
+              <ul class="nav__dropdown-menu">
+                <li><a href="socializacni-prochazky.html" class="nav__dropdown-link">Socializační procházky</a></li>
+                <li><a href="individualni-treninky.html" class="nav__dropdown-link">Individuální tréninky</a></li>
+                <li><a href="vylety-a-akce.html" class="nav__dropdown-link">Výlety a akce</a></li>
+                <li><a href="cenik.html" class="nav__dropdown-link">Ceník</a></li>
+              </ul>
+            </li>
+            <li><a href="o-mne.html" class="nav__link">O mně</a></li>
+            <li><a href="jak-to-funguje.html" class="nav__link">Jak to funguje</a></li>
+            <li><a href="aktualni-akce.html" class="nav__link">Aktuální akce</a></li>
+            <li><a href="blog.html" class="nav__link">Blog</a></li>
+            <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-padding shop-page">
+        <div class="container page-content page-content--article">
+          <h1>Košík</h1>
+          <div class="shop-preview-banner" role="status">
+            <p><strong>Náhled e-shopu.</strong> Objednávka se neukládá ani neodesílá.</p>
+          </div>
+          <div class="shop-toolbar">
+            <a href="obchod.html" class="shop-toolbar__back">← Zpět do obchodu</a>
+            <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link>Košík (<span data-shop-cart-count>0</span>)</a>
+          </div>
+
+          <p id="shop-cart-empty" class="shop-page__empty" hidden>
+            Košík je prázdný. <a href="obchod.html">Vyber produkty v obchodě</a>.
+          </p>
+
+          <div id="shop-cart-list" class="shop-cart-list" aria-live="polite"></div>
+
+          <div id="shop-cart-summary" class="shop-cart-summary" hidden>
+            <p class="shop-cart-summary__row">
+              <span>Mezisoučet</span>
+              <strong id="shop-cart-subtotal">0 Kč</strong>
+            </p>
+            <p id="shop-cart-shipping-note" class="shop-cart-summary__note"></p>
+            <a id="shop-cart-checkout" href="obchod-objednavka.html" class="btn">Pokračovat k objednávce</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="container footer__grid">
+        <div class="footer__info"><img src="images/logo-psochazky.svg" alt="Logo" /></div>
+        <div class="footer__contact">
+          <h4>Kontakt</h4>
+          <p>Email: <a href="mailto:psochazky@gmail.com">psochazky@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 Psocházky</p>
+        <div class="footer__bottom-links">
+          <a href="obchodni-podminky.html">Obchodní podmínky</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const body = document.body;
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navigation = document.getElementById("primaryNavigation");
+      if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = body.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+        navigation.addEventListener("click", (event) => {
+          if (event.target.matches("a")) {
+            body.classList.remove("nav-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+    </script>
+    <script src="js/shop-cart.js"></script>
+    <script src="js/shop-kosik.js"></script>
+    <script src="js/cookies.js"></script>
+  </body>
+</html>

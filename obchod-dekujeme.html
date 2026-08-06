@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Děkujeme | Obchod Psocházky</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
+    <link rel="stylesheet" href="styles.css?v=45" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header__inner">
+        <div class="container header__container">
+          <a href="index.html"><img class="logo" src="images/logo-psochazky.svg" alt="logo Psocházky" /></a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-padding shop-page">
+        <div class="container page-content page-content--article">
+          <p id="shop-thanks-empty" class="shop-page__empty">
+            Žádná objednávka k zobrazení. <a href="obchod.html">Zpět do obchodu</a>.
+          </p>
+
+          <div id="shop-thanks-content" class="shop-thanks" hidden>
+            <h1>Děkujeme za objednávku</h1>
+            <div class="shop-preview-banner" role="status">
+              <p>Toto je <strong>náhled</strong> potvrzení. Po spuštění obchodu přijde e-mail s fakturou a reálným QR kódem.</p>
+            </div>
+
+            <p>Číslo objednávky: <strong id="shop-thanks-order-number"></strong></p>
+            <p>Potvrzení by šlo na: <strong id="shop-thanks-email"></strong></p>
+            <p>Celkem k úhradě: <strong id="shop-thanks-total"></strong></p>
+
+            <h2>Položky</h2>
+            <ul id="shop-thanks-items" class="shop-thanks-items"></ul>
+
+            <p id="shop-thanks-invoice-note" class="shop-thanks-note"></p>
+
+            <div id="shop-thanks-qr" class="shop-thanks-qr" hidden>
+              <h2>Platba převodem (ukázkový QR)</h2>
+              <p>Částka: <strong id="shop-thanks-amount"></strong>, variabilní symbol: <strong id="shop-thanks-vs"></strong></p>
+              <img id="shop-thanks-qr-img" class="shop-thanks-qr__img" width="220" height="220" alt="" />
+              <p class="shop-thanks-note">QR kód je jen demonstrace – účet v něm není reálný.</p>
+            </div>
+
+            <div id="shop-thanks-cash" class="shop-thanks-cash" hidden>
+              <p><strong>Platba hotově</strong> – domluvíme při osobním převzetí.</p>
+            </div>
+
+            <p class="page-content__cta">
+              <a href="obchod.html" class="btn">Zpět do obchodu</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer__bottom container"><p>© 2026 Psocházky</p></div>
+    </footer>
+
+    <script src="js/shop-cart.js"></script>
+    <script src="js/shop-dekujeme.js"></script>
+    <script src="js/cookies.js"></script>
+  </body>
+</html>

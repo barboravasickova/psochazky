@@ -20,7 +20,7 @@
     <meta name="twitter:description" content="Merch a vybavení Psocházky – targety, dečky a další produkty pro trénink se psem." />
     <meta name="twitter:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg">
-    <link rel="stylesheet" href="styles.css?v=43" />
+    <link rel="stylesheet" href="styles.css?v=67" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -84,11 +84,31 @@
             Merch a vybavení pro trénink se psem. Obchod právě připravujeme.
           </p>
 
-          <p id="shop-empty" class="shop-page__empty">
-            Zatím tu nejsou žádné produkty k zobrazení.
-          </p>
+          <div class="shop-preview-banner" role="status">
+            <p><strong>Náhled e-shopu.</strong> Objednávka se neukládá ani neodesílá – jde jen o ukázku vzhledu a průchodu košíkem.</p>
+          </div>
 
-          <div id="shop-grid" class="shop-grid" hidden aria-live="polite"></div>
+          <div class="shop-toolbar">
+            <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link>
+              Košík (<span data-shop-cart-count>0</span>)
+            </a>
+          </div>
+
+          <div id="shop-catalog-view">
+            <div id="shop-category-filters" class="shop-category-filters" hidden aria-label="Filtrovat podle kategorie"></div>
+
+            <p id="shop-empty" class="shop-page__empty">
+              Zatím tu nejsou žádné produkty k zobrazení.
+            </p>
+
+            <p id="shop-filter-empty" class="shop-page__empty" hidden>
+              V této kategorii zatím nic není. Zkus jinou kategorii nebo „Vše“.
+            </p>
+
+            <div id="shop-grid" class="shop-grid shop-grid--catalog" hidden aria-live="polite"></div>
+          </div>
+
+          <div id="shop-detail-view" class="shop-detail-view" hidden></div>
         </div>
       </section>
     </main>
@@ -159,6 +179,7 @@
         });
       }
     </script>
+    <script src="js/shop-cart.js"></script>
     <script src="js/cms-obchod.js"></script>
     <script src="js/cookies.js"></script>
   </body>

@@ -1,5 +1,6 @@
 {
   "title": "Obchod Psocházky",
-  "intro": "Merch a vybavení pro trénink se psem. Obchod právě připravujeme – brzy tu najdeš targety, dečky a další produkty.",
-  "emptyMessage": "Zatím tu nejsou žádné produkty k zobrazení. Brzy doplníme."
+  "intro": "Merch a vybavení pro trénink se psem. Níže je náhled e-shopu – můžeš vyzkoušet košík a objednávku (zatím se nic neodesílá).",
+  "emptyMessage": "Zatím tu nejsou žádné produkty k zobrazení.",
+  "leadTimeNote": "Vyrábíme na zakázku – dodání obvykle trvá 3–4 týdny."
 }

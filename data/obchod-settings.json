@@ -1,0 +1,27 @@
+{
+  "previewMode": true,
+  "shipping": {
+    "pickup": {
+      "id": "pickup",
+      "label": "Osobní odběr (Brno)",
+      "price": 0,
+      "hint": "Domluvíme termín převzetí e-mailem."
+    },
+    "zasilkovna": {
+      "id": "zasilkovna",
+      "label": "Zásilkovna",
+      "price": 89,
+      "hint": "Jedna zásilka bez ohledu na počet kusů v košíku."
+    }
+  },
+  "paymentMethods": {
+    "transfer": {
+      "id": "transfer",
+      "label": "Platba převodem (QR kód)"
+    },
+    "cash": {
+      "id": "cash",
+      "label": "Hotově při převzetí"
+    }
+  }
+}

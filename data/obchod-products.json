@@ -1,3 +1,125 @@
 {
-  "products": []
+  "sizeChart": {
+    "headers": ["Velikost", "Obvod hrudi", "Délka zad"],
+    "rows": [
+      ["S", "88–92 cm", "66 cm"],
+      ["M", "96–100 cm", "68 cm"],
+      ["L", "100–104 cm", "70 cm"],
+      ["XL", "104–108 cm", "72 cm"]
+    ]
+  },
+  "categories": [
+    { "id": "obleceni", "label": "Oblečení" },
+    { "id": "doplnky", "label": "Doplňky" },
+    { "id": "vycvikove-pomucky", "label": "Výcvikové pomůcky" }
+  ],
+  "products": [
+    {
+      "id": "tricko",
+      "category": "obleceni",
+      "title": "Dámské tričko",
+      "description": "Dámské bavlněné tričko s potiskem Psocházky. Vyber barvu a velikost.",
+      "price": 449,
+      "image": "images/tricko-bordo.png",
+      "imageAlt": "Dámské tričko Psocházky",
+      "active": true,
+      "inStock": true,
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bordó", "image": "images/tricko-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/tricko-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/tricko-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "tricko-panske",
+      "category": "obleceni",
+      "title": "Pánské tričko",
+      "description": "Pánské bavlněné tričko s potiskem Psocházky. Vyber barvu a velikost.",
+      "price": 449,
+      "image": "images/tricko-panske-zelena.png",
+      "imageAlt": "Pánské tričko Psocházky",
+      "active": true,
+      "inStock": true,
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bordó", "image": "images/tricko-panske-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/tricko-panske-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/tricko-panske-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "sportovni-celenka",
+      "category": "doplnky",
+      "title": "Sportovní čelenka",
+      "description": "Čelenka s potiskem Psocházky – na procházky, běh i trénink se psem.",
+      "price": 279,
+      "image": "images/placeholder-produkt.svg",
+      "imageAlt": "Sportovní čelenka Psocházky – fotografie připravujeme",
+      "active": true,
+      "inStock": true
+    },
+    {
+      "id": "ksiltovka-potiskem",
+      "category": "doplnky",
+      "title": "Kšiltovka s potiskem",
+      "description": "Kšiltovka s potiskem Psocházky – na slunce i procházky. Univerzální velikost, nastavitelná páska. Vyber barvu.",
+      "price": 399,
+      "image": "images/ksiltovka-potisk-zelena.png",
+      "imageAlt": "Kšiltovka s potiskem Psocházky",
+      "active": true,
+      "inStock": true,
+      "variants": {
+        "colors": [
+          { "label": "Bordó", "image": "images/ksiltovka-potisk-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/ksiltovka-potisk-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/ksiltovka-potisk-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "ksiltovka-vysivkou",
+      "category": "doplnky",
+      "title": "Kšiltovka s výšivkou",
+      "description": "Kšiltovka s výšivkou Psocházky – odolnější logo na slunce i procházky. Univerzální velikost, nastavitelná páska. Vyber barvu.",
+      "price": 399,
+      "image": "images/ksiltovka-vysivka-zelena.png",
+      "imageAlt": "Kšiltovka s výšivkou Psocházky",
+      "active": true,
+      "inStock": true,
+      "variants": {
+        "colors": [
+          { "label": "Bordó", "image": "images/ksiltovka-vysivka-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/ksiltovka-vysivka-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/ksiltovka-vysivka-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "deka-relax",
+      "category": "vycvikove-pomucky",
+      "title": "Dečka Relax",
+      "description": "Pohodlná dečka pro odpočinek po procházce nebo tréninku.",
+      "price": 590,
+      "image": "images/deka-relax.png",
+      "imageAlt": "Dečka Relax Psocházky",
+      "active": true,
+      "inStock": true
+    },
+    {
+      "id": "target-psochazky",
+      "category": "vycvikove-pomucky",
+      "title": "Tréninkový target Psocházky",
+      "description": "Skládací target pro domácí trénink a socializaci.",
+      "price": 349,
+      "image": "images/placeholder-produkt.svg",
+      "imageAlt": "Tréninkový target Psocházky – fotografie připravujeme",
+      "active": true,
+      "inStock": true
+    }
+  ]
 }
