@@ -109,16 +109,19 @@
 
   if (settings && shippingFieldset) {
     shippingFieldset.innerHTML = "";
+    var shippingBubble = document.createElement("div");
+    shippingBubble.className = "shop-option-bubble";
+
     ["pickup", "zasilkovna"].forEach(function (key) {
       var opt = settings.shipping[key];
       if (!opt) return;
 
       if (key === "zasilkovna") {
-        var card = document.createElement("div");
-        card.className = "shop-shipping-option";
+        var zSection = document.createElement("div");
+        zSection.className = "shop-option-bubble__section";
 
         var radioLabel = document.createElement("label");
-        radioLabel.className = "shop-radio shop-radio--in-card";
+        radioLabel.className = "shop-radio shop-radio--in-group";
         radioLabel.innerHTML =
           '<input type="radio" name="shipping" value="' +
           opt.id +
@@ -129,7 +132,7 @@
           ShopCart.formatMoney(opt.price) +
           (opt.hint ? '<br /><span class="shop-radio__hint">' + opt.hint + "</span>" : "") +
           "</span>";
-        card.appendChild(radioLabel);
+        zSection.appendChild(radioLabel);
 
         var branchWrap = document.createElement("div");
         branchWrap.className = "shop-zasilkovna-branch";
@@ -145,13 +148,13 @@
         branchLabel.appendChild(document.createTextNode("Pobočka Zásilkovny (název a adresa) *"));
         branchLabel.appendChild(branchInput);
         branchWrap.appendChild(branchLabel);
-        card.appendChild(branchWrap);
-        shippingFieldset.appendChild(card);
+        zSection.appendChild(branchWrap);
+        shippingBubble.appendChild(zSection);
         return;
       }
 
       var label = document.createElement("label");
-      label.className = "shop-radio";
+      label.className = "shop-radio shop-radio--in-group";
       label.innerHTML =
         '<input type="radio" name="shipping" value="' +
         opt.id +
@@ -164,18 +167,23 @@
         ShopCart.formatMoney(opt.price) +
         (opt.hint ? '<br /><span class="shop-radio__hint">' + opt.hint + "</span>" : "") +
         "</span>";
-      shippingFieldset.appendChild(label);
+      shippingBubble.appendChild(label);
     });
+
+    shippingFieldset.appendChild(shippingBubble);
     syncZasilkovnaBranchField();
   }
 
   if (settings && paymentFieldset) {
     paymentFieldset.innerHTML = "";
+    var paymentBubble = document.createElement("div");
+    paymentBubble.className = "shop-option-bubble";
+
     ["transfer", "cash"].forEach(function (key) {
       var opt = settings.paymentMethods[key];
       if (!opt) return;
       var label = document.createElement("label");
-      label.className = "shop-radio";
+      label.className = "shop-radio shop-radio--in-group";
       label.innerHTML =
         '<input type="radio" name="payment" value="' +
         opt.id +
@@ -185,8 +193,10 @@
         "<span>" +
         opt.label +
         "</span>";
-      paymentFieldset.appendChild(label);
+      paymentBubble.appendChild(label);
     });
+
+    paymentFieldset.appendChild(paymentBubble);
   }
 
   form.addEventListener("change", renderSummary);
