@@ -10,14 +10,13 @@
     "zasilkovna": {
       "id": "zasilkovna",
       "label": "Zásilkovna",
-      "price": 89,
-      "hint": "Jedna zásilka bez ohledu na počet kusů v košíku."
+      "price": 89
     }
   },
   "paymentMethods": {
     "transfer": {
       "id": "transfer",
-      "label": "Platba převodem (QR kód)"
+      "label": "Platba převodem"
     },
     "cash": {
       "id": "cash",

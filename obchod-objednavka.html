@@ -6,7 +6,7 @@
     <title>Objednávka | Obchod Psocházky</title>
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
-    <link rel="stylesheet" href="styles.css?v=68" />
+    <link rel="stylesheet" href="styles.css?v=79" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -63,28 +63,45 @@
               </fieldset>
 
               <fieldset class="shop-fieldset">
-                <legend>Adresa (pro fakturu / Zásilkovnu)</legend>
+                <legend>Dodací adresa</legend>
                 <label class="shop-field">
                   Ulice a číslo
-                  <input type="text" name="customerStreet" autocomplete="street-address" />
+                  <input type="text" name="customerStreet" autocomplete="shipping street-address" />
                 </label>
                 <label class="shop-field">
                   Město
-                  <input type="text" name="customerCity" autocomplete="address-level2" />
+                  <input type="text" name="customerCity" autocomplete="shipping address-level2" />
                 </label>
                 <label class="shop-field">
                   PSČ
-                  <input type="text" name="customerZip" autocomplete="postal-code" />
+                  <input type="text" name="customerZip" autocomplete="shipping postal-code" />
+                </label>
+              </fieldset>
+
+              <label class="shop-field shop-field--checkbox">
+                <input type="checkbox" name="billingSameAsDelivery" id="shop-billing-same" checked />
+                Fakturační adresa stejná jako dodací
+              </label>
+
+              <fieldset class="shop-fieldset" id="shop-billing-address" hidden>
+                <legend>Fakturační adresa</legend>
+                <label class="shop-field">
+                  Ulice a číslo
+                  <input type="text" name="billingStreet" autocomplete="billing street-address" />
+                </label>
+                <label class="shop-field">
+                  Město
+                  <input type="text" name="billingCity" autocomplete="billing address-level2" />
+                </label>
+                <label class="shop-field">
+                  PSČ
+                  <input type="text" name="billingZip" autocomplete="billing postal-code" />
                 </label>
               </fieldset>
 
               <fieldset class="shop-fieldset">
                 <legend>Doprava</legend>
                 <div id="shop-shipping-options" class="shop-radio-group"></div>
-                <div id="shop-zasilkovna-field" class="shop-field" hidden>
-                  Pobočka Zásilkovny (název a adresa) *
-                  <input type="text" name="zasilkovnaPoint" placeholder="Např. Brno – Veveří, …" />
-                </div>
               </fieldset>
 
               <fieldset class="shop-fieldset">
@@ -129,7 +146,7 @@
       }
     </script>
     <script src="js/shop-cart.js"></script>
-    <script src="js/shop-objednavka.js"></script>
+    <script src="js/shop-objednavka.js?v=3"></script>
     <script src="js/cookies.js"></script>
   </body>
 </html>

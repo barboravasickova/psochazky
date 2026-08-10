@@ -33,6 +33,7 @@
       row.className = "shop-cart-item";
 
       if (item.image) {
+        row.classList.add("shop-cart-item--with-media");
         var media = document.createElement("div");
         media.className = "shop-cart-item__media";
         var img = document.createElement("img");

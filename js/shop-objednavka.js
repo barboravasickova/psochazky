@@ -23,7 +23,23 @@
 
   var shippingFieldset = document.getElementById("shop-shipping-options");
   var paymentFieldset = document.getElementById("shop-payment-options");
-  var zasilkovnaWrap = document.getElementById("shop-zasilkovna-field");
+  var billingSameCheckbox = form.billingSameAsDelivery;
+  var billingFieldset = document.getElementById("shop-billing-address");
+
+  function syncBillingAddressVisibility() {
+    if (!billingFieldset || !billingSameCheckbox) return;
+    var same = billingSameCheckbox.checked;
+    billingFieldset.hidden = same;
+    billingFieldset.querySelectorAll("input").forEach(function (input) {
+      input.required = !same;
+      if (same) input.value = "";
+    });
+  }
+
+  if (billingSameCheckbox) {
+    billingSameCheckbox.addEventListener("change", syncBillingAddressVisibility);
+    syncBillingAddressVisibility();
+  }
 
   function shippingPrice(id) {
     if (!settings || !settings.shipping) return 0;
@@ -39,6 +55,15 @@
   function selectedPaymentId() {
     var checked = form.querySelector('input[name="payment"]:checked');
     return checked ? checked.value : "transfer";
+  }
+
+  function syncZasilkovnaBranchField() {
+    var input = form.zasilkovnaPoint;
+    if (!input) return;
+    var active = selectedShippingId() === "zasilkovna";
+    input.disabled = !active;
+    input.required = active;
+    if (!active) input.setCustomValidity("");
   }
 
   function renderSummary() {
@@ -79,9 +104,7 @@
       ShopCart.formatMoney(total) +
       "</strong></p>";
 
-    if (zasilkovnaWrap) {
-      zasilkovnaWrap.hidden = shipId !== "zasilkovna";
-    }
+    syncZasilkovnaBranchField();
   }
 
   if (settings && shippingFieldset) {
@@ -89,6 +112,44 @@
     ["pickup", "zasilkovna"].forEach(function (key) {
       var opt = settings.shipping[key];
       if (!opt) return;
+
+      if (key === "zasilkovna") {
+        var card = document.createElement("div");
+        card.className = "shop-shipping-option";
+
+        var radioLabel = document.createElement("label");
+        radioLabel.className = "shop-radio shop-radio--in-card";
+        radioLabel.innerHTML =
+          '<input type="radio" name="shipping" value="' +
+          opt.id +
+          '" />' +
+          "<span><strong>" +
+          opt.label +
+          "</strong> — " +
+          ShopCart.formatMoney(opt.price) +
+          (opt.hint ? '<br /><span class="shop-radio__hint">' + opt.hint + "</span>" : "") +
+          "</span>";
+        card.appendChild(radioLabel);
+
+        var branchWrap = document.createElement("div");
+        branchWrap.className = "shop-zasilkovna-branch";
+
+        var branchInput = document.createElement("input");
+        branchInput.type = "text";
+        branchInput.name = "zasilkovnaPoint";
+        branchInput.placeholder = "Např. Brno – Veveří, …";
+        branchInput.disabled = true;
+
+        var branchLabel = document.createElement("label");
+        branchLabel.className = "shop-field shop-field--nested";
+        branchLabel.appendChild(document.createTextNode("Pobočka Zásilkovny (název a adresa) *"));
+        branchLabel.appendChild(branchInput);
+        branchWrap.appendChild(branchLabel);
+        card.appendChild(branchWrap);
+        shippingFieldset.appendChild(card);
+        return;
+      }
+
       var label = document.createElement("label");
       label.className = "shop-radio";
       label.innerHTML =
@@ -105,6 +166,7 @@
         "</span>";
       shippingFieldset.appendChild(label);
     });
+    syncZasilkovnaBranchField();
   }
 
   if (settings && paymentFieldset) {
@@ -147,6 +209,30 @@
     var total = subtotal + shipCost;
     var orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
 
+    var deliveryStreet = form.customerStreet.value.trim();
+    var deliveryCity = form.customerCity.value.trim();
+    var deliveryZip = form.customerZip.value.trim();
+    var billingSame = billingSameCheckbox ? billingSameCheckbox.checked : true;
+    var billingStreet = billingSame
+      ? deliveryStreet
+      : form.billingStreet ? form.billingStreet.value.trim() : "";
+    var billingCity = billingSame
+      ? deliveryCity
+      : form.billingCity ? form.billingCity.value.trim() : "";
+    var billingZip = billingSame
+      ? deliveryZip
+      : form.billingZip ? form.billingZip.value.trim() : "";
+
+    if (!billingSame && billingFieldset) {
+      var billingInputs = billingFieldset.querySelectorAll("input[required]");
+      for (var i = 0; i < billingInputs.length; i++) {
+        if (!billingInputs[i].value.trim()) {
+          billingInputs[i].reportValidity();
+          return;
+        }
+      }
+    }
+
     var order = {
       preview: true,
       orderNumber: orderNumber,
@@ -155,9 +241,13 @@
         name: form.customerName.value.trim(),
         email: form.customerEmail.value.trim(),
         phone: form.customerPhone.value.trim(),
-        street: form.customerStreet.value.trim(),
-        city: form.customerCity.value.trim(),
-        zip: form.customerZip.value.trim(),
+        street: deliveryStreet,
+        city: deliveryCity,
+        zip: deliveryZip,
+        billingSameAsDelivery: billingSame,
+        billingStreet: billingStreet,
+        billingCity: billingCity,
+        billingZip: billingZip,
         note: form.customerNote.value.trim(),
         zasilkovnaPoint: form.zasilkovnaPoint ? form.zasilkovnaPoint.value.trim() : "",
       },

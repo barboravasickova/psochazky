@@ -4152,8 +4152,6 @@ body.cookie-settings-open {
 }
 
 .shop-cart-item {
-  display: flex;
-  gap: 1rem;
   padding: 1rem;
   background: #fff;
   border-radius: 14px;
@@ -4162,25 +4160,49 @@ body.cookie-settings-open {
 }
 
 .shop-cart-item__media {
-  width: 88px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--color-secondary-light);
+  display: none;
 }
 
-.shop-cart-item__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  aspect-ratio: 1;
+@media (min-width: 720px) {
+  .shop-cart-item--with-media {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .shop-cart-item--with-media .shop-cart-item__media {
+    --shop-cart-thumb: 4.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--shop-cart-thumb);
+    height: var(--shop-cart-thumb);
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-secondary-light);
+  }
+
+  .shop-cart-item--with-media .shop-cart-item__media img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+  }
 }
 
 .shop-cart-item__title {
   margin: 0 0 0.35rem;
   font-family: var(--font-nadpisy);
   font-size: 1.15rem;
+}
+
+.shop-cart-item__body {
+  min-width: 0;
 }
 
 .shop-cart-item__line {
@@ -4249,6 +4271,18 @@ body.cookie-settings-open {
   margin-top: 1.5rem;
 }
 
+.shop-checkout-form button[type="submit"].btn {
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.shop-checkout-form button[type="submit"].btn:hover,
+.shop-checkout-form button[type="submit"].btn:focus-visible {
+  box-shadow: none;
+}
+
 @media (min-width: 900px) {
   .shop-checkout__grid {
     grid-template-columns: 1fr min(320px, 36%);
@@ -4304,6 +4338,37 @@ body.cookie-settings-open {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+}
+
+.shop-shipping-option {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(11, 51, 41, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.shop-shipping-option .shop-radio {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.shop-zasilkovna-branch {
+  padding: 0 0.85rem 0.85rem;
+  padding-left: 2.4rem;
+  margin-top: -0.15rem;
+}
+
+.shop-field--nested {
+  margin: 0;
+}
+
+.shop-field--nested input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .shop-radio {
