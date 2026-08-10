@@ -1,0 +1,121 @@
+backend:
+  name: github
+  repo: barboravasickova/psochazky
+  branch: main
+  base_url: https://psochazky-cms-oauth.vercel.app
+  auth_endpoint: auth
+
+site_url: https://psochazky.cz
+logo_url: /images/logo-psochazky.svg
+locale: cs
+
+publish_mode: simple
+
+commit_messages:
+  create: "CMS obchod: nový obsah – {{collection}}"
+  update: "CMS obchod: úprava – {{collection}}"
+  publish: "CMS obchod: publikováno – {{collection}}"
+
+editor:
+  preview: false
+
+media_folder: "images/obchod"
+public_folder: "/images/obchod"
+
+collections:
+  - name: "obchod_produkty"
+    label: "Produkty"
+    sortable_fields: []
+    editor:
+      preview: false
+    files:
+      - label: "Zobrazit produkty"
+        name: "obchod_products"
+        file: "data/obchod-products.json"
+        format: "json"
+        fields:
+          - { name: "sizeChart", widget: "hidden" }
+          - { name: "categories", widget: "hidden" }
+
+          - label: "Produkty"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.title}}"
+            collapsed: true
+            hint: "Každý produkt rozbalíš kliknutím. Vypnuté „Zobrazit v obchodě“ = skrytý v katalogu. Po úpravě Publikovat na web."
+            fields:
+              - {
+                  label: "ID produktu (URL)",
+                  name: "id",
+                  widget: "string",
+                  hint: "Malá písmena, pomlčky. Po publikování neměň.",
+                }
+              - label: "Kategorie"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Oblečení", value: "obleceni" }
+                  - { label: "Doplňky", value: "doplnky" }
+                  - { label: "Výcvikové pomůcky", value: "vycvikove-pomucky" }
+              - { label: "Název", name: "title", widget: "string" }
+              - { label: "Popis", name: "description", widget: "text" }
+              - { label: "Cena (Kč)", name: "price", widget: "number", value_type: "int", min: 0 }
+              - {
+                  label: "Hlavní fotka",
+                  name: "image",
+                  widget: "image",
+                }
+              - { label: "Popis fotky (alt)", name: "imageAlt", widget: "string" }
+              - {
+                  label: "Zobrazit v obchodě",
+                  name: "active",
+                  widget: "boolean",
+                  default: true,
+                }
+              - {
+                  label: "Lze objednat",
+                  name: "inStock",
+                  widget: "boolean",
+                  default: true,
+                  hint: "Vypnuto = Vyprodáno.",
+                }
+              - label: "Štítek"
+                name: "badge"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "— žádný —", value: "" }
+                  - { label: "SKLADEM", value: "SKLADEM" }
+                  - { label: "PŘEDOBJEDNÁVKA", value: "PŘEDOBJEDNÁVKA" }
+              - {
+                  label: "Poznámka u předobjednávky",
+                  name: "leadTimeNote",
+                  widget: "text",
+                  required: false,
+                  hint: "Dvě věty = dva řádky (Enter).",
+                }
+              - label: "Varianty (volitelné)"
+                name: "variants"
+                widget: "object"
+                required: false
+                collapsed: true
+                fields:
+                  - label: "Velikosti"
+                    name: "sizes"
+                    widget: "list"
+                    required: false
+                    field: { label: "Velikost", name: "size", widget: "string" }
+                  - label: "Barvy"
+                    name: "colors"
+                    widget: "list"
+                    required: false
+                    summary: "{{fields.label}}"
+                    fields:
+                      - { label: "Název barvy", name: "label", widget: "string" }
+                      - { label: "Fotka barvy", name: "image", widget: "image", required: false }
+                      - {
+                          label: "Barva vzorku (#hex)",
+                          name: "swatch",
+                          widget: "string",
+                          required: false,
+                        }

@@ -1,212 +1,135 @@
 {
   "sizeChart": {
-    "headers": [
-      "Velikost",
-      "Obvod hrudi",
-      "Délka zad"
-    ],
+    "headers": ["Velikost", "Obvod hrudi", "Délka zad"],
     "rows": [
-      [
-        "S",
-        "88–92 cm",
-        "66 cm"
-      ],
-      [
-        "M",
-        "96–100 cm",
-        "68 cm"
-      ],
-      [
-        "L",
-        "100–104 cm",
-        "70 cm"
-      ],
-      [
-        "XL",
-        "104–108 cm",
-        "72 cm"
-      ]
+      ["S", "88–92 cm", "66 cm"],
+      ["M", "96–100 cm", "68 cm"],
+      ["L", "100–104 cm", "70 cm"],
+      ["XL", "104–108 cm", "72 cm"]
     ]
   },
   "categories": [
-    {
-      "id": "obleceni",
-      "label": "Oblečení"
-    },
-    {
-      "id": "doplnky",
-      "label": "Doplňky"
-    },
-    {
-      "id": "vycvikove-pomucky",
-      "label": "Výcvikové pomůcky"
-    }
+    { "id": "obleceni", "label": "Oblečení" },
+    { "id": "doplnky", "label": "Doplňky" },
+    { "id": "vycvikove-pomucky", "label": "Výcvikové pomůcky" }
   ],
   "products": [
     {
-      "active": true,
-      "price": 449,
-      "variants": {
-        "sizes": [
-          "S",
-          "M",
-          "L",
-          "XL"
-        ],
-        "colors": [
-          {
-            "label": "Bordó",
-            "image": "images/tricko-bordo.png",
-            "swatch": "#7a3044"
-          },
-          {
-            "label": "Zelená",
-            "image": "images/tricko-zelena.png",
-            "swatch": "#4d7a5a"
-          },
-          {
-            "label": "Černá",
-            "image": "images/tricko-cerna.png",
-            "swatch": "#222222"
-          }
-        ]
-      },
-      "imageAlt": "Dámské tričko Psocházky",
-      "inStock": true,
-      "title": "Dámské tričko",
       "id": "tricko",
-      "image": "images/tricko-bordo.png",
-      "description": "Dámské bavlněné tričko s potiskem Psocházky. Vyber barvu a velikost.",
-      "category": "obleceni"
-    },
-    {
-      "active": true,
+      "category": "obleceni",
+      "title": "Dámské tričko",
+      "description": "Dámské bavlněné tričko s logem Psocházky. Pohodlné na procházky i volný čas, tři barvy a velikosti S–XL.",
       "price": 449,
-      "variants": {
-        "sizes": [
-          "S",
-          "M",
-          "L",
-          "XL"
-        ],
-        "colors": [
-          {
-            "label": "Bordó",
-            "image": "images/tricko-panske-bordo.png",
-            "swatch": "#7a3044"
-          },
-          {
-            "label": "Zelená",
-            "image": "images/tricko-panske-zelena.png",
-            "swatch": "#4d7a5a"
-          },
-          {
-            "label": "Černá",
-            "image": "images/tricko-panske-cerna.png",
-            "swatch": "#222222"
-          }
-        ]
-      },
-      "imageAlt": "Pánské tričko Psocházky",
+      "image": "images/tricko-bordo.png",
+      "imageAlt": "Dámské tričko Psocházky",
+      "active": true,
       "inStock": true,
-      "title": "Pánské tričko",
+      "badge": "PŘEDOBJEDNÁVKA",
+      "leadTimeNote": "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů.",
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bordó", "image": "images/tricko-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/tricko-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/tricko-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
       "id": "tricko-panske",
+      "category": "obleceni",
+      "title": "Pánské tričko",
+      "description": "Pánské bavlněné tričko s logem Psocházky. Pohodlné na procházky i volný čas, tři barvy a velikosti S–XL.",
+      "price": 449,
       "image": "images/tricko-panske-zelena.png",
-      "description": "Pánské bavlněné tričko s potiskem Psocházky. Vyber barvu a velikost.",
-      "category": "obleceni"
+      "imageAlt": "Pánské tričko Psocházky",
+      "active": true,
+      "inStock": true,
+      "badge": "PŘEDOBJEDNÁVKA",
+      "leadTimeNote": "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů.",
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bordó", "image": "images/tricko-panske-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/tricko-panske-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/tricko-panske-cerna.png", "swatch": "#222222" }
+        ]
+      }
     },
     {
-      "active": true,
-      "price": 279,
-      "imageAlt": "Sportovní čelenka Psocházky – fotografie připravujeme",
-      "inStock": true,
-      "title": "Sportovní čelenka",
       "id": "sportovni-celenka",
-      "image": "images/placeholder-produkt.svg",
-      "description": "Čelenka s potiskem Psocházky – na procházky, běh i trénink se psem.",
-      "category": "doplnky"
+      "category": "doplnky",
+      "title": "Sportovní čelenka",
+      "description": "Sportovní čelenka s potiskem Psocházky. Drží vlasy i uši v teple na běhu, procházkách a tréninku se psem.",
+      "price": 279,
+      "image": "images/sportovni-celenka.png",
+      "imageAlt": "Sportovní čelenka Psocházky v barvě bordó",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM"
     },
     {
-      "active": true,
-      "price": 399,
-      "variants": {
-        "colors": [
-          {
-            "label": "Bordó",
-            "image": "images/ksiltovka-potisk-bordo.png",
-            "swatch": "#7a3044"
-          },
-          {
-            "label": "Zelená",
-            "image": "images/ksiltovka-potisk-zelena.png",
-            "swatch": "#4d7a5a"
-          },
-          {
-            "label": "Černá",
-            "image": "images/ksiltovka-potisk-cerna.png",
-            "swatch": "#222222"
-          }
-        ]
-      },
-      "imageAlt": "Kšiltovka s potiskem Psocházky",
-      "inStock": true,
-      "title": "Kšiltovka s potiskem",
       "id": "ksiltovka-potiskem",
-      "image": "images/ksiltovka-potisk-zelena.png",
-      "description": "Kšiltovka s potiskem Psocházky – na slunce i procházky. Univerzální velikost, nastavitelná páska. Vyber barvu.",
-      "category": "doplnky"
-    },
-    {
-      "active": true,
+      "category": "doplnky",
+      "title": "Kšiltovka s potiskem",
+      "description": "Kšiltovka s potiskem Psocházky chrání před sluncem. Univerzální velikost, nastavitelná páska, tři barvy.",
       "price": 399,
+      "image": "images/ksiltovka-potisk-zelena.png",
+      "imageAlt": "Kšiltovka s potiskem Psocházky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM",
       "variants": {
         "colors": [
-          {
-            "label": "Bordó",
-            "image": "images/ksiltovka-vysivka-bordo.png",
-            "swatch": "#7a3044"
-          },
-          {
-            "label": "Zelená",
-            "image": "images/ksiltovka-vysivka-zelena.png",
-            "swatch": "#4d7a5a"
-          },
-          {
-            "label": "Černá",
-            "image": "images/ksiltovka-vysivka-cerna.png",
-            "swatch": "#222222"
-          }
+          { "label": "Bordó", "image": "images/ksiltovka-potisk-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/ksiltovka-potisk-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/ksiltovka-potisk-cerna.png", "swatch": "#222222" }
         ]
-      },
-      "imageAlt": "Kšiltovka s výšivkou Psocházky",
-      "inStock": true,
-      "title": "Kšiltovka s výšivkou",
+      }
+    },
+    {
       "id": "ksiltovka-vysivkou",
+      "category": "doplnky",
+      "title": "Kšiltovka s výšivkou",
+      "description": "Kšiltovka s výšivkou Psocházky – logo vydrží déle. Univerzální velikost, nastavitelná páska, tři barvy.",
+      "price": 399,
       "image": "images/ksiltovka-vysivka-zelena.png",
-      "description": "Kšiltovka s výšivkou Psocházky – odolnější logo na procházky se psem. Univerzální velikost, nastavitelná páska.",
-      "category": "doplnky"
+      "imageAlt": "Kšiltovka s výšivkou Psocházky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM",
+      "variants": {
+        "colors": [
+          { "label": "Bordó", "image": "images/ksiltovka-vysivka-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelená", "image": "images/ksiltovka-vysivka-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "Černá", "image": "images/ksiltovka-vysivka-cerna.png", "swatch": "#222222" }
+        ]
+      }
     },
     {
-      "active": true,
-      "price": 900,
-      "imageAlt": "Dečka Relax Psocházky",
-      "inStock": true,
-      "title": "Dečka Relax",
       "id": "deka-relax",
+      "category": "vycvikove-pomucky",
+      "title": "Dečka Relax",
+      "description": "Dečka Relax pro pohodlný odpočinek psa po procházce nebo tréninku. Měkká a praktická doma i na cestách.",
+      "price": 590,
       "image": "images/deka-relax.png",
-      "description": "Pohodlná dečka pro odpočinek po procházce nebo tréninku.",
-      "category": "vycvikove-pomucky"
+      "imageAlt": "Dečka Relax Psocházky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM"
     },
     {
-      "active": true,
-      "price": 349,
-      "imageAlt": "Tréninkový target Psocházky – fotografie připravujeme",
-      "inStock": true,
-      "title": "Tréninkový target Psocházky",
       "id": "target-psochazky",
-      "image": "images/placeholder-produkt.svg",
-      "description": "Skládací target pro domácí trénink a socializaci.",
-      "category": "vycvikove-pomucky"
+      "category": "vycvikove-pomucky",
+      "title": "Tréninkový target Psocházky",
+      "description": "Skládací tréninkový target Psocházky pro domácí cvičení. Ideální pro socializaci a práci s psem doma.",
+      "price": 349,
+      "image": "images/target.jpg",
+      "imageAlt": "Tréninkový target Psocházky",
+      "active": true,
+      "inStock": true,
+      "badge": "PŘEDOBJEDNÁVKA",
+      "leadTimeNote": "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů."
     }
   ]
 }

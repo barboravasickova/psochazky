@@ -11,32 +11,56 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Winky+Rough:wght@600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../admin-ui.css" />
+    <link rel="stylesheet" href="/admin/admin-ui.css" />
   </head>
   <body class="admin-hub admin-shop">
     <main class="admin-hub__main admin-shop__main">
       <p class="admin-cms-back">
-        <a href="../index.html">← Zpět do administrace</a>
+        <a href="/admin/index.html">← Zpět do administrace</a>
       </p>
 
       <header class="admin-hub__header">
         <h1 class="admin-hub__title">Obchod</h1>
-        <p class="admin-hub__lead">Správa produktů a náhled e-shopu (košík → objednávka → děkujeme). Obchod zatím není v navigaci webu.</p>
+        <p class="admin-hub__lead">
+          Správa produktů a textů e-shopu. Objednávky řešíš ve Fakturoidu a e-mailu (až bude ostrý
+          provoz).
+        </p>
       </header>
 
-      <div class="admin-shop__panel">
-        <h2>Stav</h2>
-        <p>E-shop je ve fázi <strong>náhledu</strong>. Produkty v <code>data/obchod-products.json</code>, doprava v <code>data/obchod-settings.json</code>. Po napojení backendu půjde objednávka naostro.</p>
-        <p class="admin-shop__flow">Průběh náhledu: <a href="../../obchod.html">obchod</a> → <a href="../../obchod-kosik.html">košík</a> → <a href="../../obchod-objednavka.html">objednávka</a> → děkujeme.</p>
-      </div>
+      <div class="admin-hub__grid">
+        <a href="/admin/obchod/cms.html" class="admin-hub__card">
+          <span class="admin-hub__card-label">CMS</span>
+          <h2 class="admin-hub__card-title">Produkty a texty</h2>
+          <p class="admin-hub__card-text">
+            Produkty v seznamu – přidat, upravit, fotka, zapnout/vypnout v katalogu. Přihlášení přes
+            GitHub.
+          </p>
+          <span class="admin-hub__card-action">Otevřít správu e-shopu →</span>
+        </a>
 
-      <div class="admin-shop__actions">
-        <a href="../../obchod.html" class="admin-hub__card admin-shop__preview" target="_blank" rel="noopener noreferrer">
+        <a href="/obchod.html" class="admin-hub__card admin-shop__preview" target="_blank" rel="noopener noreferrer">
           <span class="admin-hub__card-label">Náhled</span>
           <h2 class="admin-hub__card-title">Veřejná stránka obchodu</h2>
-          <p class="admin-hub__card-text">Otevře skrytou stránku obchodu (bez odkazu v menu, noindex).</p>
+          <p class="admin-hub__card-text">
+            Otevře stránku obchodu (zatím bez odkazu v hlavním menu, noindex).
+          </p>
           <span class="admin-hub__card-action">Zobrazit obchod →</span>
         </a>
+      </div>
+
+      <div class="admin-shop__panel">
+        <h2>Co je mimo CMS</h2>
+        <p>
+          <strong>Texty obchodu</strong> (nadpis, úvod) – <code>data/obchod-content.json</code>,
+          správce webu.
+        </p>
+        <p>
+          <strong>Doprava a platby</strong> – <code>data/obchod-settings.json</code>, správce webu.
+        </p>
+        <p>
+          <strong>Filtry kategorií a tabulka velikostí</strong> – v <code>data/obchod-products.json</code>,
+          správce webu.
+        </p>
       </div>
     </main>
   </body>

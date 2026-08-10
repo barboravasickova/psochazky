@@ -6,10 +6,11 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
-    <title>Texty webu | Administrace Psocházky</title>
+    <title>E-shop | Administrace Psocházky</title>
     <link rel="stylesheet" href="/admin/admin-ui.css" />
+    <link href="/admin/obchod/config.yml" type="text/yaml" rel="cms-config-url" />
     <script>
-      if (localStorage.getItem("psochazky-cms-guide-dismissed") === "1") {
+      if (localStorage.getItem("psochazky-cms-obchod-guide-dismissed") === "1") {
         document.documentElement.classList.add("cms-guide-dismissed");
       }
       localStorage.setItem("cms.preview-visible", "false");
@@ -17,17 +18,17 @@
   </head>
   <body class="admin-cms-body">
     <p class="admin-cms-back">
-      <a href="/admin/index.html">← Zpět na rozcestník administrace</a>
+      <a href="/admin/obchod/index.html">← Zpět na obchod v administraci</a>
     </p>
     <aside class="admin-cms-guide" id="cms-guide">
-      <strong>Jak publikovat změny</strong>
+      <strong>E-shop – jak publikovat</strong>
       <ol>
-        <li>V levém menu vyberte <strong>Stránky webu</strong> nebo <strong>Blog</strong>.</li>
-        <li>Upravte texty a klikněte <strong>Publikovat na web</strong>.</li>
-        <li>Web se obvykle aktualizuje do 1–2 minut.</li>
+        <li>V levém menu klikni na <strong>Zobrazit produkty</strong>.</li>
+        <li>Rozbal produkt, uprav ho, nebo přidej nový v seznamu.</li>
+        <li>Klikni <strong>Publikovat na web</strong>.</li>
       </ol>
       <p class="admin-cms-guide__note">
-        U blogu můžete nechat <strong>Zobrazit na webu</strong> vypnuté – článek zůstane jako koncept.
+        Nadpis a úvod obchodu mění správce webu. Doprava a platby jsou nastavené pevně.
       </p>
       <button type="button" class="admin-cms-guide__dismiss" id="cms-guide-dismiss" aria-label="Skrýt nápovědu">
         Rozumím
@@ -42,7 +43,7 @@
         if (!guide || !dismiss) return;
         dismiss.addEventListener("click", function () {
           document.documentElement.classList.add("cms-guide-dismissed");
-          localStorage.setItem("psochazky-cms-guide-dismissed", "1");
+          localStorage.setItem("psochazky-cms-obchod-guide-dismissed", "1");
         });
       })();
     </script>

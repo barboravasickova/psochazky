@@ -1,4 +1,47 @@
 (async () => {
+  function normalizeImagePath(src) {
+    if (typeof src !== "string" || !src) return "";
+    const trimmed = src.trim();
+    if (trimmed.startsWith("/")) return trimmed.slice(1);
+    return trimmed;
+  }
+
+  function normalizeSizeList(sizes) {
+    if (!Array.isArray(sizes)) return [];
+    return sizes
+      .map((entry) => {
+        if (typeof entry === "string") return entry.trim();
+        if (entry && typeof entry.size === "string") return entry.size.trim();
+        return "";
+      })
+      .filter(Boolean);
+  }
+
+  function normalizeProduct(product) {
+    if (!product || typeof product !== "object") return product;
+    const normalized = { ...product };
+    if (normalized.image) {
+      normalized.image = normalizeImagePath(normalized.image);
+    }
+    if (normalized.badge === "") {
+      delete normalized.badge;
+    }
+    if (normalized.variants && typeof normalized.variants === "object") {
+      const variants = { ...normalized.variants };
+      if (variants.sizes) {
+        variants.sizes = normalizeSizeList(variants.sizes);
+      }
+      if (Array.isArray(variants.colors)) {
+        variants.colors = variants.colors.map((color) => ({
+          ...color,
+          image: normalizeImagePath(color.image),
+        }));
+      }
+      normalized.variants = variants;
+    }
+    return normalized;
+  }
+
   function formatPrice(product) {
     if (window.ShopCart) return ShopCart.formatMoney(product.price);
     if (product.priceFormatted) return product.priceFormatted;
@@ -143,6 +186,43 @@
     };
   }
 
+  function productBadgeText(product) {
+    const badge = product && product.badge;
+    if (typeof badge !== "string") return "";
+    const text = badge.trim();
+    return text;
+  }
+
+  function productBadgeModifier(text) {
+    const key = (text || "").toUpperCase();
+    if (key === "PŘEDOBJEDNÁVKA" || key === "PREDOBJEDNAVKA") {
+      return "shop-product-badge--preorder";
+    }
+    return "";
+  }
+
+  function appendProductBadge(container, product) {
+    const text = productBadgeText(product);
+    if (!text || !container) return false;
+    const badge = document.createElement("span");
+    const modifier = productBadgeModifier(text);
+    badge.className = modifier
+      ? `shop-product-badge ${modifier}`
+      : "shop-product-badge";
+    badge.textContent = text;
+    container.appendChild(badge);
+    return true;
+  }
+
+  function buildProductBadgeBar(product, barClass) {
+    const text = productBadgeText(product);
+    if (!text) return null;
+    const bar = document.createElement("div");
+    bar.className = barClass;
+    appendProductBadge(bar, product);
+    return bar;
+  }
+
   function buildSizeChartPanel(sizeChart) {
     const panel = document.createElement("div");
     panel.className = "shop-size-chart";
@@ -179,6 +259,9 @@
     const article = document.createElement("article");
     article.className = "shop-catalog-tile";
     article.dataset.category = product.category || "";
+
+    const badgeBar = buildProductBadgeBar(product, "shop-catalog-tile__badge-bar");
+    if (badgeBar) article.appendChild(badgeBar);
 
     const previewSrc = product.image || productImages(product)[0];
     if (previewSrc) {
@@ -299,17 +382,10 @@
     return gallery;
   }
 
-  function buildProductDetail(product, categoryLabel, sizeChart, leadTimeNote, onBack) {
+  function buildProductDetail(product, sizeChart, leadTimeNote) {
     const article = document.createElement("article");
     article.className = "shop-product-detail";
     article.id = `shop-product-${product.id}`;
-
-    const backBtn = document.createElement("button");
-    backBtn.type = "button";
-    backBtn.className = "shop-detail-back";
-    backBtn.textContent = "← Zpět na produkty";
-    backBtn.addEventListener("click", onBack);
-    article.appendChild(backBtn);
 
     const layout = document.createElement("div");
     layout.className = "shop-product-detail__layout";
@@ -323,13 +399,6 @@
 
     const headerEl = document.createElement("div");
     headerEl.className = "shop-product__header";
-
-    if (categoryLabel) {
-      const cat = document.createElement("p");
-      cat.className = "shop-product__category";
-      cat.textContent = categoryLabel;
-      headerEl.appendChild(cat);
-    }
 
     const title = document.createElement("h1");
     title.className = "shop-product__title shop-product-detail__title";
@@ -385,11 +454,29 @@
     price.textContent = formatPrice(product);
     priceBlock.appendChild(price);
 
-    const noteText = product.leadTimeNote || leadTimeNote;
-    if (noteText) {
+    const badgeText = productBadgeText(product);
+    if (badgeText) {
+      const badgeWrap = document.createElement("div");
+      badgeWrap.className = "shop-product__price-badge-bar";
+      appendProductBadge(badgeWrap, product);
+      priceBlock.appendChild(badgeWrap);
+    }
+
+    const preorderDefaultNote =
+      "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů.";
+    const isPreorder =
+      productBadgeModifier(badgeText) === "shop-product-badge--preorder";
+    let noteText = product.leadTimeNote;
+    if (isPreorder && !noteText) noteText = preorderDefaultNote;
+    if (isPreorder && noteText) {
       const leadTime = document.createElement("p");
       leadTime.className = "shop-product__lead-time";
       leadTime.textContent = noteText;
+      priceBlock.appendChild(leadTime);
+    } else if (!badgeText && (noteText || leadTimeNote)) {
+      const leadTime = document.createElement("p");
+      leadTime.className = "shop-product__lead-time";
+      leadTime.textContent = noteText || leadTimeNote;
       priceBlock.appendChild(leadTime);
     }
 
@@ -471,6 +558,7 @@
     const filterEmptyEl = document.getElementById("shop-filter-empty");
     const filtersEl = document.getElementById("shop-category-filters");
     const shopPageEl = document.querySelector(".shop-page");
+    const detailBackBtn = document.getElementById("shop-detail-back");
 
     let leadTimeNote = "";
 
@@ -487,8 +575,9 @@
     const data = await productsRes.json();
     const sizeChart = data.sizeChart || null;
     const categories = data.categories || [];
-    const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.label]));
-    const products = (data.products || []).filter((item) => item.active !== false);
+    const products = (data.products || [])
+      .map(normalizeProduct)
+      .filter((item) => item.active !== false);
 
     if (!products.length) {
       emptyEl.hidden = false;
@@ -524,6 +613,8 @@
       detailViewEl.innerHTML = "";
       setCatalogHeaderVisible(true);
       if (shopPageEl) shopPageEl.classList.remove("shop-page--detail");
+      if (filtersEl && categories.length) filtersEl.hidden = false;
+      if (detailBackBtn) detailBackBtn.hidden = true;
       if (updateHistory) {
         history.pushState({ view: "catalog" }, "", catalogUrl());
       }
@@ -541,16 +632,14 @@
 
       setCatalogHeaderVisible(false);
       if (shopPageEl) shopPageEl.classList.add("shop-page--detail");
+      if (filtersEl) filtersEl.hidden = true;
+      if (detailBackBtn) detailBackBtn.hidden = false;
       if (catalogViewEl) catalogViewEl.hidden = true;
       detailViewEl.hidden = false;
       detailViewEl.innerHTML = "";
 
-      const label = categoryMap[product.category] || "";
       detailViewEl.appendChild(
-        buildProductDetail(product, label, sizeChart, leadTimeNote, () => {
-          showCatalog(true);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        })
+        buildProductDetail(product, sizeChart, leadTimeNote)
       );
 
       if (titleEl && product.title) {
@@ -586,7 +675,6 @@
     }
 
     if (filtersEl && categories.length) {
-      filtersEl.hidden = false;
       filtersEl.innerHTML = "";
 
       function addFilterButton(id, label) {
@@ -611,6 +699,13 @@
     }
 
     renderProducts();
+
+    if (detailBackBtn) {
+      detailBackBtn.addEventListener("click", () => {
+        showCatalog(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
 
     window.addEventListener("popstate", () => {
       const params = new URLSearchParams(window.location.search);

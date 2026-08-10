@@ -81,22 +81,27 @@
         <div class="container page-content page-content--article">
           <h1 id="shop-title">Obchod Psocházky</h1>
           <p id="shop-intro" class="page-content__intro shop-page__intro">
-            Merch a vybavení pro trénink se psem. Obchod právě připravujeme.
+            Merch a vybavení pro trénink se psem.
           </p>
 
-          <div class="shop-preview-banner" role="status">
-            <p><strong>Náhled e-shopu.</strong> Objednávka se neukládá ani neodesílá – jde jen o ukázku vzhledu a průchodu košíkem.</p>
-          </div>
-
-          <div class="shop-toolbar">
-            <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link>
-              Košík (<span data-shop-cart-count>0</span>)
-            </a>
+          <div class="shop-catalog-bar" id="shop-catalog-bar">
+            <div id="shop-category-filters" class="shop-category-filters" hidden aria-label="Filtrovat podle kategorie"></div>
+            <div class="shop-toolbar">
+              <button
+                type="button"
+                id="shop-detail-back"
+                class="shop-detail-back shop-toolbar__back-btn"
+                hidden
+              >
+                ← Zpět na produkty
+              </button>
+              <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link>
+                Košík (<span data-shop-cart-count>0</span>)
+              </a>
+            </div>
           </div>
 
           <div id="shop-catalog-view">
-            <div id="shop-category-filters" class="shop-category-filters" hidden aria-label="Filtrovat podle kategorie"></div>
-
             <p id="shop-empty" class="shop-page__empty">
               Zatím tu nejsou žádné produkty k zobrazení.
             </p>
@@ -180,7 +185,7 @@
       }
     </script>
     <script src="js/shop-cart.js"></script>
-    <script src="js/cms-obchod.js"></script>
+    <script src="js/cms-obchod.js?v=2"></script>
     <script src="js/cookies.js"></script>
   </body>
 </html>
