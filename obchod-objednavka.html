@@ -65,16 +65,16 @@
               <fieldset class="shop-fieldset">
                 <legend>Dodací adresa</legend>
                 <label class="shop-field">
-                  Ulice a číslo
-                  <input type="text" name="customerStreet" autocomplete="shipping street-address" />
+                  Ulice a číslo *
+                  <input type="text" name="customerStreet" required autocomplete="shipping street-address" />
                 </label>
                 <label class="shop-field">
-                  Město
-                  <input type="text" name="customerCity" autocomplete="shipping address-level2" />
+                  Město *
+                  <input type="text" name="customerCity" required autocomplete="shipping address-level2" />
                 </label>
                 <label class="shop-field">
-                  PSČ
-                  <input type="text" name="customerZip" autocomplete="shipping postal-code" />
+                  PSČ *
+                  <input type="text" name="customerZip" required autocomplete="shipping postal-code" />
                 </label>
               </fieldset>
 
@@ -146,7 +146,7 @@
       }
     </script>
     <script src="js/shop-cart.js"></script>
-    <script src="js/shop-objednavka.js?v=4"></script>
+    <script src="js/shop-objednavka.js?v=5"></script>
     <script src="js/cookies.js"></script>
   </body>
 </html>

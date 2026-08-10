@@ -173,6 +173,11 @@
       group.appendChild(btn);
     });
 
+    if (colorOptions.length) {
+      const firstBtn = group.querySelector(".shop-color-swatch");
+      if (firstBtn) firstBtn.click();
+    }
+
     wrap.appendChild(group);
     wrap.appendChild(nameEl);
 
@@ -382,7 +387,7 @@
     return gallery;
   }
 
-  function buildProductDetail(product, sizeChart, leadTimeNote) {
+  function buildProductDetail(product, sizeChart, leadTimeNote, detailOptions) {
     const article = document.createElement("article");
     article.className = "shop-product-detail";
     article.id = `shop-product-${product.id}`;
@@ -400,87 +405,51 @@
     const headerEl = document.createElement("div");
     headerEl.className = "shop-product__header";
 
+    const categoryMeta = detailOptions || {};
+    if (categoryMeta.categoryLabel && categoryMeta.categoryHref) {
+      const categoryLink = document.createElement("a");
+      categoryLink.className =
+        "shop-product__category shop-product-detail__category";
+      categoryLink.href = categoryMeta.categoryHref;
+      categoryLink.textContent = categoryMeta.categoryLabel;
+      headerEl.appendChild(categoryLink);
+    }
+
     const title = document.createElement("h1");
     title.className = "shop-product__title shop-product-detail__title";
     title.textContent = product.title || "";
     headerEl.appendChild(title);
     info.appendChild(headerEl);
 
-    if (product.description) {
-      const desc = document.createElement("p");
-      desc.className = "shop-product__desc shop-product-detail__desc";
-      desc.textContent = product.description;
-      info.appendChild(desc);
-    }
-
     const variants = product.variants || {};
     const hasSizes = Array.isArray(variants.sizes) && variants.sizes.length;
     const colorOptions = normalizeColorOptions(variants);
     const hasColors = colorOptions.length > 0;
 
-    if (
-      hasSizes &&
-      sizeChart &&
-      Array.isArray(sizeChart.headers) &&
-      Array.isArray(sizeChart.rows)
-    ) {
-      const sizeChartWrap = document.createElement("div");
-      sizeChartWrap.className = "shop-product__size-chart-wrap";
-
-      const toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.className = "shop-size-chart-toggle";
-      toggle.textContent = "Tabulka velikostí";
-      toggle.setAttribute("aria-expanded", "false");
-
-      const panel = buildSizeChartPanel(sizeChart);
-      toggle.addEventListener("click", () => {
-        const open = panel.hidden;
-        panel.hidden = !open;
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
-        toggle.textContent = open ? "Skrýt tabulku velikostí" : "Tabulka velikostí";
-      });
-
-      sizeChartWrap.appendChild(toggle);
-      sizeChartWrap.appendChild(panel);
-      info.appendChild(sizeChartWrap);
-    }
-
-    const priceBlock = document.createElement("div");
-    priceBlock.className = "shop-product__price-block";
-
-    const price = document.createElement("p");
-    price.className = "shop-product__price";
-    price.textContent = formatPrice(product);
-    priceBlock.appendChild(price);
-
     const badgeText = productBadgeText(product);
-    if (badgeText) {
-      const badgeWrap = document.createElement("div");
-      badgeWrap.className = "shop-product__price-badge-bar";
-      appendProductBadge(badgeWrap, product);
-      priceBlock.appendChild(badgeWrap);
-    }
-
     const preorderDefaultNote =
       "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů.";
     const isPreorder =
       productBadgeModifier(badgeText) === "shop-product-badge--preorder";
     let noteText = product.leadTimeNote;
     if (isPreorder && !noteText) noteText = preorderDefaultNote;
+
+    const statusEl = document.createElement("div");
+    statusEl.className = "shop-product-detail__status";
+    const badgeBar = buildProductBadgeBar(product, "shop-product-detail__badge-bar");
+    if (badgeBar) statusEl.appendChild(badgeBar);
     if (isPreorder && noteText) {
       const leadTime = document.createElement("p");
-      leadTime.className = "shop-product__lead-time";
+      leadTime.className = "shop-product__lead-time shop-product-detail__lead-time";
       leadTime.textContent = noteText;
-      priceBlock.appendChild(leadTime);
+      statusEl.appendChild(leadTime);
     } else if (!badgeText && (noteText || leadTimeNote)) {
       const leadTime = document.createElement("p");
-      leadTime.className = "shop-product__lead-time";
+      leadTime.className = "shop-product__lead-time shop-product-detail__lead-time";
       leadTime.textContent = noteText || leadTimeNote;
-      priceBlock.appendChild(leadTime);
+      statusEl.appendChild(leadTime);
     }
-
-    info.appendChild(priceBlock);
+    if (statusEl.childElementCount) info.appendChild(statusEl);
 
     let sizeSelect = null;
     let colorPicker = null;
@@ -499,15 +468,26 @@
       if (hasSizes) {
         const sizeField = buildSelect("Velikost", variants.sizes, "Vyber velikost");
         sizeSelect = sizeField.select;
+        sizeSelect.addEventListener("change", function () {
+          sizeSelect.setCustomValidity("");
+        });
         variantsEl.appendChild(sizeField.wrap);
       }
 
       info.appendChild(variantsEl);
     }
 
+    const priceBlock = document.createElement("div");
+    priceBlock.className = "shop-product__price-block shop-product-detail__price-block";
+    const price = document.createElement("p");
+    price.className = "shop-product__price";
+    price.textContent = formatPrice(product);
+    priceBlock.appendChild(price);
+    info.appendChild(priceBlock);
+
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "btn shop-product__btn";
+    btn.className = "btn shop-product__btn shop-product-detail__add-btn";
     btn.textContent = "Přidat do košíku";
 
     const inStock = product.inStock !== false;
@@ -518,12 +498,15 @@
       btn.addEventListener("click", () => {
         const size = sizeSelect ? sizeSelect.value : "";
         const color = colorPicker ? colorPicker.getValue() : "";
-        if (colorPicker && !color) {
-          colorPicker.focus();
+        if (sizeSelect && !size) {
+          sizeSelect.setCustomValidity("Vyber prosím velikost.");
+          sizeSelect.reportValidity();
+          sizeSelect.focus();
           return;
         }
-        if (sizeSelect && !size) {
-          sizeSelect.focus();
+        if (sizeSelect) sizeSelect.setCustomValidity("");
+        if (colorPicker && !color) {
+          colorPicker.focus();
           return;
         }
         ShopCart.addItem(product, 1, { size, color });
@@ -537,6 +520,52 @@
     }
 
     info.appendChild(btn);
+
+    const extrasEl = document.createElement("div");
+    extrasEl.className = "shop-product-detail__extras";
+
+    if (product.description) {
+      const desc = document.createElement("p");
+      desc.className = "shop-product__desc shop-product-detail__desc";
+      desc.textContent = product.description;
+      extrasEl.appendChild(desc);
+    }
+
+    if (
+      hasSizes &&
+      sizeChart &&
+      Array.isArray(sizeChart.headers) &&
+      Array.isArray(sizeChart.rows)
+    ) {
+      const sizeChartWrap = document.createElement("div");
+      sizeChartWrap.className = "shop-product__size-chart-wrap";
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "shop-size-chart-toggle";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.innerHTML =
+        '<span class="shop-size-chart-toggle__text">Tabulka velikostí</span>' +
+        '<svg class="shop-size-chart-toggle__chevron" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+        '<path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>' +
+        "</svg>";
+
+      const panel = buildSizeChartPanel(sizeChart);
+      toggle.addEventListener("click", () => {
+        const open = panel.hidden;
+        panel.hidden = !open;
+        const expanded = open;
+        toggle.classList.toggle("is-expanded", expanded);
+        toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      });
+
+      sizeChartWrap.appendChild(toggle);
+      sizeChartWrap.appendChild(panel);
+      extrasEl.appendChild(sizeChartWrap);
+    }
+
+    if (extrasEl.childElementCount) info.appendChild(extrasEl);
+
     layout.appendChild(info);
     article.appendChild(layout);
 
@@ -589,17 +618,56 @@
     emptyEl.hidden = true;
     let activeCategory = "all";
 
+    function isValidCategoryId(id) {
+      return id === "all" || categories.some((cat) => cat.id === id);
+    }
+
+    function categoryCatalogUrl(categoryId) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("produkt");
+      if (categoryId && categoryId !== "all") {
+        url.searchParams.set("kategorie", categoryId);
+      } else {
+        url.searchParams.delete("kategorie");
+      }
+      const search = url.searchParams.toString();
+      return search ? `${url.pathname}?${search}` : url.pathname;
+    }
+
     function productUrl(id) {
       const url = new URL(window.location.href);
       url.searchParams.set("produkt", id);
+      url.searchParams.delete("kategorie");
       return `${url.pathname}${url.search}`;
     }
 
     function catalogUrl() {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("produkt");
-      const search = url.searchParams.toString();
-      return search ? `${url.pathname}?${search}` : url.pathname;
+      return categoryCatalogUrl(activeCategory);
+    }
+
+    function categoryLabelForProduct(product) {
+      const id = product.category;
+      if (!id) return "";
+      const cat = categories.find((c) => c.id === id);
+      return cat ? cat.label : "";
+    }
+
+    function syncCategoryFilters() {
+      if (!filtersEl) return;
+      filtersEl.querySelectorAll(".shop-category-filter").forEach((el) => {
+        el.classList.toggle("is-active", el.dataset.category === activeCategory);
+      });
+    }
+
+    function applyCategoryFromUrl(params) {
+      const kat = params.get("kategorie");
+      if (kat && isValidCategoryId(kat)) {
+        activeCategory = kat;
+      } else {
+        activeCategory = "all";
+      }
+      syncCategoryFilters();
+      renderProducts();
     }
 
     function setCatalogHeaderVisible(visible) {
@@ -638,8 +706,16 @@
       detailViewEl.hidden = false;
       detailViewEl.innerHTML = "";
 
+      const categoryLabel = categoryLabelForProduct(product);
+      const categoryId = product.category;
       detailViewEl.appendChild(
-        buildProductDetail(product, sizeChart, leadTimeNote)
+        buildProductDetail(product, sizeChart, leadTimeNote, {
+          categoryLabel,
+          categoryHref:
+            categoryLabel && categoryId
+              ? categoryCatalogUrl(categoryId)
+              : "",
+        })
       );
 
       if (titleEl && product.title) {
@@ -686,10 +762,10 @@
         if (id === activeCategory) btn.classList.add("is-active");
         btn.addEventListener("click", () => {
           activeCategory = id;
-          filtersEl.querySelectorAll(".shop-category-filter").forEach((el) => {
-            el.classList.toggle("is-active", el.dataset.category === id);
-          });
+          syncCategoryFilters();
           renderProducts();
+          if (!detailViewEl.hidden) return;
+          history.pushState({ view: "catalog", category: id }, "", catalogUrl());
         });
         filtersEl.appendChild(btn);
       }
@@ -698,6 +774,8 @@
       categories.forEach((cat) => addFilterButton(cat.id, cat.label));
     }
 
+    const initialParams = new URLSearchParams(window.location.search);
+    applyCategoryFromUrl(initialParams);
     renderProducts();
 
     if (detailBackBtn) {
@@ -709,6 +787,7 @@
 
     window.addEventListener("popstate", () => {
       const params = new URLSearchParams(window.location.search);
+      applyCategoryFromUrl(params);
       const productId = params.get("produkt");
       if (productId) {
         showProductDetail(productId, false);
@@ -717,7 +796,6 @@
       }
     });
 
-    const initialParams = new URLSearchParams(window.location.search);
     const initialProduct = initialParams.get("produkt");
     if (initialProduct) {
       showProductDetail(initialProduct, false);

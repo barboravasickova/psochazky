@@ -6,7 +6,7 @@
     <title>Děkujeme | Obchod Psocházky</title>
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
-    <link rel="stylesheet" href="styles.css?v=68" />
+    <link rel="stylesheet" href="styles.css?v=86" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,7 +34,8 @@
             <h1>Děkujeme za objednávku</h1>
 
             <p>Číslo objednávky: <strong id="shop-thanks-order-number"></strong></p>
-            <p>Potvrzení by šlo na: <strong id="shop-thanks-email"></strong></p>
+            <p>Potvrzení s odkazem na fakturu pošleme na: <strong id="shop-thanks-customer-email"></strong></p>
+            <p class="shop-thanks-note">Kopii objednávky obdrží obchod na <strong>psochazky@gmail.com</strong>.</p>
             <p>Celkem k úhradě: <strong id="shop-thanks-total"></strong></p>
 
             <h2>Položky</h2>
@@ -42,20 +43,39 @@
 
             <p id="shop-thanks-invoice-note" class="shop-thanks-note"></p>
 
-            <div id="shop-thanks-qr" class="shop-thanks-qr" hidden>
-              <h2>Platba převodem (ukázkový QR)</h2>
-              <p>Částka: <strong id="shop-thanks-amount"></strong>, variabilní symbol: <strong id="shop-thanks-vs"></strong></p>
-              <img id="shop-thanks-qr-img" class="shop-thanks-qr__img" width="220" height="220" alt="" />
-              <p class="shop-thanks-note">QR kód je jen demonstrace – účet v něm není reálný.</p>
-            </div>
-
             <div id="shop-thanks-cash" class="shop-thanks-cash" hidden>
               <p><strong>Platba hotově</strong> – domluvíme při osobním převzetí.</p>
             </div>
 
-            <p class="page-content__cta">
+            <p class="page-content__cta shop-thanks__back">
               <a href="obchod.html" class="btn">Zpět do obchodu</a>
             </p>
+
+            <div id="shop-thanks-transfer" class="shop-thanks-transfer" hidden>
+              <h2>Platba převodem</h2>
+              <p class="shop-thanks-transfer__lead">
+                Zaplaťte hned QR kódem v bankovní aplikaci, nebo otevřete fakturu (webfaktura ve Fakturoidu).
+              </p>
+              <p class="shop-thanks-transfer__details">
+                Částka: <strong id="shop-thanks-amount"></strong>,
+                variabilní symbol: <strong id="shop-thanks-vs"></strong>
+              </p>
+              <img id="shop-thanks-qr-img" class="shop-thanks-qr__img" width="240" height="240" alt="" />
+              <p class="page-content__cta shop-thanks-transfer__invoice-cta">
+                <a
+                  id="shop-thanks-webinvoice"
+                  class="btn"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  hidden
+                >
+                  Zobrazit fakturu a platbu
+                </a>
+              </p>
+              <p id="shop-thanks-webinvoice-preview" class="shop-thanks-note" hidden></p>
+              <p class="shop-thanks-note">QR kód slouží k rychlé platbě; oficiální doklad je webfaktura / PDF z Fakturoidu.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -66,7 +86,7 @@
     </footer>
 
     <script src="js/shop-cart.js"></script>
-    <script src="js/shop-dekujeme.js"></script>
+    <script src="js/shop-dekujeme.js?v=3"></script>
     <script src="js/cookies.js"></script>
   </body>
 </html>

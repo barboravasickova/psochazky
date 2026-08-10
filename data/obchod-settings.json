@@ -22,5 +22,9 @@
       "id": "cash",
       "label": "Hotově při převzetí"
     }
+  },
+  "bankTransfer": {
+    "iban": "CZ6508000000192000145399",
+    "paymentMessage": "PSOCHAZKY"
   }
 }

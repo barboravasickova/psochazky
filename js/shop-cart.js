@@ -57,6 +57,13 @@
     }, 0);
   }
 
+  function formatItemCountLabel(count) {
+    var n = count || 0;
+    if (n === 1) return "1 položka";
+    if (n >= 2 && n <= 4) return n + " položky";
+    return n + " položek";
+  }
+
   function getSubtotal() {
     return readCart().items.reduce(function (sum, item) {
       return sum + item.price * item.quantity;
@@ -121,8 +128,9 @@
 
   function updateCartBadge() {
     var count = getItemCount();
+    var label = formatItemCountLabel(count);
     document.querySelectorAll("[data-shop-cart-count]").forEach(function (el) {
-      el.textContent = String(count);
+      el.textContent = label;
     });
     document.querySelectorAll("[data-shop-cart-link]").forEach(function (el) {
       el.hidden = false;
@@ -155,6 +163,7 @@
     removeItem: removeItem,
     clearCart: clearCart,
     getItemCount: getItemCount,
+    formatItemCountLabel: formatItemCountLabel,
     getSubtotal: getSubtotal,
     formatMoney: formatMoney,
     formatVariantLabel: formatVariantLabel,

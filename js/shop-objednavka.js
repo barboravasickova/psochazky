@@ -218,6 +218,7 @@
     var subtotal = ShopCart.getSubtotal();
     var total = subtotal + shipCost;
     var orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
+    var variableSymbol = orderNumber.replace(/\D/g, "").slice(-10) || String(Date.now()).slice(-6);
 
     var deliveryStreet = form.customerStreet.value.trim();
     var deliveryCity = form.customerCity.value.trim();
@@ -263,6 +264,9 @@
       },
       shipping: shipId,
       payment: selectedPaymentId(),
+      variableSymbol: variableSymbol,
+      webinvoiceUrl: null,
+      fakturoidInvoiceId: null,
       items: cart.items.slice(),
       subtotal: subtotal,
       shippingCost: shipCost,

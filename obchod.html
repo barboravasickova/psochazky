@@ -20,7 +20,7 @@
     <meta name="twitter:description" content="Merch a vybavení Psocházky – targety, dečky a další produkty pro trénink se psem." />
     <meta name="twitter:image" content="https://psochazky.cz/images/psochazka-foto.jpg" />
     <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg">
-    <link rel="stylesheet" href="styles.css?v=68" />
+    <link rel="stylesheet" href="styles.css?v=98" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -95,8 +95,20 @@
               >
                 ← Zpět na produkty
               </button>
-              <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link>
-                Košík (<span data-shop-cart-count>0</span>)
+              <a href="obchod-kosik.html" class="shop-toolbar__cart btn" data-shop-cart-link aria-label="Košík">
+                <svg class="shop-toolbar__cart-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M6 6h14l-1.2 7.2a1 1 0 0 1-1 .8H8.2a1 1 0 0 1-1-.85L6 6Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linejoin="round"
+                  />
+                  <path d="M6 6 5 3H2" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+                  <circle cx="9" cy="20" r="1.35" fill="currentColor" />
+                  <circle cx="17" cy="20" r="1.35" fill="currentColor" />
+                </svg>
+                <span data-shop-cart-count>0 položek</span>
               </a>
             </div>
           </div>
@@ -184,8 +196,8 @@
         });
       }
     </script>
-    <script src="js/shop-cart.js"></script>
-    <script src="js/cms-obchod.js?v=2"></script>
+    <script src="js/shop-cart.js?v=2"></script>
+    <script src="js/cms-obchod.js?v=6"></script>
     <script src="js/cookies.js"></script>
   </body>
 </html>
