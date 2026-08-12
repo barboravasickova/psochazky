@@ -4439,7 +4439,73 @@ a.shop-product-detail__category:focus-visible {
 .shop-zasilkovna-branch {
   padding: 0 0.85rem 0.85rem;
   padding-left: 2.4rem;
-  margin-top: -0.15rem;
+  margin-top: 0.15rem;
+}
+
+.shop-packeta-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.shop-packeta-picker.is-inactive .shop-packeta-picker__address {
+  opacity: 0.55;
+}
+
+.shop-packeta-picker__open {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.shop-packeta-picker__open:hover,
+.shop-packeta-picker__open:focus-visible {
+  color: var(--color-secondary-dark);
+}
+
+.shop-packeta-picker__address {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(11, 51, 41, 0.18);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.45;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-primary);
+}
+
+.shop-packeta-picker__address:read-only {
+  cursor: pointer;
+}
+
+.shop-packeta-picker__address::placeholder {
+  color: rgba(11, 51, 41, 0.45);
+  font-style: italic;
+}
+
+.shop-packeta-picker__error {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #9b2c2c;
 }
 
 .shop-field--nested {

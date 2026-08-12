@@ -25,6 +25,10 @@
   var paymentFieldset = document.getElementById("shop-payment-options");
   var billingSameCheckbox = form.billingSameAsDelivery;
   var billingFieldset = document.getElementById("shop-billing-address");
+  var packetaConfig = (settings && settings.packeta) || {};
+  var packetaApiKey = packetaConfig.widgetApiKey || "";
+  var selectedPacketaBranch = null;
+  var packetaPickerEl = null;
 
   function syncBillingAddressVisibility() {
     if (!billingFieldset || !billingSameCheckbox) return;
@@ -57,13 +61,152 @@
     return checked ? checked.value : "transfer";
   }
 
-  function syncZasilkovnaBranchField() {
-    var input = form.zasilkovnaPoint;
-    if (!input) return;
+  function syncPacketaPickerState() {
+    if (!packetaPickerEl) return;
     var active = selectedShippingId() === "zasilkovna";
-    input.disabled = !active;
-    input.required = active;
-    if (!active) input.setCustomValidity("");
+    packetaPickerEl.classList.toggle("is-inactive", !active);
+    if (!active) {
+      clearPacketaBranch(false);
+    }
+  }
+
+  function clearPacketaBranch(showEmptyState) {
+    selectedPacketaBranch = null;
+    if (!packetaPickerEl) return;
+    var idInput = packetaPickerEl.querySelector('[name="packetaBranchId"]');
+    var addressInput = packetaPickerEl.querySelector(".shop-packeta-picker__address");
+    var errorEl = packetaPickerEl.querySelector(".shop-packeta-picker__error");
+    if (idInput) idInput.value = "";
+    if (addressInput) {
+      addressInput.value = "";
+      addressInput.placeholder =
+        showEmptyState === false ? "" : "Po výběru se zde zobrazí adresa výdejny";
+    }
+    if (errorEl) errorEl.hidden = true;
+  }
+
+  function setPacketaBranch(branch) {
+    selectedPacketaBranch = branch;
+    if (!packetaPickerEl || !branch) return;
+    var idInput = packetaPickerEl.querySelector('[name="packetaBranchId"]');
+    var addressInput = packetaPickerEl.querySelector(".shop-packeta-picker__address");
+    var errorEl = packetaPickerEl.querySelector(".shop-packeta-picker__error");
+    if (idInput) idInput.value = branch.id;
+    if (addressInput) {
+      addressInput.value = branch.label;
+      addressInput.placeholder = "";
+    }
+    if (errorEl) errorEl.hidden = true;
+  }
+
+  function showPacketaPickerError(message) {
+    if (!packetaPickerEl) return;
+    var errorEl = packetaPickerEl.querySelector(".shop-packeta-picker__error");
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    }
+  }
+
+  function ensureZasilkovnaSelected() {
+    if (selectedShippingId() === "zasilkovna") return;
+    var radio = form.querySelector('input[name="shipping"][value="zasilkovna"]');
+    if (radio) {
+      radio.checked = true;
+      renderSummary();
+    }
+  }
+
+  function openPacketaWidget() {
+    ensureZasilkovnaSelected();
+
+    if (!packetaApiKey) {
+      showPacketaPickerError("Výběr výdejny není nakonfigurovaný. Napište nám prosím pobočku do poznámky.");
+      return;
+    }
+    if (!window.ShopPacketa || !ShopPacketa.isReady()) {
+      showPacketaPickerError("Mapa Zásilkovny se nepodařila načíst. Obnovte stránku a zkuste to znovu.");
+      return;
+    }
+
+    var widgetOptions = {
+      country: packetaConfig.country || "cz",
+      language: packetaConfig.language || "cs",
+    };
+    if (
+      typeof packetaConfig.latitude === "number" &&
+      typeof packetaConfig.longitude === "number"
+    ) {
+      widgetOptions.latitude = packetaConfig.latitude;
+      widgetOptions.longitude = packetaConfig.longitude;
+    }
+
+    ShopPacketa.openPicker(
+      packetaApiKey,
+      widgetOptions,
+      function (branch, error) {
+        if (error) {
+          if (error.message === "branch-unavailable") {
+            showPacketaPickerError("Tato pobočka teď není dostupná. Vyberte prosím jinou.");
+          }
+          return;
+        }
+        if (branch) setPacketaBranch(branch);
+      }
+    );
+  }
+
+  function buildPacketaPicker() {
+    var wrap = document.createElement("div");
+    wrap.className = "shop-packeta-picker is-inactive";
+
+    var pickBtn = document.createElement("button");
+    pickBtn.type = "button";
+    pickBtn.className = "shop-packeta-picker__open";
+    pickBtn.textContent = "Vybrat výdejnu";
+    pickBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      openPacketaWidget();
+    });
+    wrap.appendChild(pickBtn);
+
+    var addressInput = document.createElement("input");
+    addressInput.type = "text";
+    addressInput.className = "shop-packeta-picker__address";
+    addressInput.name = "zasilkovnaPoint";
+    addressInput.readOnly = true;
+    addressInput.placeholder = "Po výběru se zde zobrazí adresa výdejny";
+    addressInput.setAttribute("aria-live", "polite");
+    addressInput.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      openPacketaWidget();
+    });
+    addressInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openPacketaWidget();
+      }
+    });
+    wrap.appendChild(addressInput);
+
+    var idInput = document.createElement("input");
+    idInput.type = "hidden";
+    idInput.name = "packetaBranchId";
+    wrap.appendChild(idInput);
+
+    var error = document.createElement("p");
+    error.className = "shop-packeta-picker__error";
+    error.hidden = true;
+    error.setAttribute("role", "alert");
+    wrap.appendChild(error);
+
+    return wrap;
+  }
+
+  function syncZasilkovnaBranchField() {
+    syncPacketaPickerState();
   }
 
   function renderSummary() {
@@ -136,18 +279,8 @@
 
         var branchWrap = document.createElement("div");
         branchWrap.className = "shop-zasilkovna-branch";
-
-        var branchInput = document.createElement("input");
-        branchInput.type = "text";
-        branchInput.name = "zasilkovnaPoint";
-        branchInput.placeholder = "Např. Brno – Veveří, …";
-        branchInput.disabled = true;
-
-        var branchLabel = document.createElement("label");
-        branchLabel.className = "shop-field shop-field--nested";
-        branchLabel.appendChild(document.createTextNode("Pobočka Zásilkovny (název a adresa) *"));
-        branchLabel.appendChild(branchInput);
-        branchWrap.appendChild(branchLabel);
+        packetaPickerEl = buildPacketaPicker();
+        branchWrap.appendChild(packetaPickerEl);
         zSection.appendChild(branchWrap);
         shippingBubble.appendChild(zSection);
         return;
@@ -202,23 +335,25 @@
   form.addEventListener("change", renderSummary);
   renderSummary();
 
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     var shipId = selectedShippingId();
-    if (shipId === "zasilkovna" && form.zasilkovnaPoint && !form.zasilkovnaPoint.value.trim()) {
-      form.zasilkovnaPoint.focus();
-      form.zasilkovnaPoint.setCustomValidity("Vyplň prosím pobočku Zásilkovny.");
-      form.zasilkovnaPoint.reportValidity();
-      return;
+    if (shipId === "zasilkovna") {
+      if (!selectedPacketaBranch || !selectedPacketaBranch.id) {
+        showPacketaPickerError("Vyber prosím výdejnu Zásilkovny.");
+        if (packetaPickerEl) {
+          var pickBtn = packetaPickerEl.querySelector(".shop-packeta-picker__open");
+          if (pickBtn) pickBtn.focus();
+          packetaPickerEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        return;
+      }
     }
-    if (form.zasilkovnaPoint) form.zasilkovnaPoint.setCustomValidity("");
 
     var shipCost = shippingPrice(shipId);
     var subtotal = ShopCart.getSubtotal();
     var total = subtotal + shipCost;
-    var orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
-    var variableSymbol = orderNumber.replace(/\D/g, "").slice(-10) || String(Date.now()).slice(-6);
 
     var deliveryStreet = form.customerStreet.value.trim();
     var deliveryCity = form.customerCity.value.trim();
@@ -245,8 +380,8 @@
     }
 
     var order = {
-      preview: true,
-      orderNumber: orderNumber,
+      preview: !!(settings && settings.previewMode),
+      orderNumber: "",
       createdAt: new Date().toISOString(),
       customer: {
         name: form.customerName.value.trim(),
@@ -260,18 +395,63 @@
         billingCity: billingCity,
         billingZip: billingZip,
         note: form.customerNote.value.trim(),
-        zasilkovnaPoint: form.zasilkovnaPoint ? form.zasilkovnaPoint.value.trim() : "",
+        zasilkovnaPoint: selectedPacketaBranch ? selectedPacketaBranch.label : "",
+        packetaBranch: selectedPacketaBranch ? Object.assign({}, selectedPacketaBranch) : null,
       },
       shipping: shipId,
       payment: selectedPaymentId(),
-      variableSymbol: variableSymbol,
-      webinvoiceUrl: null,
-      fakturoidInvoiceId: null,
+      variableSymbol: "",
       items: cart.items.slice(),
       subtotal: subtotal,
       shippingCost: shipCost,
       total: total,
     };
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var submitLabel = submitBtn ? submitBtn.textContent : "";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Odesílám…";
+    }
+
+    var webAppUrl = settings && settings.orders && settings.orders.webAppUrl;
+    if (webAppUrl) {
+      try {
+        var response = await fetch(webAppUrl, {
+          method: "POST",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(order),
+        });
+        var responseText = (await response.text()).trim();
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status + ": " + responseText.slice(0, 120));
+        }
+        var result = JSON.parse(responseText);
+        if (!result.ok) {
+          throw new Error(result.error || "Uložení objednávky se nezdařilo.");
+        }
+        order.orderNumber = result.orderNumber;
+        order.variableSymbol = result.variableSymbol;
+        order.preview = false;
+      } catch (submitError) {
+        console.error("Order submit error:", submitError);
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel || "Odeslat objednávku";
+        }
+        window.alert(
+          "Objednávku se nepodařilo uložit do tabulky. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
+            (submitError && submitError.message ? submitError.message : submitError)
+        );
+        return;
+      }
+    } else {
+      order.orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
+      order.variableSymbol =
+        order.orderNumber.replace(/\D/g, "").slice(-10) ||
+        String(Date.now()).slice(-6);
+    }
 
     ShopCart.savePreviewOrder(order);
     ShopCart.clearCart();

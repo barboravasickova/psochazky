@@ -1,5 +1,8 @@
 {
-  "previewMode": true,
+  "previewMode": false,
+  "orders": {
+    "webAppUrl": "https://script.google.com/macros/s/AKfycbz5TUBpgTjdzkk2J-eUGD47SpEhQ4nhLB000j4JHP0YM_K-W_QHVedtqP94C8BJsgGfyg/exec"
+  },
   "shipping": {
     "pickup": {
       "id": "pickup",
@@ -26,5 +29,12 @@
   "bankTransfer": {
     "iban": "CZ6508000000192000145399",
     "paymentMessage": "PSOCHAZKY"
+  },
+  "packeta": {
+    "widgetApiKey": "862adad1dab8b610",
+    "country": "cz",
+    "language": "cs",
+    "latitude": 49.1951,
+    "longitude": 16.6068
   }
 }
