@@ -2,6 +2,9 @@
  * Google Apps Script – Psocházky objednávky → Google Tabulka
  * Záložka: Objednávky (nebo upravte SHEET_NAME)
  *
+ * Po úpravě: Uložit → Nasadit → Spravovat nasazení → Nová verze → Nasadit
+ * Přístup: Kdokoli (Anyone).
+ *
  * Sloupce A–X:
  * A Číslo | B Datum | C Jméno | D E-mail | E Telefon | F Ulice | G Město | H PSČ
  * I Faktura stejná | J–L Faktura adresa | M Položky | N Doprava | O Pobočka Zásilkovny
@@ -12,8 +15,33 @@
 const SHEET_NAME = "Objednávky";
 
 function doPost(e) {
+  var raw = readRequestBody_(e);
+  if (!raw) {
+    return respond_({ ok: false, error: "Chybí data objednávky" }, e);
+  }
+  return processOrder_(raw, e);
+}
+
+function doGet(e) {
+  if (e && e.parameter && e.parameter.data) {
+    return processOrder_(e.parameter.data, e);
+  }
+  return jsonResponse_({ ok: false, error: "Použijte POST nebo parametr ?data=" });
+}
+
+function readRequestBody_(e) {
+  if (e && e.postData && e.postData.contents) {
+    return e.postData.contents;
+  }
+  if (e && e.parameter && e.parameter.payload) {
+    return e.parameter.payload;
+  }
+  return "";
+}
+
+function processOrder_(raw, e) {
   try {
-    const data = JSON.parse(e.postData.contents);
+    const data = JSON.parse(raw);
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
     if (!sheet) {
       throw new Error('List "' + SHEET_NAME + '" nenalezen');
@@ -76,18 +104,42 @@ function doPost(e) {
 
     sheet.appendRow(row);
 
-    return ContentService.createTextOutput(
-      JSON.stringify({
+    return respond_(
+      {
         ok: true,
         orderNumber: orderNumber,
         variableSymbol: vs,
-      })
-    ).setMimeType(ContentService.MimeType.JSON);
+      },
+      e
+    );
   } catch (err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ ok: false, error: String(err) })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return respond_({ ok: false, error: String(err) }, e);
   }
+}
+
+function respond_(result, e) {
+  if (e && e.parameter && e.parameter.delivery === "iframe") {
+    return htmlPostMessageResponse_(result);
+  }
+  return jsonResponse_(result);
+}
+
+function jsonResponse_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
+}
+
+function htmlPostMessageResponse_(obj) {
+  var payload = JSON.stringify(obj)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+  return HtmlService.createHtmlOutput(
+    "<!doctype html><meta charset=\"utf-8\"><script>window.parent.postMessage(" +
+      payload +
+      ', "*");</script>'
+  ).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
 function nextOrderNumber_(sheet) {
