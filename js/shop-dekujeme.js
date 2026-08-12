@@ -103,7 +103,21 @@
   }
 
   var order = ShopCart.loadPreviewOrder();
-  if (!order) {
+  var params = new URLSearchParams(window.location.search);
+  var orderNumber = params.get("orderNumber");
+  var variableSymbol = params.get("variableSymbol");
+
+  if (order) {
+    if (orderNumber) {
+      order.orderNumber = orderNumber;
+      order.preview = false;
+    }
+    if (variableSymbol) {
+      order.variableSymbol = variableSymbol;
+    }
+  }
+
+  if (!order || !order.orderNumber) {
     if (emptyEl) emptyEl.hidden = false;
     if (contentEl) contentEl.hidden = true;
     return;
@@ -118,5 +132,7 @@
     })
     .then(function (settings) {
       renderOrder(order, settings);
+      ShopCart.clearCart();
+      ShopCart.clearPreviewOrder();
     });
 })();

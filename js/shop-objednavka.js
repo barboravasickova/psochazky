@@ -29,6 +29,48 @@
   var packetaApiKey = packetaConfig.widgetApiKey || "";
   var selectedPacketaBranch = null;
   var packetaPickerEl = null;
+  var orderLoadingEl = document.getElementById("shop-order-loading");
+
+  function setOrderSubmitLoading(isLoading) {
+    if (orderLoadingEl) {
+      orderLoadingEl.hidden = !isLoading;
+      orderLoadingEl.setAttribute("aria-hidden", isLoading ? "false" : "true");
+    }
+    document.body.classList.toggle("shop-order-submitting", isLoading);
+  }
+
+  function redirectOrderToSheet(webAppUrl, order) {
+    var thanksUrl = new URL("obchod-dekujeme.html", window.location.href).href;
+    var errorUrl = new URL("obchod-objednavka.html", window.location.href).href;
+    var encoded = encodeURIComponent(JSON.stringify(order));
+    if (encoded.length >= 7500) {
+      throw new Error(
+        "Objednávka je příliš rozsáhlá. Kontaktujte nás prosím na psochazky@gmail.com."
+      );
+    }
+    ShopCart.savePreviewOrder(order);
+    window.location.href =
+      webAppUrl +
+      (webAppUrl.indexOf("?") >= 0 ? "&" : "?") +
+      "data=" +
+      encoded +
+      "&returnUrl=" +
+      encodeURIComponent(thanksUrl) +
+      "&errorUrl=" +
+      encodeURIComponent(errorUrl);
+  }
+
+  var checkoutParams = new URLSearchParams(window.location.search);
+  var checkoutOrderError = checkoutParams.get("orderError");
+  if (checkoutOrderError) {
+    window.alert(
+      "Objednávku se nepodařilo uložit do tabulky. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
+        checkoutOrderError
+    );
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }
 
   function syncBillingAddressVisibility() {
     if (!billingFieldset || !billingSameCheckbox) return;
@@ -332,113 +374,10 @@
     paymentFieldset.appendChild(paymentBubble);
   }
 
-  function isOrderSubmitResult(data) {
-    return (
-      data &&
-      typeof data === "object" &&
-      typeof data.ok === "boolean" &&
-      (data.ok ? typeof data.orderNumber === "string" : typeof data.error === "string")
-    );
-  }
-
-  function submitOrderViaIframe(webAppUrl, order) {
-    return new Promise(function (resolve, reject) {
-      var iframe = document.createElement("iframe");
-      var formEl = document.createElement("form");
-      var input = document.createElement("input");
-      var settled = false;
-      var timeoutId;
-
-      function finish(err, result) {
-        if (settled) return;
-        settled = true;
-        clearTimeout(timeoutId);
-        window.removeEventListener("message", onMessage);
-        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-        if (formEl.parentNode) formEl.parentNode.removeChild(formEl);
-        if (err) reject(err);
-        else resolve(result);
-      }
-
-      function onMessage(event) {
-        if (!event || !event.data || !isOrderSubmitResult(event.data)) return;
-        if (event.data.ok) finish(null, event.data);
-        else finish(new Error(event.data.error || "Uložení objednávky se nezdařilo."));
-      }
-
-      timeoutId = window.setTimeout(function () {
-        finish(new Error("Vypršel časový limit odeslání objednávky."));
-      }, 30000);
-
-      window.addEventListener("message", onMessage);
-
-      iframe.name = "psochazky-order-frame";
-      iframe.style.display = "none";
-      iframe.setAttribute("aria-hidden", "true");
-      document.body.appendChild(iframe);
-
-      formEl.method = "POST";
-      formEl.action = webAppUrl + (webAppUrl.indexOf("?") >= 0 ? "&" : "?") + "delivery=iframe";
-      formEl.target = iframe.name;
-      formEl.style.display = "none";
-
-      input.type = "hidden";
-      input.name = "payload";
-      input.value = JSON.stringify(order);
-      formEl.appendChild(input);
-      document.body.appendChild(formEl);
-      formEl.submit();
-    });
-  }
-
-  async function submitOrderToSheet(webAppUrl, order) {
-    var payload = JSON.stringify(order);
-
-    try {
-      var response = await fetch(webAppUrl, {
-        method: "POST",
-        redirect: "follow",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: payload,
-      });
-      var responseText = (await response.text()).trim();
-      if (!response.ok) {
-        throw new Error("HTTP " + response.status + ": " + responseText.slice(0, 120));
-      }
-      var result = JSON.parse(responseText);
-      if (!result.ok) {
-        throw new Error(result.error || "Uložení objednávky se nezdařilo.");
-      }
-      return result;
-    } catch (fetchError) {
-      var encoded = encodeURIComponent(payload);
-      if (encoded.length < 1800) {
-        try {
-          var getResponse = await fetch(webAppUrl + "?data=" + encoded, {
-            redirect: "follow",
-          });
-          var getText = (await getResponse.text()).trim();
-          if (getResponse.ok) {
-            var getResult = JSON.parse(getText);
-            if (getResult.ok) return getResult;
-            throw new Error(getResult.error || "Uložení objednávky se nezdařilo.");
-          }
-        } catch (getError) {
-          if (getError && getError.message && getError.message.indexOf("Uložení") === 0) {
-            throw getError;
-          }
-        }
-      }
-
-      console.warn("Order fetch fallback to iframe:", fetchError);
-      return submitOrderViaIframe(webAppUrl, order);
-    }
-  }
-
   form.addEventListener("change", renderSummary);
   renderSummary();
 
-  form.addEventListener("submit", async function (event) {
+  form.addEventListener("submit", function (event) {
     event.preventDefault();
 
     var shipId = selectedShippingId();
@@ -516,23 +455,24 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Odesílám…";
     }
+    setOrderSubmitLoading(true);
 
     var webAppUrl = settings && settings.orders && settings.orders.webAppUrl;
     if (webAppUrl) {
       try {
-        var result = await submitOrderToSheet(webAppUrl, order);
-        order.orderNumber = result.orderNumber;
-        order.variableSymbol = result.variableSymbol;
-        order.preview = false;
-      } catch (submitError) {
-        console.error("Order submit error:", submitError);
+        setOrderSubmitLoading(true);
+        redirectOrderToSheet(webAppUrl, order);
+        return;
+      } catch (redirectError) {
+        console.error("Order redirect error:", redirectError);
+        setOrderSubmitLoading(false);
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.textContent = submitLabel || "Odeslat objednávku";
         }
         window.alert(
-          "Objednávku se nepodařilo uložit do tabulky. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
-            (submitError && submitError.message ? submitError.message : submitError)
+          "Objednávku se nepodařilo odeslat. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
+            (redirectError && redirectError.message ? redirectError.message : redirectError)
         );
         return;
       }

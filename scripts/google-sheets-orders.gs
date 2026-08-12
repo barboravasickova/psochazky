@@ -4,13 +4,6 @@
  *
  * Po úpravě: Uložit → Nasadit → Spravovat nasazení → Nová verze → Nasadit
  * Přístup: Kdokoli (Anyone).
- *
- * Sloupce A–X:
- * A Číslo | B Datum | C Jméno | D E-mail | E Telefon | F Ulice | G Město | H PSČ
- * I Faktura stejná | J–L Faktura adresa | M Položky | N Doprava | O Pobočka Zásilkovny
- * P Packeta ID | Q Platba | R Mezisoučet | S Doprava Kč | T Celkem | U VS
- * V Poznámka zákazníka | W Stav | X Interní poznámka
- * Y Kontrola = vzorec v tabulce (skript nezapisuje)
  */
 const SHEET_NAME = "Objednávky";
 
@@ -19,27 +12,42 @@ function doPost(e) {
   if (!raw) {
     return respond_({ ok: false, error: "Chybí data objednávky" }, e);
   }
-  return processOrder_(raw, e);
+  return respond_(writeOrderFromJson_(raw), e);
 }
 
 function doGet(e) {
   if (e && e.parameter && e.parameter.data) {
-    return processOrder_(e.parameter.data, e);
+    var result = writeOrderFromJson_(e.parameter.data);
+
+    if (e.parameter.callback) {
+      return jsonpResponse_(e.parameter.callback, result);
+    }
+
+    if (e.parameter.returnUrl) {
+      return redirectResponse_(result, e.parameter.returnUrl, e.parameter.errorUrl);
+    }
+
+    return respond_(result, e);
   }
+
   return jsonResponse_({ ok: false, error: "Použijte POST nebo parametr ?data=" });
 }
 
 function readRequestBody_(e) {
-  if (e && e.postData && e.postData.contents) {
-    return e.postData.contents;
-  }
   if (e && e.parameter && e.parameter.payload) {
     return e.parameter.payload;
+  }
+  if (e && e.postData && e.postData.contents) {
+    var type = String((e.postData && e.postData.type) || "");
+    if (type.indexOf("application/x-www-form-urlencoded") >= 0) {
+      return "";
+    }
+    return e.postData.contents;
   }
   return "";
 }
 
-function processOrder_(raw, e) {
+function writeOrderFromJson_(raw) {
   try {
     const data = JSON.parse(raw);
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
@@ -76,44 +84,41 @@ function processOrder_(raw, e) {
         : "";
 
     const row = [
-      orderNumber,                                      // A
-      new Date(),                                       // B
-      customer.name || "",                              // C
-      customer.email || "",                             // D
-      customer.phone || "",                             // E
-      customer.street || "",                            // F
-      customer.city || "",                              // G
-      customer.zip || "",                               // H
-      customer.billingSameAsDelivery ? "Ano" : "Ne",    // I
-      customer.billingStreet || "",                     // J
-      customer.billingCity || "",                       // K
-      customer.billingZip || "",                        // L
-      items,                                            // M
-      shippingLabel,                                    // N
-      customer.zasilkovnaPoint || "",                   // O
-      packetaId,                                        // P
-      paymentLabel,                                     // Q
-      Number(data.subtotal || 0),                       // R
-      Number(data.shippingCost || 0),                   // S
-      Number(data.total || 0),                          // T
-      vs,                                               // U
-      customer.note || "",                              // V
-      "Nová",                                           // W
-      "",                                               // X
+      orderNumber,
+      new Date(),
+      customer.name || "",
+      customer.email || "",
+      customer.phone || "",
+      customer.street || "",
+      customer.city || "",
+      customer.zip || "",
+      customer.billingSameAsDelivery ? "Ano" : "Ne",
+      customer.billingStreet || "",
+      customer.billingCity || "",
+      customer.billingZip || "",
+      items,
+      shippingLabel,
+      customer.zasilkovnaPoint || "",
+      packetaId,
+      paymentLabel,
+      Number(data.subtotal || 0),
+      Number(data.shippingCost || 0),
+      Number(data.total || 0),
+      vs,
+      customer.note || "",
+      "Nová",
+      "",
     ];
 
     sheet.appendRow(row);
 
-    return respond_(
-      {
-        ok: true,
-        orderNumber: orderNumber,
-        variableSymbol: vs,
-      },
-      e
-    );
+    return {
+      ok: true,
+      orderNumber: orderNumber,
+      variableSymbol: vs,
+    };
   } catch (err) {
-    return respond_({ ok: false, error: String(err) }, e);
+    return { ok: false, error: String(err) };
   }
 }
 
@@ -124,10 +129,51 @@ function respond_(result, e) {
   return jsonResponse_(result);
 }
 
+function redirectResponse_(result, returnUrl, errorUrl) {
+  var target;
+  if (result.ok) {
+    var separator = returnUrl.indexOf("?") >= 0 ? "&" : "?";
+    target =
+      returnUrl +
+      separator +
+      "orderNumber=" +
+      encodeURIComponent(result.orderNumber) +
+      "&variableSymbol=" +
+      encodeURIComponent(result.variableSymbol);
+  } else {
+    var fallback = errorUrl || returnUrl;
+    var errorSeparator = fallback.indexOf("?") >= 0 ? "&" : "?";
+    target =
+      fallback +
+      errorSeparator +
+      "orderError=" +
+      encodeURIComponent(result.error || "Uložení objednávky se nezdařilo.");
+  }
+
+  return HtmlService.createHtmlOutput(
+    "<!doctype html><html lang=\"cs\"><head><meta charset=\"utf-8\">" +
+      "<title>Odesílám objednávku…</title></head><body>" +
+      "<p style=\"font:600 1rem/1.5 sans-serif;text-align:center;margin:3rem 1rem;color:#0b3329\">" +
+      "Odesílám objednávku…</p>" +
+      "<script>window.location.replace(" +
+      JSON.stringify(target) +
+      ");</script></body></html>"
+  ).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
 function jsonResponse_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
     ContentService.MimeType.JSON
   );
+}
+
+function jsonpResponse_(callback, obj) {
+  if (!/^[A-Za-z_$][\w$]*$/.test(String(callback || ""))) {
+    return jsonResponse_({ ok: false, error: "Neplatný callback" });
+  }
+  return ContentService.createTextOutput(
+    callback + "(" + JSON.stringify(obj) + ");"
+  ).setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 
 function htmlPostMessageResponse_(obj) {
