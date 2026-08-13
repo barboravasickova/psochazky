@@ -138,12 +138,17 @@
   }
 
   function savePreviewOrder(order) {
-    sessionStorage.setItem(ORDER_PREVIEW_KEY, JSON.stringify(order));
+    var raw = JSON.stringify(order);
+    sessionStorage.setItem(ORDER_PREVIEW_KEY, raw);
+    try {
+      localStorage.setItem(ORDER_PREVIEW_KEY, raw);
+    } catch (_) {}
   }
 
   function loadPreviewOrder() {
     try {
       var raw = sessionStorage.getItem(ORDER_PREVIEW_KEY);
+      if (!raw) raw = localStorage.getItem(ORDER_PREVIEW_KEY);
       return raw ? JSON.parse(raw) : null;
     } catch (_) {
       return null;
@@ -152,6 +157,9 @@
 
   function clearPreviewOrder() {
     sessionStorage.removeItem(ORDER_PREVIEW_KEY);
+    try {
+      localStorage.removeItem(ORDER_PREVIEW_KEY);
+    } catch (_) {}
   }
 
   window.ShopCart = {

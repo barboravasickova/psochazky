@@ -8,11 +8,23 @@
 const SHEET_NAME = "Objednávky";
 
 function doPost(e) {
+  var params = readFormParameters_(e);
   var raw = readRequestBody_(e);
   if (!raw) {
-    return respond_({ ok: false, error: "Chybí data objednávky" }, e);
+    var missingData = { ok: false, error: "Chybí data objednávky" };
+    if (params.delivery === "iframe") {
+      return htmlPostMessageResponse_(missingData);
+    }
+    return jsonResponse_(missingData);
   }
-  return respond_(writeOrderFromJson_(raw), e);
+  var result = writeOrderFromJson_(raw);
+  if (params.delivery === "iframe") {
+    return htmlPostMessageResponse_(result);
+  }
+  if (params.returnUrl) {
+    return redirectResponse_(result, params.returnUrl, params.errorUrl);
+  }
+  return jsonResponse_(result);
 }
 
 function doGet(e) {
@@ -33,16 +45,53 @@ function doGet(e) {
   return jsonResponse_({ ok: false, error: "Použijte POST nebo parametr ?data=" });
 }
 
-function readRequestBody_(e) {
-  if (e && e.parameter && e.parameter.payload) {
-    return e.parameter.payload;
+function readFormParameters_(e) {
+  var params = {};
+  if (e && e.parameter) {
+    Object.keys(e.parameter).forEach(function (key) {
+      params[key] = e.parameter[key];
+    });
   }
   if (e && e.postData && e.postData.contents) {
-    var type = String((e.postData && e.postData.type) || "");
-    if (type.indexOf("application/x-www-form-urlencoded") >= 0) {
+    var parsed = parseFormUrlEncoded_(e.postData.contents);
+    Object.keys(parsed).forEach(function (key) {
+      if (!params[key]) params[key] = parsed[key];
+    });
+  }
+  return params;
+}
+
+function parseFormUrlEncoded_(body) {
+  var out = {};
+  String(body || "")
+    .split("&")
+    .forEach(function (pair) {
+      if (!pair) return;
+      var idx = pair.indexOf("=");
+      if (idx < 0) return;
+      var key = decodeURIComponent(pair.slice(0, idx).replace(/\+/g, " "));
+      var val = decodeURIComponent(pair.slice(idx + 1).replace(/\+/g, " "));
+      out[key] = val;
+    });
+  return out;
+}
+
+function readRequestBody_(e) {
+  var params = readFormParameters_(e);
+  if (params.payload) return params.payload;
+  if (params.data) return params.data;
+
+  if (e && e.postData && e.postData.contents) {
+    var type = String((e.postData && e.postData.type) || "").toLowerCase();
+    var contents = String(e.postData.contents || "");
+    if (
+      type.indexOf("application/x-www-form-urlencoded") >= 0 ||
+      contents.indexOf("payload=") >= 0 ||
+      contents.indexOf("data=") >= 0
+    ) {
       return "";
     }
-    return e.postData.contents;
+    return contents;
   }
   return "";
 }
@@ -130,6 +179,13 @@ function respond_(result, e) {
 }
 
 function redirectResponse_(result, returnUrl, errorUrl) {
+  if (!/^https?:\/\//i.test(String(returnUrl || ""))) {
+    return jsonResponse_({
+      ok: false,
+      error: "Neplatná adresa pro návrat na web: " + returnUrl,
+    });
+  }
+
   var target;
   if (result.ok) {
     var separator = returnUrl.indexOf("?") >= 0 ? "&" : "?";
@@ -142,6 +198,9 @@ function redirectResponse_(result, returnUrl, errorUrl) {
       encodeURIComponent(result.variableSymbol);
   } else {
     var fallback = errorUrl || returnUrl;
+    if (!/^https?:\/\//i.test(String(fallback || ""))) {
+      return jsonResponse_(result);
+    }
     var errorSeparator = fallback.indexOf("?") >= 0 ? "&" : "?";
     target =
       fallback +
@@ -150,11 +209,22 @@ function redirectResponse_(result, returnUrl, errorUrl) {
       encodeURIComponent(result.error || "Uložení objednávky se nezdařilo.");
   }
 
+  var safeTarget = String(target)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;");
+
   return HtmlService.createHtmlOutput(
     "<!doctype html><html lang=\"cs\"><head><meta charset=\"utf-8\">" +
+      "<meta http-equiv=\"refresh\" content=\"0;url=" +
+      safeTarget +
+      "\">" +
       "<title>Odesílám objednávku…</title></head><body>" +
       "<p style=\"font:600 1rem/1.5 sans-serif;text-align:center;margin:3rem 1rem;color:#0b3329\">" +
-      "Odesílám objednávku…</p>" +
+      "Objednávka uložena. Přesměrovávám…</p>" +
+      "<p style=\"text-align:center;margin:1rem\">" +
+      "<a href=\"" +
+      safeTarget +
+      "\" style=\"color:#0b3329\">Pokračovat na potvrzení objednávky</a></p>" +
       "<script>window.location.replace(" +
       JSON.stringify(target) +
       ");</script></body></html>"

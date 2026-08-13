@@ -39,25 +39,62 @@
     document.body.classList.toggle("shop-order-submitting", isLoading);
   }
 
-  function redirectOrderToSheet(webAppUrl, order) {
-    var thanksUrl = new URL("obchod-dekujeme.html", window.location.href).href;
-    var errorUrl = new URL("obchod-objednavka.html", window.location.href).href;
-    var encoded = encodeURIComponent(JSON.stringify(order));
-    if (encoded.length >= 7500) {
-      throw new Error(
-        "Objednávka je příliš rozsáhlá. Kontaktujte nás prosím na psochazky@gmail.com."
-      );
+  function generateOrderNumber() {
+    var year = new Date().getFullYear();
+    var key = "psochazky-order-seq-" + year;
+    var seq = parseInt(localStorage.getItem(key) || "0", 10) + 1;
+    localStorage.setItem(key, String(seq));
+    return year + "-" + String(seq).padStart(4, "0");
+  }
+
+  function shippingLabel(id) {
+    if (!settings || !settings.shipping) {
+      return id === "zasilkovna" ? "Zásilkovna" : "Osobní odběr (Brno)";
     }
-    ShopCart.savePreviewOrder(order);
-    window.location.href =
-      webAppUrl +
-      (webAppUrl.indexOf("?") >= 0 ? "&" : "?") +
-      "data=" +
-      encoded +
-      "&returnUrl=" +
-      encodeURIComponent(thanksUrl) +
-      "&errorUrl=" +
-      encodeURIComponent(errorUrl);
+    if (id === "zasilkovna") {
+      return settings.shipping.zasilkovna.label || "Zásilkovna";
+    }
+    return settings.shipping.pickup.label || "Osobní odběr (Brno)";
+  }
+
+  function paymentLabel(id) {
+    if (!settings || !settings.paymentMethods) {
+      return id === "cash" ? "Hotově" : "Převodem";
+    }
+    if (id === "cash") {
+      return settings.paymentMethods.cash.label || "Hotově";
+    }
+    return settings.paymentMethods.transfer.label || "Převodem";
+  }
+
+  function submitOrder(submitUrl, order) {
+    order.orderNumber = generateOrderNumber();
+    order.variableSymbol = order.orderNumber.replace(/\D/g, "").slice(-10);
+    order.preview = false;
+
+    return fetch(submitUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    })
+      .then(function (response) {
+        return response
+          .json()
+          .catch(function () {
+            return {};
+          })
+          .then(function (payload) {
+            if (!response.ok || !payload.ok) {
+              throw new Error(
+                (payload && payload.error) ||
+                  "Objednávku se nepodařilo uložit (" + response.status + ")."
+              );
+            }
+            ShopCart.savePreviewOrder(order);
+            ShopCart.clearCart();
+            window.location.href = "obchod-dekujeme.html";
+          });
+      });
   }
 
   var checkoutParams = new URLSearchParams(window.location.search);
@@ -457,14 +494,19 @@
     }
     setOrderSubmitLoading(true);
 
-    var webAppUrl = settings && settings.orders && settings.orders.webAppUrl;
-    if (webAppUrl) {
-      try {
-        setOrderSubmitLoading(true);
-        redirectOrderToSheet(webAppUrl, order);
-        return;
-      } catch (redirectError) {
-        console.error("Order redirect error:", redirectError);
+    var orderSubmitUrl =
+      settings && settings.orders && settings.orders.submitUrl;
+    if (orderSubmitUrl) {
+      submitOrder(orderSubmitUrl, order).catch(function (submitError) {
+        var message =
+          submitError && submitError.message
+            ? submitError.message
+            : String(submitError);
+        if (message === "Failed to fetch") {
+          message =
+            "Nepodařilo se spojit se serverem objednávek (psochazky-cms-oauth.vercel.app). " +
+            "Zkontrolujte, že je nasazený endpoint /api/orders a v antiviru povolená doména vercel.app.";
+        }
         setOrderSubmitLoading(false);
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -472,16 +514,16 @@
         }
         window.alert(
           "Objednávku se nepodařilo odeslat. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
-            (redirectError && redirectError.message ? redirectError.message : redirectError)
+            message
         );
-        return;
-      }
-    } else {
-      order.orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
-      order.variableSymbol =
-        order.orderNumber.replace(/\D/g, "").slice(-10) ||
-        String(Date.now()).slice(-6);
+      });
+      return;
     }
+
+    order.orderNumber = "NAHLED-" + Date.now().toString().slice(-6);
+    order.variableSymbol =
+      order.orderNumber.replace(/\D/g, "").slice(-10) ||
+      String(Date.now()).slice(-6);
 
     ShopCart.savePreviewOrder(order);
     ShopCart.clearCart();

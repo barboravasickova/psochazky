@@ -107,14 +107,20 @@
   var orderNumber = params.get("orderNumber");
   var variableSymbol = params.get("variableSymbol");
 
-  if (order) {
-    if (orderNumber) {
-      order.orderNumber = orderNumber;
-      order.preview = false;
+  if (orderNumber) {
+    if (!order) {
+      order = {
+        items: [],
+        total: 0,
+        customer: { email: "" },
+        payment: "transfer",
+      };
     }
-    if (variableSymbol) {
-      order.variableSymbol = variableSymbol;
-    }
+    order.orderNumber = orderNumber;
+    order.preview = false;
+    if (variableSymbol) order.variableSymbol = variableSymbol;
+  } else if (order) {
+    order.preview = !!order.preview;
   }
 
   if (!order || !order.orderNumber) {

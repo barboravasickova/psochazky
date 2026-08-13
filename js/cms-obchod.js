@@ -128,7 +128,25 @@
     return "#888888";
   }
 
-  function buildColorSwatches(colorOptions, onPick) {
+  function findColorOption(colorOptions, label) {
+    if (!label) return null;
+    const target = String(label).trim().normalize("NFC").toLowerCase();
+    return (
+      colorOptions.find(
+        (color) =>
+          String(color.label || "")
+            .trim()
+            .normalize("NFC")
+            .toLowerCase() === target
+      ) || null
+    );
+  }
+
+  function buildColorSwatches(colorOptions, onPick, options) {
+    options = options || {};
+    const showLabel = options.showLabel !== false;
+    const autoSelectFirst = options.autoSelectFirst !== false;
+
     const wrap = document.createElement("div");
     wrap.className = "shop-product__option shop-product__option--colors";
 
@@ -147,6 +165,19 @@
     nameEl.textContent = "Vyber barvu";
 
     let selected = "";
+    const buttons = new Map();
+
+    function selectColor(color) {
+      if (!color) return;
+      selected = color.label;
+      if (showLabel) nameEl.textContent = color.label;
+      buttons.forEach((btn, label) => {
+        const active = label === color.label;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-checked", active ? "true" : "false");
+      });
+      if (onPick) onPick(color);
+    }
 
     colorOptions.forEach((color) => {
       const btn = document.createElement("button");
@@ -159,36 +190,79 @@
       const swatch = color.swatch || defaultSwatchColor(color.label);
       btn.style.setProperty("--shop-swatch-color", swatch);
 
-      btn.addEventListener("click", () => {
-        selected = color.label;
-        nameEl.textContent = color.label;
-        group.querySelectorAll(".shop-color-swatch").forEach((el) => {
-          const active = el === btn;
-          el.classList.toggle("is-active", active);
-          el.setAttribute("aria-checked", active ? "true" : "false");
-        });
-        if (onPick) onPick(color);
+      btn.addEventListener("click", () => selectColor(color));
+
+      buttons.set(color.label, btn);
+      group.appendChild(btn);
+    });
+
+    const initialColor = options.initialColor
+      ? findColorOption(colorOptions, options.initialColor)
+      : null;
+
+    if (initialColor) {
+      selectColor(initialColor);
+    } else if (colorOptions.length && autoSelectFirst) {
+      selectColor(colorOptions[0]);
+    }
+
+    wrap.appendChild(group);
+    if (showLabel) wrap.appendChild(nameEl);
+
+    return {
+      wrap,
+      getValue: () => selected,
+      selectColor,
+      focus: () => {
+        const active = group.querySelector(".shop-color-swatch.is-active");
+        const first = group.querySelector(".shop-color-swatch");
+        (active || first).focus();
+      },
+    };
+  }
+
+  function buildCatalogColorSwatches(colorOptions, product, previewImg, defaultPreviewSrc, onColorOpen) {
+    const wrap = document.createElement("div");
+    wrap.className = "shop-catalog-tile__swatches";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "Barvy produktu");
+
+    const label = document.createElement("span");
+    label.className = "shop-catalog-tile__swatches-label";
+    label.textContent = "Více barevných variant";
+    wrap.appendChild(label);
+
+    const group = document.createElement("div");
+    group.className = "shop-color-swatches shop-color-swatches--catalog";
+
+    colorOptions.forEach((color) => {
+      const btn = document.createElement("a");
+      btn.className = "shop-color-swatch shop-color-swatch--catalog";
+      btn.href = buildProductUrl(product.id, color.label);
+      btn.setAttribute("aria-label", color.label);
+      btn.title = color.label;
+      btn.style.setProperty("--shop-swatch-color", color.swatch || defaultSwatchColor(color.label));
+
+      btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onColorOpen(product.id, color.label);
+      });
+
+      btn.addEventListener("mouseenter", () => {
+        if (color.image && previewImg) previewImg.src = color.image;
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        if (previewImg && defaultPreviewSrc) previewImg.src = defaultPreviewSrc;
       });
 
       group.appendChild(btn);
     });
 
-    if (colorOptions.length) {
-      const firstBtn = group.querySelector(".shop-color-swatch");
-      if (firstBtn) firstBtn.click();
-    }
-
+    wrap.addEventListener("click", (event) => event.stopPropagation());
     wrap.appendChild(group);
-    wrap.appendChild(nameEl);
-
-    return {
-      wrap,
-      getValue: () => selected,
-      focus: () => {
-        const first = group.querySelector(".shop-color-swatch");
-        if (first) first.focus();
-      },
-    };
+    return wrap;
   }
 
   function productBadgeText(product) {
@@ -202,6 +276,9 @@
     const key = (text || "").toUpperCase();
     if (key === "PŘEDOBJEDNÁVKA" || key === "PREDOBJEDNAVKA") {
       return "shop-product-badge--preorder";
+    }
+    if (key === "SKLADEM") {
+      return "shop-product-badge--instock";
     }
     return "";
   }
@@ -260,25 +337,49 @@
     return panel;
   }
 
+  function buildProductUrl(id, colorLabel) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("produkt", id);
+    url.searchParams.delete("kategorie");
+    if (colorLabel) {
+      url.searchParams.set("barva", colorLabel);
+    } else {
+      url.searchParams.delete("barva");
+    }
+    const search = url.searchParams.toString();
+    return search ? `${url.pathname}?${search}` : url.pathname;
+  }
+
+  function initialColorImage(product, colorLabel) {
+    const color = findColorOption(normalizeColorOptions(product.variants || {}), colorLabel);
+    return color && color.image ? color.image : "";
+  }
+
   function buildCatalogTile(product, onOpen) {
     const article = document.createElement("article");
     article.className = "shop-catalog-tile";
     article.dataset.category = product.category || "";
 
-    const badgeBar = buildProductBadgeBar(product, "shop-catalog-tile__badge-bar");
-    if (badgeBar) article.appendChild(badgeBar);
+    const badgeBar = document.createElement("div");
+    badgeBar.className = "shop-catalog-tile__badge-bar";
+    appendProductBadge(badgeBar, product);
+    article.appendChild(badgeBar);
 
-    const previewSrc = product.image || productImages(product)[0];
+    const colorOptions = normalizeColorOptions(product.variants || {});
+    const previewSrc =
+      product.image || initialColorImage(product, colorOptions[0] && colorOptions[0].label) || productImages(product)[0];
+    let previewImg = null;
+
     if (previewSrc) {
       const media = document.createElement("div");
       media.className = "shop-catalog-tile__media";
 
-      const img = document.createElement("img");
-      img.src = previewSrc;
-      img.alt = product.imageAlt || product.title || "";
-      img.loading = "lazy";
-      img.decoding = "async";
-      media.appendChild(img);
+      previewImg = document.createElement("img");
+      previewImg.src = previewSrc;
+      previewImg.alt = product.imageAlt || product.title || "";
+      previewImg.loading = "lazy";
+      previewImg.decoding = "async";
+      media.appendChild(previewImg);
       article.appendChild(media);
     }
 
@@ -290,12 +391,25 @@
     title.textContent = product.title || "";
     body.appendChild(title);
 
-    if (product.description) {
-      const desc = document.createElement("p");
-      desc.className = "shop-catalog-tile__desc";
-      desc.textContent = product.description;
-      body.appendChild(desc);
+    const desc = document.createElement("p");
+    desc.className = "shop-catalog-tile__desc";
+    desc.textContent = product.description || "";
+    body.appendChild(desc);
+
+    const swatchesSlot = document.createElement("div");
+    swatchesSlot.className = "shop-catalog-tile__swatches-slot";
+    if (colorOptions.length > 1) {
+      swatchesSlot.appendChild(
+        buildCatalogColorSwatches(
+          colorOptions,
+          product,
+          previewImg,
+          previewSrc,
+          (productId, colorLabel) => onOpen(productId, true, colorLabel)
+        )
+      );
     }
+    body.appendChild(swatchesSlot);
 
     const price = document.createElement("p");
     price.className = "shop-catalog-tile__price";
@@ -317,11 +431,11 @@
       `Detail produktu ${product.title || ""}`.trim()
     );
 
-    function openDetail() {
-      onOpen(product.id);
+    function openDetail(colorLabel) {
+      onOpen(product.id, true, colorLabel);
     }
 
-    article.addEventListener("click", openDetail);
+    article.addEventListener("click", () => openDetail());
     article.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
@@ -332,19 +446,22 @@
     return article;
   }
 
-  function buildProductGallery(product) {
+  function buildProductGallery(product, initialColor) {
     const gallery = document.createElement("div");
     gallery.className = "shop-product-detail__gallery";
 
     const images = productImages(product);
     if (!images.length) return gallery;
 
+    const initialImage = initialColorImage(product, initialColor) || images[0];
+    const initialIndex = Math.max(0, images.indexOf(initialImage));
+
     const mainWrap = document.createElement("div");
     mainWrap.className = "shop-product-detail__main";
 
     const mainImg = document.createElement("img");
     mainImg.className = "shop-product-detail__main-img";
-    mainImg.src = images[0];
+    mainImg.src = initialImage;
     mainImg.alt = product.imageAlt || product.title || "";
     mainImg.decoding = "async";
     mainWrap.appendChild(mainImg);
@@ -361,9 +478,9 @@
         thumbBtn.type = "button";
         thumbBtn.className = "shop-product-detail__thumb";
         thumbBtn.setAttribute("role", "tab");
-        thumbBtn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        thumbBtn.setAttribute("aria-selected", index === initialIndex ? "true" : "false");
         thumbBtn.setAttribute("aria-label", `Fotografie ${index + 1}`);
-        if (index === 0) thumbBtn.classList.add("is-active");
+        if (index === initialIndex) thumbBtn.classList.add("is-active");
 
         const thumbImg = document.createElement("img");
         thumbImg.src = src;
@@ -395,7 +512,8 @@
     const layout = document.createElement("div");
     layout.className = "shop-product-detail__layout";
 
-    const gallery = buildProductGallery(product);
+    const initialColor = (detailOptions && detailOptions.initialColor) || "";
+    const gallery = buildProductGallery(product, initialColor);
     layout.appendChild(gallery);
     const mainImg = gallery.querySelector(".shop-product-detail__main-img");
 
@@ -459,9 +577,13 @@
       variantsEl.className = "shop-product__variants";
 
       if (hasColors) {
-        colorPicker = buildColorSwatches(colorOptions, (color) => {
-          if (color.image && mainImg) mainImg.src = color.image;
-        });
+        colorPicker = buildColorSwatches(
+          colorOptions,
+          (color) => {
+            if (color.image && mainImg) mainImg.src = color.image;
+          },
+          { initialColor: initialColor }
+        );
         variantsEl.appendChild(colorPicker.wrap);
       }
 
@@ -634,11 +756,8 @@
       return search ? `${url.pathname}?${search}` : url.pathname;
     }
 
-    function productUrl(id) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("produkt", id);
-      url.searchParams.delete("kategorie");
-      return `${url.pathname}${url.search}`;
+    function productUrl(id, colorLabel) {
+      return buildProductUrl(id, colorLabel);
     }
 
     function catalogUrl() {
@@ -691,12 +810,18 @@
       }
     }
 
-    function showProductDetail(productId, updateHistory = true) {
+    function showProductDetail(productId, updateHistory = true, colorLabel) {
       const product = products.find((p) => p.id === productId);
       if (!product) {
         showCatalog(updateHistory);
         return;
       }
+
+      const params = new URLSearchParams(window.location.search);
+      const colorOptions = normalizeColorOptions(product.variants || {});
+      const rawColor = colorLabel || params.get("barva") || "";
+      const matchedColor = findColorOption(colorOptions, rawColor);
+      const initialColor = matchedColor ? matchedColor.label : rawColor;
 
       setCatalogHeaderVisible(false);
       if (shopPageEl) shopPageEl.classList.add("shop-page--detail");
@@ -715,6 +840,7 @@
             categoryLabel && categoryId
               ? categoryCatalogUrl(categoryId)
               : "",
+          initialColor,
         })
       );
 
@@ -723,7 +849,11 @@
       }
 
       if (updateHistory) {
-        history.pushState({ view: "product", productId }, "", productUrl(productId));
+        history.pushState(
+          { view: "product", productId, color: initialColor || undefined },
+          "",
+          productUrl(productId, initialColor || null)
+        );
       }
 
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -790,7 +920,7 @@
       applyCategoryFromUrl(params);
       const productId = params.get("produkt");
       if (productId) {
-        showProductDetail(productId, false);
+        showProductDetail(productId, false, params.get("barva") || "");
       } else {
         showCatalog(false);
       }
@@ -798,7 +928,7 @@
 
     const initialProduct = initialParams.get("produkt");
     if (initialProduct) {
-      showProductDetail(initialProduct, false);
+      showProductDetail(initialProduct, false, initialParams.get("barva") || "");
     } else {
       showCatalog(false);
     }

@@ -1,7 +1,7 @@
 {
   "previewMode": false,
   "orders": {
-    "webAppUrl": "https://script.google.com/macros/s/AKfycbz5TUBpgTjdzkk2J-eUGD47SpEhQ4nhLB000j4JHP0YM_K-W_QHVedtqP94C8BJsgGfyg/exec"
+    "submitUrl": "https://psochazky-cms-oauth.vercel.app/api/orders"
   },
   "shipping": {
     "pickup": {
