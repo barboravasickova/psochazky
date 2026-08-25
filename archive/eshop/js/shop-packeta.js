@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   function isReady() {
     return (
       typeof window.Packeta !== "undefined" &&

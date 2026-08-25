@@ -1,0 +1,135 @@
+﻿{
+  "sizeChart": {
+    "headers": ["Velikost", "Obvod hrudi", "D├ęlka zad"],
+    "rows": [
+      ["S", "88ÔÇô92 cm", "66 cm"],
+      ["M", "96ÔÇô100 cm", "68 cm"],
+      ["L", "100ÔÇô104 cm", "70 cm"],
+      ["XL", "104ÔÇô108 cm", "72 cm"]
+    ]
+  },
+  "categories": [
+    { "id": "obleceni", "label": "Oble─Źen├ş" },
+    { "id": "doplnky", "label": "Dopl┼łky" },
+    { "id": "vycvikove-pomucky", "label": "V├Żcvikov├ę pom┼»cky" }
+  ],
+  "products": [
+    {
+      "id": "tricko",
+      "category": "obleceni",
+      "title": "D├ímsk├ę tri─Źko",
+      "description": "D├ímsk├ę bavln─Ťn├ę tri─Źko s logem Psoch├ízky. Pohodln├ę na proch├ízky i voln├Ż ─Źas, t┼Öi barvy a velikosti SÔÇôXL.",
+      "price": 449,
+      "image": "images/tricko-bordo.png",
+      "imageAlt": "D├ímsk├ę tri─Źko Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "P┼śEDOBJEDN├üVKA",
+      "leadTimeNote": "P┼Öedobjedn├ín├ş je mo┼żn├ę do 25. 10. 2026.\nPot├ę dod├ín├ş do 3ÔÇô4 t├Żdn┼».",
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bord├│", "image": "images/tricko-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelen├í", "image": "images/tricko-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "─îern├í", "image": "images/tricko-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "tricko-panske",
+      "category": "obleceni",
+      "title": "P├ínsk├ę tri─Źko",
+      "description": "P├ínsk├ę bavln─Ťn├ę tri─Źko s logem Psoch├ízky. Pohodln├ę na proch├ízky i voln├Ż ─Źas, t┼Öi barvy a velikosti SÔÇôXL.",
+      "price": 449,
+      "image": "images/tricko-panske-zelena.png",
+      "imageAlt": "P├ínsk├ę tri─Źko Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "P┼śEDOBJEDN├üVKA",
+      "leadTimeNote": "P┼Öedobjedn├ín├ş je mo┼żn├ę do 25. 10. 2026.\nPot├ę dod├ín├ş do 3ÔÇô4 t├Żdn┼».",
+      "variants": {
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": [
+          { "label": "Bord├│", "image": "images/tricko-panske-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelen├í", "image": "images/tricko-panske-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "─îern├í", "image": "images/tricko-panske-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "sportovni-celenka",
+      "category": "doplnky",
+      "title": "Sportovn├ş ─Źelenka",
+      "description": "Sportovn├ş ─Źelenka s potiskem Psoch├ízky. Dr┼ż├ş vlasy i u┼íi v teple na b─Ťhu, proch├ízk├ích a tr├ęninku se psem.",
+      "price": 279,
+      "image": "images/sportovni-celenka.png",
+      "imageAlt": "Sportovn├ş ─Źelenka Psoch├ízky v barv─Ť bord├│",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM"
+    },
+    {
+      "id": "ksiltovka-potiskem",
+      "category": "doplnky",
+      "title": "K┼íiltovka s potiskem",
+      "description": "K┼íiltovka s potiskem Psoch├ízky chr├ín├ş p┼Öed sluncem. Univerz├íln├ş velikost, nastaviteln├í p├íska, t┼Öi barvy.",
+      "price": 399,
+      "image": "images/ksiltovka-potisk-zelena.png",
+      "imageAlt": "K┼íiltovka s potiskem Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM",
+      "variants": {
+        "colors": [
+          { "label": "Bord├│", "image": "images/ksiltovka-potisk-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelen├í", "image": "images/ksiltovka-potisk-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "─îern├í", "image": "images/ksiltovka-potisk-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "ksiltovka-vysivkou",
+      "category": "doplnky",
+      "title": "K┼íiltovka s v├Ż┼íivkou",
+      "description": "K┼íiltovka s v├Ż┼íivkou Psoch├ízky ÔÇô logo vydr┼ż├ş d├ęle. Univerz├íln├ş velikost, nastaviteln├í p├íska, t┼Öi barvy.",
+      "price": 399,
+      "image": "images/ksiltovka-vysivka-zelena.png",
+      "imageAlt": "K┼íiltovka s v├Ż┼íivkou Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM",
+      "variants": {
+        "colors": [
+          { "label": "Bord├│", "image": "images/ksiltovka-vysivka-bordo.png", "swatch": "#7a3044" },
+          { "label": "Zelen├í", "image": "images/ksiltovka-vysivka-zelena.png", "swatch": "#4d7a5a" },
+          { "label": "─îern├í", "image": "images/ksiltovka-vysivka-cerna.png", "swatch": "#222222" }
+        ]
+      }
+    },
+    {
+      "id": "deka-relax",
+      "category": "vycvikove-pomucky",
+      "title": "De─Źka Relax",
+      "description": "De─Źka Relax pro pohodln├Ż odpo─Źinek psa po proch├ízce nebo tr├ęninku. M─Ťkk├í a praktick├í doma i na cest├ích.",
+      "price": 590,
+      "image": "images/deka-relax.png",
+      "imageAlt": "De─Źka Relax Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "SKLADEM"
+    },
+    {
+      "id": "target-psochazky",
+      "category": "vycvikove-pomucky",
+      "title": "Tr├ęninkov├Ż target Psoch├ízky",
+      "description": "Skl├ídac├ş tr├ęninkov├Ż target Psoch├ízky pro dom├íc├ş cvi─Źen├ş. Ide├íln├ş pro socializaci a pr├íci s psem doma.",
+      "price": 349,
+      "image": "images/target.jpg",
+      "imageAlt": "Tr├ęninkov├Ż target Psoch├ízky",
+      "active": true,
+      "inStock": true,
+      "badge": "P┼śEDOBJEDN├üVKA",
+      "leadTimeNote": "P┼Öedobjedn├ín├ş je mo┼żn├ę do 25. 10. 2026.\nPot├ę dod├ín├ş do 3ÔÇô4 t├Żdn┼»."
+    }
+  ]
+}

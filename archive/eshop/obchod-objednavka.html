@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objedn├ívka | Obchod Psoch├ízky</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="images/pejsci-logo.svg" />
+    <link rel="stylesheet" href="styles.css?v=103" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header__inner">
+        <div class="container header__container">
+          <a href="index.html"><img class="logo" src="images/logo-psochazky.svg" alt="logo Psoch├ízky" /></a>
+          <button class="menu-toggle" type="button" aria-label="Otev┼Ö├şt hlavn├ş menu" aria-expanded="false" aria-controls="primaryNavigation">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+        <nav id="primaryNavigation" class="navigation">
+          <ul class="nav__list">
+            <li><a href="obchod.html" class="nav__link">Obchod</a></li>
+            <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section-padding shop-page">
+        <div class="container page-content page-content--article shop-checkout">
+          <h1>Objedn├ívka</h1>
+          <div class="shop-toolbar">
+            <a href="obchod-kosik.html" class="shop-toolbar__back">ÔćÉ Zp─Ťt do ko┼í├şku</a>
+          </div>
+
+          <p id="shop-checkout-empty" class="shop-page__empty" hidden>
+            Ko┼í├şk je pr├ízdn├Ż. <a href="obchod.html">Zp─Ťt do obchodu</a>.
+          </p>
+
+          <div class="shop-checkout__grid">
+            <form id="shop-checkout-form" class="shop-checkout-form">
+              <fieldset class="shop-fieldset">
+                <legend>Kontakt</legend>
+                <label class="shop-field">
+                  Jm├ęno a p┼Ö├şjmen├ş *
+                  <input type="text" name="customerName" required autocomplete="name" />
+                </label>
+                <label class="shop-field">
+                  E-mail *
+                  <input type="email" name="customerEmail" required autocomplete="email" />
+                </label>
+                <label class="shop-field">
+                  Telefon *
+                  <input type="tel" name="customerPhone" required autocomplete="tel" />
+                </label>
+              </fieldset>
+
+              <fieldset class="shop-fieldset">
+                <legend>Dodac├ş adresa</legend>
+                <label class="shop-field">
+                  Ulice a ─Ź├şslo *
+                  <input type="text" name="customerStreet" required autocomplete="shipping street-address" />
+                </label>
+                <label class="shop-field">
+                  M─Ťsto *
+                  <input type="text" name="customerCity" required autocomplete="shipping address-level2" />
+                </label>
+                <label class="shop-field">
+                  PS─î *
+                  <input type="text" name="customerZip" required autocomplete="shipping postal-code" />
+                </label>
+              </fieldset>
+
+              <label class="shop-field shop-field--checkbox">
+                <input type="checkbox" name="billingSameAsDelivery" id="shop-billing-same" checked />
+                Faktura─Źn├ş adresa stejn├í jako dodac├ş
+              </label>
+
+              <fieldset class="shop-fieldset" id="shop-billing-address" hidden>
+                <legend>Faktura─Źn├ş adresa</legend>
+                <label class="shop-field">
+                  Ulice a ─Ź├şslo
+                  <input type="text" name="billingStreet" autocomplete="billing street-address" />
+                </label>
+                <label class="shop-field">
+                  M─Ťsto
+                  <input type="text" name="billingCity" autocomplete="billing address-level2" />
+                </label>
+                <label class="shop-field">
+                  PS─î
+                  <input type="text" name="billingZip" autocomplete="billing postal-code" />
+                </label>
+              </fieldset>
+
+              <fieldset class="shop-fieldset">
+                <legend>Doprava</legend>
+                <div id="shop-shipping-options" class="shop-radio-group"></div>
+              </fieldset>
+
+              <fieldset class="shop-fieldset">
+                <legend>Platba</legend>
+                <div id="shop-payment-options" class="shop-radio-group"></div>
+              </fieldset>
+
+              <label class="shop-field shop-field--checkbox">
+                <input type="checkbox" name="terms" required />
+                Souhlas├şm s <a href="obchodni-podminky.html" target="_blank" rel="noopener noreferrer">obchodn├şmi podm├şnkami</a> *
+              </label>
+
+              <label class="shop-field">
+                Pozn├ímka k objedn├ívce
+                <textarea name="customerNote" rows="3"></textarea>
+              </label>
+
+              <button type="submit" class="btn">Odeslat objedn├ívku</button>
+            </form>
+
+            <aside id="shop-checkout-summary" class="shop-checkout-summary" aria-live="polite"></aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="shop-order-loading" class="shop-order-loading" hidden aria-hidden="true">
+      <div class="shop-order-loading__panel" role="status" aria-live="polite" aria-busy="true">
+        <div class="shop-order-loading__spinner" aria-hidden="true"></div>
+        <p class="shop-order-loading__text">Odes├şl├ím objedn├ívkuÔÇŽ</p>
+        <p class="shop-order-loading__hint">Obvykle to trv├í p├ír sekund. Pros├şm nezav├şrejte str├ínku.</p>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="footer__bottom container">
+        <p>┬ę 2026 Psoch├ízky</p>
+      </div>
+    </footer>
+
+    <script>
+      const body = document.body;
+      const menuToggle = document.querySelector(".menu-toggle");
+      const navigation = document.getElementById("primaryNavigation");
+      if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = body.classList.toggle("nav-open");
+          menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      }
+    </script>
+    <script src="js/shop-cart.js?v=2"></script>
+    <script src="https://widget.packeta.com/v6/www/js/library.js"></script>
+    <script src="js/shop-packeta.js?v=1"></script>
+    <script src="js/shop-objednavka.js?v=25"></script>
+    <script src="js/cookies.js"></script>
+  </body>
+</html>

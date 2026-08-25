@@ -1,4 +1,4 @@
-(async () => {
+﻿(async () => {
   function normalizeImagePath(src) {
     if (typeof src !== "string" || !src) return "";
     const trimmed = src.trim();
@@ -124,7 +124,7 @@
     const key = (label || "").toLowerCase();
     if (key.includes("bord")) return "#7a3044";
     if (key.includes("zelen")) return "#4d7a5a";
-    if (key.includes("čern") || key.includes("cern")) return "#222222";
+    if (key.includes("─Źern") || key.includes("cern")) return "#222222";
     return "#888888";
   }
 
@@ -229,7 +229,7 @@
 
     const label = document.createElement("span");
     label.className = "shop-catalog-tile__swatches-label";
-    label.textContent = "Více barevných variant";
+    label.textContent = "V├şce barevn├Żch variant";
     wrap.appendChild(label);
 
     const group = document.createElement("div");
@@ -274,7 +274,7 @@
 
   function productBadgeModifier(text) {
     const key = (text || "").toUpperCase();
-    if (key === "PŘEDOBJEDNÁVKA" || key === "PREDOBJEDNAVKA") {
+    if (key === "P┼śEDOBJEDN├üVKA" || key === "PREDOBJEDNAVKA") {
       return "shop-product-badge--preorder";
     }
     if (key === "SKLADEM") {
@@ -471,7 +471,7 @@
       const thumbs = document.createElement("div");
       thumbs.className = "shop-product-detail__thumbs";
       thumbs.setAttribute("role", "tablist");
-      thumbs.setAttribute("aria-label", "Další fotografie produktu");
+      thumbs.setAttribute("aria-label", "Dal┼í├ş fotografie produktu");
 
       images.forEach((src, index) => {
         const thumbBtn = document.createElement("button");
@@ -546,7 +546,7 @@
 
     const badgeText = productBadgeText(product);
     const preorderDefaultNote =
-      "Předobjednání je možné do 25. 10. 2026.\nPoté dodání do 3–4 týdnů.";
+      "P┼Öedobjedn├ín├ş je mo┼żn├ę do 25. 10. 2026.\nPot├ę dod├ín├ş do 3ÔÇô4 t├Żdn┼».";
     const isPreorder =
       productBadgeModifier(badgeText) === "shop-product-badge--preorder";
     let noteText = product.leadTimeNote;
@@ -610,18 +610,18 @@
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "btn shop-product__btn shop-product-detail__add-btn";
-    btn.textContent = "Přidat do košíku";
+    btn.textContent = "P┼Öidat do ko┼í├şku";
 
     const inStock = product.inStock !== false;
     if (!inStock) {
       btn.disabled = true;
-      btn.textContent = "Vyprodáno";
+      btn.textContent = "Vyprod├íno";
     } else if (window.ShopCart) {
       btn.addEventListener("click", () => {
         const size = sizeSelect ? sizeSelect.value : "";
         const color = colorPicker ? colorPicker.getValue() : "";
         if (sizeSelect && !size) {
-          sizeSelect.setCustomValidity("Vyber prosím velikost.");
+          sizeSelect.setCustomValidity("Vyber pros├şm velikost.");
           sizeSelect.reportValidity();
           sizeSelect.focus();
           return;
@@ -632,9 +632,9 @@
           return;
         }
         ShopCart.addItem(product, 1, { size, color });
-        btn.textContent = "Přidáno ✓";
+        btn.textContent = "P┼Öid├íno Ôťô";
         setTimeout(() => {
-          btn.textContent = "Přidat do košíku";
+          btn.textContent = "P┼Öidat do ko┼í├şku";
         }, 1200);
       });
     } else {
@@ -667,7 +667,7 @@
       toggle.className = "shop-size-chart-toggle";
       toggle.setAttribute("aria-expanded", "false");
       toggle.innerHTML =
-        '<span class="shop-size-chart-toggle__text">Tabulka velikostí</span>' +
+        '<span class="shop-size-chart-toggle__text">Tabulka velikost├ş</span>' +
         '<svg class="shop-size-chart-toggle__chevron" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
         '<path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>' +
         "</svg>";
@@ -806,7 +806,7 @@
         history.pushState({ view: "catalog" }, "", catalogUrl());
       }
       if (titleEl) {
-        document.title = "Obchod | Psocházky";
+        document.title = "Obchod | Psoch├ízky";
       }
     }
 
@@ -845,7 +845,7 @@
       );
 
       if (titleEl && product.title) {
-        document.title = `${product.title} | Obchod | Psocházky`;
+        document.title = `${product.title} | Obchod | Psoch├ízky`;
       }
 
       if (updateHistory) {
@@ -900,7 +900,7 @@
         filtersEl.appendChild(btn);
       }
 
-      addFilterButton("all", "Vše");
+      addFilterButton("all", "V┼íe");
       categories.forEach((cat) => addFilterButton(cat.id, cat.label));
     }
 

@@ -1,4 +1,4 @@
-(async function () {
+﻿(async function () {
   if (!window.ShopCart) return;
 
   var form = document.getElementById("shop-checkout-form");
@@ -49,22 +49,22 @@
 
   function shippingLabel(id) {
     if (!settings || !settings.shipping) {
-      return id === "zasilkovna" ? "Zásilkovna" : "Osobní odběr (Brno)";
+      return id === "zasilkovna" ? "Z├ísilkovna" : "Osobn├ş odb─Ťr (Brno)";
     }
     if (id === "zasilkovna") {
-      return settings.shipping.zasilkovna.label || "Zásilkovna";
+      return settings.shipping.zasilkovna.label || "Z├ísilkovna";
     }
-    return settings.shipping.pickup.label || "Osobní odběr (Brno)";
+    return settings.shipping.pickup.label || "Osobn├ş odb─Ťr (Brno)";
   }
 
   function paymentLabel(id) {
     if (!settings || !settings.paymentMethods) {
-      return id === "cash" ? "Hotově" : "Převodem";
+      return id === "cash" ? "Hotov─Ť" : "P┼Öevodem";
     }
     if (id === "cash") {
-      return settings.paymentMethods.cash.label || "Hotově";
+      return settings.paymentMethods.cash.label || "Hotov─Ť";
     }
-    return settings.paymentMethods.transfer.label || "Převodem";
+    return settings.paymentMethods.transfer.label || "P┼Öevodem";
   }
 
   function submitOrder(submitUrl, order) {
@@ -87,7 +87,7 @@
             if (!response.ok || !payload.ok) {
               throw new Error(
                 (payload && payload.error) ||
-                  "Objednávku se nepodařilo uložit (" + response.status + ")."
+                  "Objedn├ívku se nepoda┼Öilo ulo┼żit (" + response.status + ")."
               );
             }
             ShopCart.savePreviewOrder(order);
@@ -101,7 +101,7 @@
   var checkoutOrderError = checkoutParams.get("orderError");
   if (checkoutOrderError) {
     window.alert(
-      "Objednávku se nepodařilo uložit do tabulky. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
+      "Objedn├ívku se nepoda┼Öilo ulo┼żit do tabulky. Zkuste to pros├şm znovu, nebo n├ís kontaktujte na psochazky@gmail.com.\n\nTechnick├í chyba: " +
         checkoutOrderError
     );
     if (window.history && window.history.replaceState) {
@@ -159,7 +159,7 @@
     if (addressInput) {
       addressInput.value = "";
       addressInput.placeholder =
-        showEmptyState === false ? "" : "Po výběru se zde zobrazí adresa výdejny";
+        showEmptyState === false ? "" : "Po v├Żb─Ťru se zde zobraz├ş adresa v├Żdejny";
     }
     if (errorEl) errorEl.hidden = true;
   }
@@ -200,11 +200,11 @@
     ensureZasilkovnaSelected();
 
     if (!packetaApiKey) {
-      showPacketaPickerError("Výběr výdejny není nakonfigurovaný. Napište nám prosím pobočku do poznámky.");
+      showPacketaPickerError("V├Żb─Ťr v├Żdejny nen├ş nakonfigurovan├Ż. Napi┼íte n├ím pros├şm pobo─Źku do pozn├ímky.");
       return;
     }
     if (!window.ShopPacketa || !ShopPacketa.isReady()) {
-      showPacketaPickerError("Mapa Zásilkovny se nepodařila načíst. Obnovte stránku a zkuste to znovu.");
+      showPacketaPickerError("Mapa Z├ísilkovny se nepoda┼Öila na─Ź├şst. Obnovte str├ínku a zkuste to znovu.");
       return;
     }
 
@@ -226,7 +226,7 @@
       function (branch, error) {
         if (error) {
           if (error.message === "branch-unavailable") {
-            showPacketaPickerError("Tato pobočka teď není dostupná. Vyberte prosím jinou.");
+            showPacketaPickerError("Tato pobo─Źka te─Ć nen├ş dostupn├í. Vyberte pros├şm jinou.");
           }
           return;
         }
@@ -242,7 +242,7 @@
     var pickBtn = document.createElement("button");
     pickBtn.type = "button";
     pickBtn.className = "shop-packeta-picker__open";
-    pickBtn.textContent = "Vybrat výdejnu";
+    pickBtn.textContent = "Vybrat v├Żdejnu";
     pickBtn.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
@@ -255,7 +255,7 @@
     addressInput.className = "shop-packeta-picker__address";
     addressInput.name = "zasilkovnaPoint";
     addressInput.readOnly = true;
-    addressInput.placeholder = "Po výběru se zde zobrazí adresa výdejny";
+    addressInput.placeholder = "Po v├Żb─Ťru se zde zobraz├ş adresa v├Żdejny";
     addressInput.setAttribute("aria-live", "polite");
     addressInput.addEventListener("click", function (event) {
       event.preventDefault();
@@ -296,7 +296,7 @@
 
     var lines = cart.items
       .map(function (item) {
-        return ShopCart.displayTitle(item) + " × " + item.quantity + " — " + ShopCart.formatMoney(item.price * item.quantity);
+        return ShopCart.displayTitle(item) + " ├Ś " + item.quantity + " ÔÇö " + ShopCart.formatMoney(item.price * item.quantity);
       })
       .join("\n");
 
@@ -307,7 +307,7 @@
           return (
             "<li><span>" +
             ShopCart.displayTitle(item) +
-            " × " +
+            " ├Ś " +
             item.quantity +
             "</span><span>" +
             ShopCart.formatMoney(item.price * item.quantity) +
@@ -316,7 +316,7 @@
         })
         .join("") +
       "</ul>" +
-      "<p class=\"shop-checkout-row\"><span>Mezisoučet</span><span>" +
+      "<p class=\"shop-checkout-row\"><span>Mezisou─Źet</span><span>" +
       ShopCart.formatMoney(subtotal) +
       "</span></p>" +
       "<p class=\"shop-checkout-row\"><span>Doprava</span><span>" +
@@ -350,7 +350,7 @@
           '" />' +
           "<span><strong>" +
           opt.label +
-          "</strong> — " +
+          "</strong> ÔÇö " +
           ShopCart.formatMoney(opt.price) +
           (opt.hint ? '<br /><span class="shop-radio__hint">' + opt.hint + "</span>" : "") +
           "</span>";
@@ -375,7 +375,7 @@
         " />" +
         "<span><strong>" +
         opt.label +
-        "</strong> — " +
+        "</strong> ÔÇö " +
         ShopCart.formatMoney(opt.price) +
         (opt.hint ? '<br /><span class="shop-radio__hint">' + opt.hint + "</span>" : "") +
         "</span>";
@@ -420,7 +420,7 @@
     var shipId = selectedShippingId();
     if (shipId === "zasilkovna") {
       if (!selectedPacketaBranch || !selectedPacketaBranch.id) {
-        showPacketaPickerError("Vyber prosím výdejnu Zásilkovny.");
+        showPacketaPickerError("Vyber pros├şm v├Żdejnu Z├ísilkovny.");
         if (packetaPickerEl) {
           var pickBtn = packetaPickerEl.querySelector(".shop-packeta-picker__open");
           if (pickBtn) pickBtn.focus();
@@ -490,7 +490,7 @@
     var submitLabel = submitBtn ? submitBtn.textContent : "";
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Odesílám…";
+      submitBtn.textContent = "Odes├şl├ímÔÇŽ";
     }
     setOrderSubmitLoading(true);
 
@@ -504,16 +504,16 @@
             : String(submitError);
         if (message === "Failed to fetch") {
           message =
-            "Nepodařilo se spojit se serverem objednávek (psochazky-cms-oauth.vercel.app). " +
-            "Zkontrolujte, že je nasazený endpoint /api/orders a v antiviru povolená doména vercel.app.";
+            "Nepoda┼Öilo se spojit se serverem objedn├ívek (psochazky-cms-oauth.vercel.app). " +
+            "Zkontrolujte, ┼że je nasazen├Ż endpoint /api/orders a v antiviru povolen├í dom├ęna vercel.app.";
         }
         setOrderSubmitLoading(false);
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = submitLabel || "Odeslat objednávku";
+          submitBtn.textContent = submitLabel || "Odeslat objedn├ívku";
         }
         window.alert(
-          "Objednávku se nepodařilo odeslat. Zkuste to prosím znovu, nebo nás kontaktujte na psochazky@gmail.com.\n\nTechnická chyba: " +
+          "Objedn├ívku se nepoda┼Öilo odeslat. Zkuste to pros├şm znovu, nebo n├ís kontaktujte na psochazky@gmail.com.\n\nTechnick├í chyba: " +
             message
         );
       });

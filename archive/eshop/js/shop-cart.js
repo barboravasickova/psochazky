@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   var STORAGE_KEY = "psochazky-shop-cart-v2";
   var ORDER_PREVIEW_KEY = "psochazky-shop-preview-order-v1";
 
@@ -59,9 +59,9 @@
 
   function formatItemCountLabel(count) {
     var n = count || 0;
-    if (n === 1) return "1 položka";
-    if (n >= 2 && n <= 4) return n + " položky";
-    return n + " položek";
+    if (n === 1) return "1 polo┼żka";
+    if (n >= 2 && n <= 4) return n + " polo┼żky";
+    return n + " polo┼żek";
   }
 
   function getSubtotal() {

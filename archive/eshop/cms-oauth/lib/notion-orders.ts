@@ -1,4 +1,4 @@
-type OrderItem = {
+﻿type OrderItem = {
   title?: string;
   color?: string;
   size?: string;
@@ -61,19 +61,19 @@ function formatItems(items: OrderItem[] | undefined) {
         typeof item.price === "number" && typeof item.quantity === "number"
           ? item.price * item.quantity
           : 0;
-      return title + " × " + (item.quantity || 1) + " — " + lineTotal + " Kč";
+      return title + " ├Ś " + (item.quantity || 1) + " ÔÇö " + lineTotal + " K─Ź";
     })
     .join("\n");
 }
 
 function shippingLabel(order: ShopOrder) {
-  if (order.shipping === "zasilkovna") return "Zásilkovna";
-  return "Osobní odběr (Brno)";
+  if (order.shipping === "zasilkovna") return "Z├ísilkovna";
+  return "Osobn├ş odb─Ťr (Brno)";
 }
 
 function paymentLabel(order: ShopOrder) {
-  if (order.payment === "cash") return "Hotově při převzetí";
-  return "Platba převodem";
+  if (order.payment === "cash") return "Hotov─Ť p┼Öi p┼Öevzet├ş";
+  return "Platba p┼Öevodem";
 }
 
 export function buildNotionOrderProperties(order: ShopOrder) {
@@ -85,41 +85,41 @@ export function buildNotionOrderProperties(order: ShopOrder) {
     orderNumber.replace(/\D/g, "").slice(-10);
 
   return {
-    "Číslo objednávky": {
-      title: [{ text: { content: orderNumber || "Bez čísla" } }],
+    "─î├şslo objedn├ívky": {
+      title: [{ text: { content: orderNumber || "Bez ─Ź├şsla" } }],
     },
-    "Datum a čas": {
+    "Datum a ─Źas": {
       date: { start: createdAt },
     },
-    Jméno: richText(customer.name || ""),
+    Jm├ęno: richText(customer.name || ""),
     "E-mail": customer.email ? { email: customer.email } : { email: null },
     Telefon: customer.phone
       ? { phone_number: customer.phone }
       : { phone_number: null },
     Ulice: richText(customer.street || ""),
-    Město: richText(customer.city || ""),
-    PSČ: richText(customer.zip || ""),
-    "Faktura stejná": {
+    M─Ťsto: richText(customer.city || ""),
+    PS─î: richText(customer.zip || ""),
+    "Faktura stejn├í": {
       select: { name: customer.billingSameAsDelivery ? "Ano" : "Ne" },
     },
     "Faktura ulice": richText(customer.billingStreet || ""),
-    "Faktura město": richText(customer.billingCity || ""),
-    "Faktura PSČ": richText(customer.billingZip || ""),
-    Položky: richText(formatItems(order.items)),
+    "Faktura m─Ťsto": richText(customer.billingCity || ""),
+    "Faktura PS─î": richText(customer.billingZip || ""),
+    Polo┼żky: richText(formatItems(order.items)),
     Doprava: { select: { name: shippingLabel(order) } },
-    "Pobočka Zásilkovny": richText(customer.zasilkovnaPoint || ""),
+    "Pobo─Źka Z├ísilkovny": richText(customer.zasilkovnaPoint || ""),
     "Packeta ID": richText(
       customer.packetaBranch && customer.packetaBranch.id != null
         ? String(customer.packetaBranch.id)
         : ""
     ),
     Platba: { select: { name: paymentLabel(order) } },
-    Mezisoučet: richText(String(order.subtotal ?? 0)),
-    "Doprava Kč": richText(String(order.shippingCost ?? 0)),
+    Mezisou─Źet: richText(String(order.subtotal ?? 0)),
+    "Doprava K─Ź": richText(String(order.shippingCost ?? 0)),
     Celkem: richText(String(order.total ?? 0)),
     VS: richText(variableSymbol),
-    Poznámka: richText(customer.note || ""),
-    Stav: { select: { name: "Nová" } },
+    Pozn├ímka: richText(customer.note || ""),
+    Stav: { select: { name: "Nov├í" } },
   };
 }
 
@@ -128,7 +128,7 @@ export async function createNotionOrder(order: ShopOrder) {
   const databaseId = process.env.NOTION_ORDERS_DATABASE_ID;
 
   if (!token || !databaseId) {
-    throw new Error("Chybí NOTION_TOKEN nebo NOTION_ORDERS_DATABASE_ID na serveru.");
+    throw new Error("Chyb├ş NOTION_TOKEN nebo NOTION_ORDERS_DATABASE_ID na serveru.");
   }
 
   const response = await fetch("https://api.notion.com/v1/pages", {
@@ -149,7 +149,7 @@ export async function createNotionOrder(order: ShopOrder) {
   if (!response.ok) {
     const message =
       (payload && payload.message) ||
-      "Notion API vrátilo chybu " + response.status;
+      "Notion API vr├ítilo chybu " + response.status;
     throw new Error(message);
   }
 

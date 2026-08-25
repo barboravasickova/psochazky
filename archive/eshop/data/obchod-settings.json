@@ -1,4 +1,4 @@
-{
+﻿{
   "previewMode": false,
   "orders": {
     "submitUrl": "https://psochazky-cms-oauth.vercel.app/api/orders"
@@ -6,24 +6,24 @@
   "shipping": {
     "pickup": {
       "id": "pickup",
-      "label": "Osobní odběr (Brno)",
+      "label": "Osobn├ş odb─Ťr (Brno)",
       "price": 0,
-      "hint": "Domluvíme termín převzetí e-mailem."
+      "hint": "Domluv├şme term├şn p┼Öevzet├ş e-mailem."
     },
     "zasilkovna": {
       "id": "zasilkovna",
-      "label": "Zásilkovna",
+      "label": "Z├ísilkovna",
       "price": 89
     }
   },
   "paymentMethods": {
     "transfer": {
       "id": "transfer",
-      "label": "Platba převodem"
+      "label": "Platba p┼Öevodem"
     },
     "cash": {
       "id": "cash",
-      "label": "Hotově při převzetí"
+      "label": "Hotov─Ť p┼Öi p┼Öevzet├ş"
     }
   },
   "bankTransfer": {

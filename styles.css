@@ -169,6 +169,21 @@ body.nav-open .navigation {
   font-family: var(--font-nadpisy);
 }
 
+.nav__link--external,
+.footer__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav__external-icon {
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
+  display: block;
+  opacity: 0.85;
+}
+
 .navigation__social {
   display: flex;
   gap: 1rem;
@@ -2446,10 +2461,18 @@ body.nav-open .navigation {
   .nav__list {
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
     gap: 0.5rem;
   }
 
+  .nav__list > li {
+    display: flex;
+    align-items: center;
+  }
+
   .nav__link {
+    display: inline-flex;
+    align-items: center;
     font-size: 0.95rem;
     padding: 0.5rem 0.75rem;
     border-radius: 999px;

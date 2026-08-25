@@ -1,4 +1,9 @@
 User-agent: *
 Disallow: /admin/
+Disallow: /obchod.html
+Disallow: /obchod-kosik.html
+Disallow: /obchod-objednavka.html
+Disallow: /obchod-dekujeme.html
+Disallow: /archive/
 
 Sitemap: https://psochazky.cz/sitemap.xml

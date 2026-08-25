@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   if (!window.ShopCart) return;
 
   var emptyEl = document.getElementById("shop-thanks-empty");
@@ -20,7 +20,7 @@
     if (itemsEl) {
       itemsEl.innerHTML = order.items
         .map(function (item) {
-          return "<li>" + ShopCart.displayTitle(item) + " × " + item.quantity + "</li>";
+          return "<li>" + ShopCart.displayTitle(item) + " ├Ś " + item.quantity + "</li>";
         })
         .join("");
     }
@@ -65,7 +65,7 @@
         img.src =
           "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" +
           encodeURIComponent(spayd);
-        img.alt = "QR kód pro platbu převodem";
+        img.alt = "QR k├│d pro platbu p┼Öevodem";
       }
 
       var webinvoiceBtn = document.getElementById("shop-thanks-webinvoice");
@@ -83,21 +83,21 @@
           if (webinvoicePreview) {
             webinvoicePreview.hidden = false;
             webinvoicePreview.textContent = order.preview
-              ? "Po napojení Fakturoidu zde bude tlačítko na webfakturu (faktura v prohlížeči včetně QR). Do e-mailu zákazníkovi půjde stejný odkaz."
-              : "Odkaz na fakturu se připravuje. Zkontrolujte e-mail nebo nás kontaktujte.";
+              ? "Po napojen├ş Fakturoidu zde bude tla─Ź├ştko na webfakturu (faktura v prohl├ş┼że─Źi v─Źetn─Ť QR). Do e-mailu z├íkazn├şkovi p┼»jde stejn├Ż odkaz."
+              : "Odkaz na fakturu se p┼Öipravuje. Zkontrolujte e-mail nebo n├ís kontaktujte.";
           }
         }
       }
 
       if (invoiceNoteEl) {
         invoiceNoteEl.textContent =
-          "Platbu můžete provést QR kódem níže. Stejné údaje budou na faktuře ve Fakturoidu — po odeslání objednávky vám přijde e-mail s odkazem.";
+          "Platbu m┼»┼żete prov├ęst QR k├│dem n├ş┼że. Stejn├ę ├║daje budou na faktu┼Öe ve Fakturoidu ÔÇö po odesl├ín├ş objedn├ívky v├ím p┼Öijde e-mail s odkazem.";
       }
     } else {
       if (transferEl) transferEl.hidden = true;
       if (cashEl) cashEl.hidden = false;
       if (invoiceNoteEl) {
-        invoiceNoteEl.textContent = "Objednávku jsme zaznamenali. Platbu domluvíme při převzetí.";
+        invoiceNoteEl.textContent = "Objedn├ívku jsme zaznamenali. Platbu domluv├şme p┼Öi p┼Öevzet├ş.";
       }
     }
   }

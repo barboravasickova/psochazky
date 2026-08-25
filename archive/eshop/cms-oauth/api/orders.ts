@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from "http";
+﻿import { IncomingMessage, ServerResponse } from "http";
 import { createNotionOrder, ShopOrder } from "../lib/notion-orders";
 
 const ALLOWED_ORIGINS = new Set([
@@ -43,16 +43,16 @@ function jsonResponse(
 
 function validateOrder(order: ShopOrder | null) {
   if (!order || typeof order !== "object") {
-    return "Chybí data objednávky.";
+    return "Chyb├ş data objedn├ívky.";
   }
   if (!order.customer || !String(order.customer.email || "").trim()) {
-    return "Chybí e-mail zákazníka.";
+    return "Chyb├ş e-mail z├íkazn├şka.";
   }
   if (!order.customer.name || !String(order.customer.name).trim()) {
-    return "Chybí jméno zákazníka.";
+    return "Chyb├ş jm├ęno z├íkazn├şka.";
   }
   if (!Array.isArray(order.items) || !order.items.length) {
-    return "Košík je prázdný.";
+    return "Ko┼í├şk je pr├ízdn├Ż.";
   }
   return "";
 }
@@ -84,7 +84,7 @@ export default async (req: IncomingMessage, res: ServerResponse) => {
     jsonResponse(res, 200, { ok: true });
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Neznámá chyba serveru.";
+      error instanceof Error ? error.message : "Nezn├ím├í chyba serveru.";
     jsonResponse(res, 500, { ok: false, error: message });
   }
 };

@@ -1,4 +1,4 @@
-(async function () {
+﻿(async function () {
   if (!window.ShopCart) return;
 
   var cartList = document.getElementById("shop-cart-list");
@@ -63,7 +63,7 @@
       var linePrice = document.createElement("p");
       linePrice.className = "shop-cart-item__line";
       linePrice.textContent =
-        ShopCart.formatMoney(item.price) + " × " + item.quantity + " = " + ShopCart.formatMoney(item.price * item.quantity);
+        ShopCart.formatMoney(item.price) + " ├Ś " + item.quantity + " = " + ShopCart.formatMoney(item.price * item.quantity);
       body.appendChild(linePrice);
 
       var controls = document.createElement("div");
@@ -72,7 +72,7 @@
       var minus = document.createElement("button");
       minus.type = "button";
       minus.className = "shop-cart-qty-btn";
-      minus.textContent = "−";
+      minus.textContent = "Ôłĺ";
       minus.addEventListener("click", function () {
         ShopCart.setQuantity(item.lineId, item.quantity - 1);
         render();
@@ -115,11 +115,11 @@
 
     document.getElementById("shop-cart-subtotal").textContent = ShopCart.formatMoney(subtotal);
     document.getElementById("shop-cart-shipping-note").textContent =
-      "Doprava se dopočítá v objednávce (osobní odběr " +
+      "Doprava se dopo─Ź├şt├í v objedn├ívce (osobn├ş odb─Ťr " +
       ShopCart.formatMoney(pickupPrice) +
-      ", Zásilkovna " +
+      ", Z├ísilkovna " +
       ShopCart.formatMoney(zasilkovnaPrice) +
-      " za celou objednávku).";
+      " za celou objedn├ívku).";
   }
 
   render();
