@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-08-27T14:26:37.314Z",
+  "syncedAt": "2026-08-28T15:34:07.268Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -59,6 +59,18 @@
       "badges": [
         "DOSTUPNÉ 29.8.",
         "9:00"
+      ],
+      "status": "available"
+    },
+    {
+      "title": "Kurz KONEC PŘETAHOVANÉ",
+      "url": "https://psochazky.booqito.com/kurz-konec-pretahovane-p9504",
+      "image": "https://www.skvelecesko.cz/upload/1787866425_6a90ad39dd428_310x186.jpg",
+      "price": "od 2 900 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 3.9.",
+        "17:00"
       ],
       "status": "available"
     }
