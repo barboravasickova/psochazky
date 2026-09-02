@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-09-01T08:50:04.882Z",
+  "syncedAt": "2026-09-02T08:02:53.462Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -9,7 +9,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ DNES",
+        "DOSTUPNÉ 8.9.",
         "18:00"
       ],
       "status": "available"
@@ -59,18 +59,6 @@
       "badges": [
         "DOSTUPNÉ 12.9.",
         "9:00"
-      ],
-      "status": "available"
-    },
-    {
-      "title": "Individuál VE DVOJICI",
-      "url": "https://psochazky.booqito.com/individual-ve-dvojici-p9505",
-      "image": "https://www.skvelecesko.cz/upload/1788036836_6a9346e4b4cd4_310x186.jpg",
-      "price": "od 600 Kč",
-      "city": "Brno",
-      "badges": [
-        "DOSTUPNÉ 3.9.",
-        "16:00"
       ],
       "status": "available"
     }
