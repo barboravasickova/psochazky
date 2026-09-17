@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-09-16T08:46:18.926Z",
+  "syncedAt": "2026-09-17T08:49:38.911Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -59,6 +59,18 @@
       "badges": [
         "DOSTUPNÉ 19.9.",
         "9:00"
+      ],
+      "status": "available"
+    },
+    {
+      "title": "SEMINÁŘ - Jak si chránit svého psa (před napadením)",
+      "url": "https://psochazky.booqito.com/seminar-jak-si-chranit-sveho-psa-pred-napadenim-p9572",
+      "image": "https://www.skvelecesko.cz/upload/1789559647_6aaa835f9116b_310x186.jpg",
+      "price": "od 690 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 30.9.",
+        "17:00"
       ],
       "status": "available"
     }
