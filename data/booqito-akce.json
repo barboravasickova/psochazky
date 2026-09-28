@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-09-27T09:27:05.135Z",
+  "syncedAt": "2026-09-28T10:03:45.325Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -21,20 +21,20 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 3.10.",
+        "DOSTUPNÉ 10.10.",
         "9:00"
       ],
       "status": "available"
     },
     {
-      "title": "Vodítková socializace ŽIDLOCHOVICE, Komenského",
+      "title": "Individuál VE DVOJICI - Kohoutovice u TATRANU",
       "url": "https://psochazky.booqito.com/voditkova-socializace-zidlochovice-komenskeho-p9023",
-      "image": "https://www.skvelecesko.cz/upload/1778755651_6a05a843365cb_310x186.jpg",
-      "price": "od 220 Kč",
-      "city": "Židlochovice",
+      "image": "https://www.skvelecesko.cz/upload/1790532169_6ab95a498b294_310x186.jpg",
+      "price": "od 600 Kč",
+      "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 3.1.",
-        "8:00"
+        "DOSTUPNÉ 8.10.",
+        "16:00"
       ],
       "status": "available"
     },
@@ -45,7 +45,7 @@
       "price": "od 700 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 2.10.",
+        "DOSTUPNÉ 23.10.",
         "15:00"
       ],
       "status": "available"
@@ -70,6 +70,18 @@
       "city": "Brno",
       "badges": [
         "DOSTUPNÉ 30.9.",
+        "17:00"
+      ],
+      "status": "available"
+    },
+    {
+      "title": "ÚVOD do Rally Obedience",
+      "url": "https://psochazky.booqito.com/uvod-do-rally-obedience-p9637",
+      "image": "https://www.skvelecesko.cz/upload/1790535442_6ab96712471e3_310x186.jpg",
+      "price": "od 250 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ 8.10.",
         "17:00"
       ],
       "status": "available"
