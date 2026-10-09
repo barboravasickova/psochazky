@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-10-08T10:49:42.726Z",
+  "syncedAt": "2026-10-09T10:48:41.003Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -21,7 +21,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 10.10.",
+        "DOSTUPNÉ 17.10.",
         "9:00"
       ],
       "status": "available"
@@ -57,7 +57,7 @@
       "price": "od 220 Kč",
       "city": "Bílovice nad Svitavou",
       "badges": [
-        "DOSTUPNÉ 17.10.",
+        "DOSTUPNÉ 10.10.",
         "9:00"
       ],
       "status": "available"
@@ -70,18 +70,6 @@
       "city": "Brno",
       "badges": [
         "DOSTUPNÉ 19.10.",
-        "17:00"
-      ],
-      "status": "available"
-    },
-    {
-      "title": "ÚVOD do Rally Obedience",
-      "url": "https://psochazky.booqito.com/uvod-do-rally-obedience-p9637",
-      "image": "https://www.skvelecesko.cz/upload/1790535442_6ab96712471e3_310x186.jpg",
-      "price": "od 250 Kč",
-      "city": "Brno",
-      "badges": [
-        "DOSTUPNÉ DNES",
         "17:00"
       ],
       "status": "available"
