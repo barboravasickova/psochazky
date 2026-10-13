@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-10-12T11:12:27.496Z",
+  "syncedAt": "2026-10-13T10:53:48.195Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -9,7 +9,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ 13.10.",
+        "DOSTUPNÉ DNES",
         "18:00"
       ],
       "status": "available"
@@ -27,18 +27,6 @@
       "status": "available"
     },
     {
-      "title": "Individuál VE DVOJICI - Kohoutovice u TATRANU",
-      "url": "https://psochazky.booqito.com/individual-ve-dvojici-kohoutovice-u-tatranu-p9023",
-      "image": "https://www.skvelecesko.cz/upload/1790532169_6ab95a498b294_310x186.jpg",
-      "price": "od 600 Kč",
-      "city": "Brno",
-      "badges": [
-        "DOSTUPNÉ 29.10.",
-        "16:00"
-      ],
-      "status": "available"
-    },
-    {
       "title": "Individuální trénink",
       "url": "https://psochazky.booqito.com/individualni-trenink-p8801",
       "image": "https://www.skvelecesko.cz/upload/1769074372_6971eec49832d_310x186.jpg",
@@ -46,7 +34,7 @@
       "city": "Brno",
       "badges": [
         "DOSTUPNÉ 8.11.",
-        "10:00"
+        "11:00"
       ],
       "status": "available"
     },
