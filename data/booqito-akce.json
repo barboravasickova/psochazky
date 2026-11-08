@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-11-07T10:33:01.372Z",
+  "syncedAt": "2026-11-08T10:39:38.875Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -47,6 +47,18 @@
       "badges": [
         "DOSTUPNÉ 21.11.",
         "9:00"
+      ],
+      "status": "available"
+    },
+    {
+      "title": "RALLY OBEDIENCE",
+      "url": "https://psochazky.booqito.com/rally-obedience-p9738",
+      "image": "https://www.skvelecesko.cz/upload/1791893811_6ace213397b55_310x186.jpg",
+      "price": "od 250 Kč",
+      "city": "Brno",
+      "badges": [
+        "DOSTUPNÉ DNES",
+        "16:30"
       ],
       "status": "available"
     },
