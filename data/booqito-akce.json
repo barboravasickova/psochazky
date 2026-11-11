@@ -1,6 +1,6 @@
 {
   "source": "https://psochazky.booqito.com/",
-  "syncedAt": "2026-11-10T11:30:16.600Z",
+  "syncedAt": "2026-11-11T11:19:30.564Z",
   "items": [
     {
       "title": "Vodítková socializace - ÚT v 18:00",
@@ -9,7 +9,7 @@
       "price": "od 220 Kč",
       "city": "Brno",
       "badges": [
-        "DOSTUPNÉ DNES",
+        "DOSTUPNÉ 17.11.",
         "18:00"
       ],
       "status": "available"
@@ -47,18 +47,6 @@
       "badges": [
         "DOSTUPNÉ 21.11.",
         "9:00"
-      ],
-      "status": "available"
-    },
-    {
-      "title": "PSOCHAJDA aneb ÚTĚK Z BRNA - VÝLET",
-      "url": "https://psochazky.booqito.com/psochajda-aneb-utek-z-brna-vylet-p8940",
-      "image": "https://www.skvelecesko.cz/upload/1774804785_69c95f3114b77_310x186.jpg",
-      "price": "od 450 Kč",
-      "city": "Brno",
-      "badges": [
-        "DOSTUPNÉ 14.11.",
-        "8:10"
       ],
       "status": "available"
     }
