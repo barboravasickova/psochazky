@@ -1,8 +1,8 @@
 {
   "heroTitle": "Učíme psy mezi psy",
-  "heroDescriptionLead": "Socializační procházky v Brně a okolí.",
-  "heroDescription": "Naše procházky nejsou jen obyčejné procházky nebo vylítání psů – je to hlavně trénink. Společně vybudujeme sebekontrolu vašeho psa a vrátíme vám jistotu do rukou.",
-  "heroButtonText": "Rezervovat procházku",
+  "heroDescriptionLead": "Výchova a výcvik psů v Brně a okolí.",
+  "heroDescription": "Tahání na vodítku, reaktivita nebo poslušnost? Psocházky nabízí individuální tréninky i skupinové procházky, které vám pomohou k lépe fungujícímu soužití a porozumění vašemu psovi.",
+  "heroButtonText": "Rezervovat procházku nebo trénink",
   "manifestTitle": "Nemusíš mít ideálního psa.\nStačí, že to nechceš vzdát.",
   "manifestText": "Pomáhám lidem, pro které se procházky se psem změnily ve stres, boj nebo nepříjemnou zkušenost. Pracuji se psy, kteří jsou reaktivní, nejistí, přetížení, bojácní nebo jinak problémoví a s majiteli, kteří to chtějí řešit, ne obcházet. Psocházky jsou pro ty, kteří hledají funkční řešení, jasná pravidla a skutečnou změnu.",
   "manifestButtonText": "Jak to funguje",
@@ -21,7 +21,7 @@
     },
     {
       "title": "Výlety a akce",
-      "text": "Tréninky v reálném provozu a delší zátěži. Pracujeme v novém prostředí, mezi psy i lidmi – tam se ukazuje, jak na tom pes skutečně je.",
+      "text": "Trénink v reálném provozu mezi psy i lidmi. Prověříme a upevníme chování psa v novém prostředí i při delší zátěži.",
       "buttonText": "Výlety a akce"
     }
   ],
